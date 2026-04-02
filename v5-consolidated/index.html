@@ -1,0 +1,2307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Norsk Studio — Build professional live video workflows</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  --blue:          #00A9E0;
+  --blue-bright:   #00c4ff;
+  --green:         #84BD00;
+  --dark:          #00263A;
+
+  /* Dark surfaces */
+  --bg-dark:       #010f18;
+  --bg-mid:        #021520;
+  --border-d:      rgba(0,169,224,0.12);
+
+  /* Light surfaces */
+  --bg-light:      #f5f9fb;
+  --bg-white:      #ffffff;
+  --border-l:      rgba(0,38,58,0.1);
+
+  /* Dark-section text */
+  --text-d:        #d4eaf4;
+  --text-d-muted:  #5a8fa8;
+  --text-d-dim:    #2a5a72;
+
+  /* Light-section text */
+  --text-l:        #00263A;
+  --text-l-mid:    #3a6070;
+  --text-l-light:  #8aacba;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-d);
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 52px;
+  background: rgba(1,15,24,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-d);
+}
+
+.nav-logo {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--bg-white);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.nav-logo span {
+  color: var(--blue);
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-links a {
+  color: var(--text-d-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--text-d); }
+
+.nav-actions { display: flex; gap: 10px; align-items: center; }
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border-d);
+  color: var(--text-d-muted);
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: all 0.2s;
+}
+.btn-ghost:hover { color: var(--text-d); border-color: rgba(0,169,224,0.3); }
+
+.btn-solid {
+  background: var(--blue);
+  border: 1px solid var(--blue);
+  color: var(--bg-dark);
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: all 0.2s;
+}
+.btn-solid:hover { background: var(--blue-bright); border-color: var(--blue-bright); }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 52px 80px;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-dark);
+}
+
+/* Radial gradient glow — top right (blue) */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 70% at 85% 15%, rgba(0,169,224,0.08) 0%, transparent 65%),
+    radial-gradient(ellipse 35% 50% at 5% 85%,  rgba(132,189,0,0.04) 0%, transparent 55%),
+    radial-gradient(ellipse 90% 40% at 50% 110%, rgba(0,38,58,0.9) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Subtle grid overlay */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,169,224,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,169,224,0.035) 1px, transparent 1px);
+  background-size: 72px 72px;
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 52% 48%;
+  gap: 64px;
+  align-items: center;
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* --- Left column --- */
+.hero-left {}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--blue);
+  background: rgba(0,169,224,0.07);
+  border: 1px solid rgba(0,169,224,0.18);
+  padding: 6px 14px;
+  border-radius: 100px;
+  letter-spacing: 0.07em;
+  margin-bottom: 36px;
+  text-transform: uppercase;
+}
+
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+.hero-h1 {
+  font-size: clamp(28px, 3.2vw, 48px);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--bg-white);
+  margin-bottom: 28px;
+}
+
+.hero-h1 em {
+  font-style: normal;
+  background: linear-gradient(130deg, var(--blue) 0%, #5de0ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--text-d-muted);
+  line-height: 1.75;
+  max-width: 460px;
+  margin-bottom: 48px;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+.btn-hero-primary {
+  background: var(--blue);
+  color: var(--bg-dark);
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+.btn-hero-primary:hover {
+  background: var(--blue-bright);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0,169,224,0.25);
+}
+
+.btn-hero-secondary {
+  background: transparent;
+  color: rgba(255,255,255,0.55);
+  padding: 13px 28px;
+  font-size: 15px;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.12);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-hero-secondary:hover {
+  color: white;
+  border-color: rgba(255,255,255,0.28);
+}
+
+/* Trust strip below CTAs */
+.hero-trust {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.trust-stat strong {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--blue);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.trust-stat span {
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-d-dim);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.trust-sep {
+  width: 1px;
+  height: 36px;
+  background: var(--border-d);
+}
+
+/* --- Right column: product UI preview --- */
+.hero-right {
+  position: relative;
+}
+
+.product-ui {
+  background: rgba(0,169,224,0.04);
+  border: 1px solid rgba(0,169,224,0.18);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(0,169,224,0.06),
+    0 32px 80px rgba(0,0,0,0.6);
+}
+
+/* Title bar */
+.ui-titlebar {
+  background: rgba(0,169,224,0.06);
+  border-bottom: 1px solid rgba(0,169,224,0.12);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ui-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+.ui-dot-red   { background: #ff5f57; }
+.ui-dot-amber { background: #febc2e; }
+.ui-dot-green { background: #28c840; }
+
+.ui-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-d-muted);
+  margin-left: 8px;
+  letter-spacing: 0.04em;
+}
+
+.ui-live {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--green);
+  letter-spacing: 0.06em;
+}
+
+.ui-live-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 1.6s infinite;
+}
+
+/* Canvas area */
+.ui-canvas {
+  padding: 24px 20px;
+  min-height: 280px;
+}
+
+/* Inline workflow diagram inside the UI preview */
+.workflow-preview {
+  width: 100%;
+}
+
+.workflow-preview svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Animated dashed connector line */
+@keyframes dash {
+  to { stroke-dashoffset: -20; }
+}
+
+.connector-animated {
+  stroke-dasharray: 5 5;
+  animation: dash 0.8s linear infinite;
+}
+
+/* ============================================================
+   SECTION DIVIDER  (dark → light gradient transition)
+   ============================================================ */
+.divider-dark-light {
+  height: 80px;
+  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-white) 100%);
+  pointer-events: none;
+}
+
+/* ============================================================
+   SHARED SECTION TYPOGRAPHY  (light sections)
+   ============================================================ */
+.section-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 14px;
+}
+
+.section-h2 {
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-l);
+  margin-bottom: 14px;
+  line-height: 1.1;
+}
+
+.section-sub {
+  font-size: 16px;
+  color: var(--text-l-mid);
+  line-height: 1.7;
+  max-width: 560px;
+}
+
+/* ============================================================
+   DIAGRAM SECTION
+   ============================================================ */
+.diagram-section {
+  background: var(--bg-white);
+  padding: 100px 52px;
+  border-bottom: 1px solid var(--border-l);
+}
+
+.diagram-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.diagram-inner .section-sub {
+  margin-bottom: 52px;
+}
+
+.diagram-frame {
+  background: var(--bg-dark);
+  border: 1px solid var(--border-d);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(0,169,224,0.06),
+    0 24px 64px rgba(0,38,58,0.14);
+}
+
+.diagram-frame-bar {
+  background: rgba(0,169,224,0.05);
+  border-bottom: 1px solid var(--border-d);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.df-dot { width: 9px; height: 9px; border-radius: 50%; }
+.df-dot-r { background: #ff5f57; }
+.df-dot-a { background: #febc2e; }
+.df-dot-g { background: #28c840; }
+
+.df-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-d-muted);
+  margin-left: 8px;
+  letter-spacing: 0.04em;
+}
+
+.df-live {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--green);
+  letter-spacing: 0.07em;
+}
+
+.df-live-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 1.6s infinite;
+}
+
+.diagram-svg-wrap {
+  padding: 40px 32px;
+}
+
+/* Animated flow line */
+@keyframes flow {
+  to { stroke-dashoffset: -14; }
+}
+.flow-line {
+  stroke-dasharray: 4 3;
+  animation: flow 1.4s linear infinite;
+}
+
+/* ============================================================
+   TRUST BAR
+   ============================================================ */
+.trust-bar {
+  background: var(--bg-light);
+  border-top: 1px solid var(--border-l);
+  border-bottom: 1px solid var(--border-l);
+  padding: 36px 52px;
+}
+
+.trust-bar-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.tb-stat { display: flex; flex-direction: column; gap: 3px; }
+
+.tb-stat-num {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-l);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.tb-stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-l-light);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tb-sep {
+  width: 1px;
+  height: 36px;
+  background: var(--border-l);
+  flex-shrink: 0;
+}
+
+.tb-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-l-light);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tb-logos {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+
+.tb-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-l-light);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.tb-name:hover { opacity: 1; }
+
+/* ============================================================
+   WHO IT'S FOR
+   ============================================================ */
+.for-section {
+  background: var(--bg-white);
+  padding: 100px 52px;
+  border-bottom: 1px solid var(--border-l);
+}
+
+.for-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.for-inner .section-sub {
+  margin-bottom: 52px;
+}
+
+.for-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border-l);
+  border: 1px solid var(--border-l);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.for-card {
+  background: var(--bg-white);
+  padding: 44px 40px;
+  transition: background 0.2s;
+}
+
+.for-card:hover { background: var(--bg-light); }
+
+.for-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--blue);
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+.for-icon {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 20px;
+  color: var(--blue);
+}
+
+.for-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-l);
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.for-text {
+  font-size: 14px;
+  color: var(--text-l-mid);
+  line-height: 1.75;
+}
+
+/* ============================================================
+   HOW IT WORKS  (alternating feature rows)
+   ============================================================ */
+.how-section {
+  background: var(--bg-light);
+  border-bottom: 1px solid var(--border-l);
+  padding: 100px 52px;
+}
+
+.how-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.how-inner .section-sub {
+  margin-bottom: 72px;
+}
+
+.how-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  padding: 56px 0;
+  border-top: 1px solid var(--border-l);
+}
+
+.how-row:last-child { border-bottom: 1px solid var(--border-l); }
+
+/* Even rows flip the column order */
+.how-row.flip { direction: rtl; }
+.how-row.flip > * { direction: ltr; }
+
+.how-text-col {}
+
+.how-step-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--blue);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  opacity: 0.8;
+}
+
+.how-title {
+  font-size: clamp(22px, 2.5vw, 30px);
+  font-weight: 800;
+  color: var(--text-l);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.how-text {
+  font-size: 15px;
+  color: var(--text-l-mid);
+  line-height: 1.75;
+  margin-bottom: 24px;
+}
+
+.how-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.how-tag {
+  background: rgba(0,38,58,0.05);
+  color: var(--text-l-mid);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  letter-spacing: 0.04em;
+}
+
+/* Visual panel */
+.how-visual {
+  background: var(--bg-dark);
+  border: 1px solid var(--border-d);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,38,58,0.1);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.how-visual-bar {
+  background: rgba(0,169,224,0.05);
+  border-bottom: 1px solid var(--border-d);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hv-dot { width: 8px; height: 8px; border-radius: 50%; }
+.hv-dot-r { background: #ff5f57; }
+.hv-dot-a { background: #febc2e; }
+.hv-dot-g { background: #28c840; }
+
+.hv-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-d-muted);
+  margin-left: 6px;
+  letter-spacing: 0.04em;
+}
+
+.how-visual-body {
+  flex: 1;
+  padding: 28px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Code block inside visual */
+.how-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--text-d-muted);
+  width: 100%;
+}
+
+.hc-dim    { color: var(--text-d-dim); }
+.hc-key    { color: #00A9E0; }
+.hc-val    { color: #84BD00; }
+.hc-str    { color: #f0a05a; }
+.hc-comment{ color: #2a5a72; }
+
+/* ============================================================
+   CAPABILITIES
+   ============================================================ */
+.cap-section {
+  background: var(--bg-white);
+  padding: 100px 52px;
+  border-bottom: 1px solid var(--border-l);
+}
+
+.cap-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.cap-inner .section-sub {
+  margin-bottom: 52px;
+}
+
+.cap-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border-l);
+  border: 1px solid var(--border-l);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cap-item {
+  background: var(--bg-white);
+  padding: 28px 32px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: background 0.15s;
+}
+
+.cap-item:hover { background: var(--bg-light); }
+
+.cap-check {
+  width: 20px;
+  height: 20px;
+  background: var(--green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.cap-check svg { width: 10px; height: 10px; }
+
+.cap-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-l);
+  margin-bottom: 3px;
+  line-height: 1.3;
+}
+
+.cap-desc {
+  font-size: 13px;
+  color: var(--text-l-light);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   RELIABILITY
+   ============================================================ */
+.rel-section {
+  background: var(--bg-dark);
+  padding: 100px 52px;
+  border-top: 1px solid var(--border-d);
+  border-bottom: 1px solid var(--border-d);
+}
+
+.rel-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.rel-text .section-eyebrow { color: var(--blue); }
+
+.rel-h2 {
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.rel-body {
+  font-size: 15px;
+  color: var(--text-d-muted);
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+.rel-body-dim {
+  font-size: 13px;
+  color: var(--text-d-dim);
+  line-height: 1.7;
+}
+
+.rel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border-d);
+  border: 1px solid var(--border-d);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.rel-card {
+  background: var(--bg-mid);
+  padding: 32px 28px;
+  transition: background 0.2s;
+}
+
+.rel-card:hover { background: rgba(0,169,224,0.04); }
+
+.rel-num {
+  font-size: 44px;
+  font-weight: 800;
+  color: var(--blue);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.rel-label {
+  font-size: 13px;
+  color: var(--text-d-muted);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.test-section {
+  background: var(--bg-light);
+  padding: 100px 52px;
+  border-bottom: 1px solid var(--border-l);
+}
+
+.test-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.test-inner .section-sub {
+  margin-bottom: 52px;
+}
+
+.test-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.test-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border-l);
+  border-radius: 10px;
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.test-card:hover {
+  box-shadow: 0 8px 32px rgba(0,38,58,0.08);
+  transform: translateY(-2px);
+}
+
+.test-mark {
+  font-size: 48px;
+  line-height: 1;
+  color: var(--blue);
+  font-weight: 800;
+  margin-bottom: 16px;
+  opacity: 0.4;
+  font-family: Georgia, serif;
+}
+
+.test-quote {
+  font-size: 15px;
+  color: var(--text-l);
+  line-height: 1.75;
+  flex: 1;
+  margin-bottom: 28px;
+  font-weight: 300;
+}
+
+.test-attribution {
+  border-top: 1px solid var(--border-l);
+  padding-top: 20px;
+}
+
+.test-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-l);
+  margin-bottom: 2px;
+}
+
+.test-co {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-l-light);
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   PRICING
+   ============================================================ */
+.pricing-section {
+  background: var(--bg-dark);
+  padding: 100px 52px;
+  border-top: 1px solid var(--border-d);
+  border-bottom: 1px solid var(--border-d);
+}
+
+.pricing-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.pricing-inner .section-eyebrow { color: var(--blue); }
+
+.pricing-h2 {
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.pricing-sub {
+  font-size: 16px;
+  color: var(--text-d-muted);
+  line-height: 1.7;
+  margin-bottom: 52px;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border-d);
+  border: 1px solid var(--border-d);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.p-card {
+  background: var(--bg-mid);
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.2s;
+}
+
+.p-card:hover { background: rgba(0,169,224,0.04); }
+
+.p-card.featured {
+  background: var(--blue);
+}
+
+.p-card.featured:hover { background: var(--blue-bright); }
+
+.p-tier {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-d-muted);
+  margin-bottom: 16px;
+}
+
+.p-card.featured .p-tier { color: rgba(0,38,58,0.6); }
+
+.p-price {
+  font-size: 32px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.p-card.featured .p-price { color: var(--bg-dark); }
+
+.p-cadence {
+  font-size: 12px;
+  color: var(--text-d-dim);
+  margin-bottom: 28px;
+  line-height: 1.4;
+}
+
+.p-card.featured .p-cadence { color: rgba(0,38,58,0.5); }
+
+.p-feats {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  margin-bottom: 28px;
+}
+
+.p-feats li {
+  font-size: 13px;
+  color: var(--text-d-muted);
+  padding-left: 16px;
+  position: relative;
+  line-height: 1.4;
+}
+
+.p-feats li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--text-d-dim);
+}
+
+.p-card.featured .p-feats li { color: rgba(0,38,58,0.75); }
+.p-card.featured .p-feats li::before { color: rgba(0,38,58,0.4); }
+
+.p-btn {
+  display: block;
+  text-align: center;
+  padding: 11px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  border-radius: 6px;
+  border: 1px solid var(--border-d);
+  color: var(--text-d-muted);
+  transition: all 0.2s;
+}
+
+.p-btn:hover {
+  border-color: rgba(0,169,224,0.4);
+  color: white;
+}
+
+.p-card.featured .p-btn {
+  background: var(--bg-dark);
+  border-color: transparent;
+  color: white;
+}
+
+.p-card.featured .p-btn:hover {
+  background: var(--bg-mid);
+}
+
+/* ============================================================
+   GET STARTED CTA
+   ============================================================ */
+.gs-section {
+  background: var(--bg-white);
+  padding: 100px 52px;
+  text-align: center;
+  border-top: 1px solid var(--border-l);
+}
+
+.gs-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.gs-h2 {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 800;
+  color: var(--text-l);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.gs-sub {
+  font-size: 16px;
+  color: var(--text-l-mid);
+  line-height: 1.7;
+  margin-bottom: 56px;
+}
+
+.gs-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-l);
+  border: 1px solid var(--border-l);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 48px;
+  text-align: left;
+}
+
+.gs-step {
+  background: var(--bg-light);
+  padding: 28px 28px;
+}
+
+.gs-n {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--blue);
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.gs-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-l);
+  margin-bottom: 6px;
+}
+
+.gs-detail {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  color: var(--text-l-light);
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.gs-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.gs-btn-primary {
+  background: var(--blue);
+  color: var(--bg-dark);
+  padding: 14px 32px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.gs-btn-primary:hover {
+  background: var(--blue-bright);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(0,169,224,0.25);
+}
+
+.gs-btn-secondary {
+  background: transparent;
+  color: var(--text-l-mid);
+  padding: 13px 28px;
+  font-size: 15px;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+  text-decoration: none;
+  border-radius: 6px;
+  border: 1px solid var(--border-l);
+  transition: all 0.2s;
+}
+
+.gs-btn-secondary:hover {
+  color: var(--text-l);
+  border-color: rgba(0,38,58,0.2);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--bg-dark);
+  border-top: 1px solid var(--border-d);
+  padding: 40px 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-logo {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-d-muted);
+  text-decoration: none;
+}
+
+.footer-logo span { color: var(--blue); }
+
+.footer-copy {
+  font-size: 12px;
+  color: var(--text-d-dim);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-links a {
+  font-size: 12px;
+  color: var(--text-d-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--text-d-muted); }
+
+/* ============================================================
+   PLACEHOLDER SECTIONS  (will be replaced in future iterations)
+   ============================================================ */
+.placeholder {
+  background: var(--bg-white);
+  padding: 80px 52px;
+  text-align: center;
+  color: var(--text-l-light);
+  border-bottom: 1px solid var(--border-l);
+}
+
+.placeholder p {
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.05em;
+  opacity: 0.5;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+
+  .hero { padding: 100px 24px 64px; }
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .hero-right { display: none; } /* shown once mobile layout is finalised */
+
+  .placeholder { padding: 60px 24px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="../Norsk Reversed Logo Small.png" alt="Norsk" style="height:28px;width:auto;display:block;">
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#">Product</a></li>
+    <li><a href="#">Use Cases</a></li>
+    <li><a href="#">Docs</a></li>
+    <li><a href="#">Pricing</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <a href="#" class="btn-ghost">Get in Touch</a>
+    <a href="#" class="btn-solid">Start free trial</a>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero">
+  <div class="hero-inner">
+
+    <!-- Left: copy -->
+    <div class="hero-left">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Broadcast-grade infrastructure
+      </div>
+
+      <h1 class="hero-h1">
+        Build professional live video workflows <em>in days or weeks,</em> not months or years.
+      </h1>
+
+      <p class="hero-sub">
+        Norsk Studio lets your team design, deploy, and operate
+        broadcast-quality live streams — from ingest to delivery —
+        through a visual workflow builder backed by enterprise-grade infrastructure.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#" class="btn-hero-primary">
+          Start free trial
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="#" class="btn-hero-secondary">See how it works</a>
+      </div>
+
+      <div class="hero-trust">
+        <div class="trust-stat">
+          <strong>100k+</strong>
+          <span>Live events / year</span>
+        </div>
+        <div class="trust-sep"></div>
+        <div class="trust-stat">
+          <strong>&lt;1s</strong>
+          <span>Failover time</span>
+        </div>
+        <div class="trust-sep"></div>
+        <div class="trust-stat">
+          <strong>3</strong>
+          <span>Major clouds</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: product UI preview with mini workflow diagram -->
+    <div class="hero-right">
+      <div class="product-ui">
+        <div class="ui-titlebar">
+          <span class="ui-dot ui-dot-red"></span>
+          <span class="ui-dot ui-dot-amber"></span>
+          <span class="ui-dot ui-dot-green"></span>
+          <span class="ui-title">norsk-studio — workflow editor</span>
+          <span class="ui-live">
+            <span class="ui-live-dot"></span>
+            LIVE
+          </span>
+        </div>
+
+        <div class="ui-canvas">
+          <div class="workflow-preview">
+            <svg viewBox="0 0 520 230" xmlns="http://www.w3.org/2000/svg"
+                 style="font-family:'JetBrains Mono',monospace;">
+              <defs>
+                <marker id="arrow" markerWidth="6" markerHeight="6"
+                        refX="5" refY="3" orient="auto">
+                  <path d="M0,0 L6,3 L0,6 Z" fill="#2a5a72"/>
+                </marker>
+                <marker id="arrow-active" markerWidth="6" markerHeight="6"
+                        refX="5" refY="3" orient="auto">
+                  <path d="M0,0 L6,3 L0,6 Z" fill="#00A9E0"/>
+                </marker>
+              </defs>
+
+              <!-- Row 1: INGEST -->
+              <!-- Camera node -->
+              <rect x="10" y="20" width="80" height="52" rx="5"
+                    fill="rgba(0,38,58,0.8)" stroke="rgba(0,169,224,0.25)" stroke-width="1"/>
+              <text x="50" y="41" text-anchor="middle" fill="#5a8fa8" font-size="9" letter-spacing="0.08em">INPUT</text>
+              <text x="50" y="58" text-anchor="middle" fill="#d4eaf4" font-size="10" font-weight="500">Camera</text>
+
+              <!-- Connector -->
+              <line x1="90" y1="46" x2="118" y2="46"
+                    stroke="#2a5a72" stroke-width="1.5"
+                    marker-end="url(#arrow)"/>
+
+              <!-- Ingest node -->
+              <rect x="120" y="20" width="80" height="52" rx="5"
+                    fill="rgba(0,169,224,0.08)" stroke="rgba(0,169,224,0.35)" stroke-width="1"/>
+              <text x="160" y="41" text-anchor="middle" fill="#00A9E0" font-size="9" letter-spacing="0.08em">INGEST</text>
+              <text x="160" y="58" text-anchor="middle" fill="#d4eaf4" font-size="10" font-weight="500">SRT Input</text>
+
+              <!-- Animated connector -->
+              <line x1="200" y1="46" x2="228" y2="46"
+                    stroke="#00A9E0" stroke-width="1.5"
+                    stroke-dasharray="5 5"
+                    marker-end="url(#arrow-active)"
+                    class="connector-animated"/>
+
+              <!-- Encode node -->
+              <rect x="230" y="20" width="80" height="52" rx="5"
+                    fill="rgba(0,169,224,0.08)" stroke="rgba(0,169,224,0.35)" stroke-width="1"/>
+              <text x="270" y="41" text-anchor="middle" fill="#00A9E0" font-size="9" letter-spacing="0.08em">ENCODE</text>
+              <text x="270" y="58" text-anchor="middle" fill="#d4eaf4" font-size="10" font-weight="500">H.264 ABR</text>
+
+              <!-- Fork down from encode -->
+              <line x1="310" y1="46" x2="340" y2="46"
+                    stroke="#00A9E0" stroke-width="1.5"
+                    stroke-dasharray="5 5"
+                    marker-end="url(#arrow-active)"
+                    class="connector-animated"/>
+
+              <!-- Package node -->
+              <rect x="342" y="20" width="80" height="52" rx="5"
+                    fill="rgba(0,169,224,0.08)" stroke="rgba(0,169,224,0.35)" stroke-width="1"/>
+              <text x="382" y="41" text-anchor="middle" fill="#00A9E0" font-size="9" letter-spacing="0.08em">PACKAGE</text>
+              <text x="382" y="58" text-anchor="middle" fill="#d4eaf4" font-size="10" font-weight="500">HLS / DASH</text>
+
+              <!-- Split to two outputs -->
+              <line x1="422" y1="36" x2="468" y2="36"
+                    stroke="#84BD00" stroke-width="1.5"
+                    stroke-dasharray="5 5"
+                    class="connector-animated"
+                    style="animation-delay:0.3s"/>
+              <line x1="422" y1="56" x2="468" y2="56"
+                    stroke="#84BD00" stroke-width="1.5"
+                    stroke-dasharray="5 5"
+                    class="connector-animated"
+                    style="animation-delay:0.6s"/>
+
+              <!-- CDN output node 1 -->
+              <rect x="470" y="20" width="44" height="24" rx="4"
+                    fill="rgba(132,189,0,0.1)" stroke="rgba(132,189,0,0.4)" stroke-width="1"/>
+              <text x="492" y="36" text-anchor="middle" fill="#84BD00" font-size="9">CDN</text>
+
+              <!-- CDN output node 2 -->
+              <rect x="470" y="48" width="44" height="24" rx="4"
+                    fill="rgba(132,189,0,0.1)" stroke="rgba(132,189,0,0.4)" stroke-width="1"/>
+              <text x="492" y="64" text-anchor="middle" fill="#84BD00" font-size="9">S3</text>
+
+              <!-- Row divider -->
+              <line x1="10" y1="100" x2="514" y2="100"
+                    stroke="rgba(0,169,224,0.06)" stroke-width="1"/>
+
+              <!-- Row 2: second parallel workflow (dimmed) -->
+              <rect x="10" y="115" width="80" height="52" rx="5"
+                    fill="rgba(0,38,58,0.5)" stroke="rgba(0,169,224,0.1)" stroke-width="1"/>
+              <text x="50" y="136" text-anchor="middle" fill="#2a5a72" font-size="9" letter-spacing="0.08em">INPUT</text>
+              <text x="50" y="153" text-anchor="middle" fill="#3a6070" font-size="10">File Input</text>
+
+              <line x1="90" y1="141" x2="118" y2="141"
+                    stroke="#1a3a4a" stroke-width="1.5"
+                    marker-end="url(#arrow)"/>
+
+              <rect x="120" y="115" width="80" height="52" rx="5"
+                    fill="rgba(0,38,58,0.5)" stroke="rgba(0,169,224,0.1)" stroke-width="1"/>
+              <text x="160" y="136" text-anchor="middle" fill="#2a5a72" font-size="9" letter-spacing="0.08em">TRANSFORM</text>
+              <text x="160" y="153" text-anchor="middle" fill="#3a6070" font-size="10">Transcode</text>
+
+              <line x1="200" y1="141" x2="228" y2="141"
+                    stroke="#1a3a4a" stroke-width="1.5"
+                    marker-end="url(#arrow)"/>
+
+              <rect x="230" y="115" width="80" height="52" rx="5"
+                    fill="rgba(0,38,58,0.5)" stroke="rgba(0,169,224,0.1)" stroke-width="1"/>
+              <text x="270" y="136" text-anchor="middle" fill="#2a5a72" font-size="9" letter-spacing="0.08em">OUTPUT</text>
+              <text x="270" y="153" text-anchor="middle" fill="#3a6070" font-size="10">RTMP Push</text>
+
+              <!-- Add node button suggestion -->
+              <rect x="342" y="120" width="52" height="42" rx="5"
+                    fill="rgba(0,169,224,0.04)" stroke="rgba(0,169,224,0.15)" stroke-width="1"
+                    stroke-dasharray="3 3"/>
+              <text x="368" y="145" text-anchor="middle" fill="#2a5a72" font-size="18">+</text>
+
+              <!-- Status bar at bottom -->
+              <rect x="0" y="190" width="520" height="40" rx="0"
+                    fill="rgba(0,169,224,0.04)"/>
+              <line x1="0" y1="190" x2="520" y2="190"
+                    stroke="rgba(0,169,224,0.1)" stroke-width="1"/>
+              <circle cx="20" cy="210" r="4" fill="#84BD00"/>
+              <text x="32" y="214" fill="#84BD00" font-size="9" letter-spacing="0.06em">2 workflows running</text>
+              <text x="350" y="214" fill="#2a5a72" font-size="9" letter-spacing="0.04em">CPU 18%</text>
+              <text x="420" y="214" fill="#2a5a72" font-size="9" letter-spacing="0.04em">MEM 2.1 GB</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subtle glow behind the UI card -->
+      <div style="
+        position:absolute;
+        inset:-40px;
+        background:radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0,169,224,0.06) 0%, transparent 70%);
+        pointer-events:none;
+        z-index:-1;
+      "></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     DARK → LIGHT TRANSITION
+     ============================================================ -->
+<div class="divider-dark-light"></div>
+
+<!-- ============================================================
+     PLACEHOLDER — remaining sections to be built
+     ============================================================ -->
+<!-- ============================================================
+     DIAGRAM SECTION
+     ============================================================ -->
+<section class="diagram-section">
+  <div class="diagram-inner">
+    <p class="section-eyebrow">Signal Flow</p>
+    <h2 class="section-h2">From source to screen in minutes</h2>
+    <p class="section-sub">A single-camera live workflow: ingest, encode, package, and deliver — all configured visually in Norsk Studio.</p>
+
+    <div class="diagram-frame">
+      <!-- Window chrome -->
+      <div class="diagram-frame-bar">
+        <div class="df-dot df-dot-r"></div>
+        <div class="df-dot df-dot-a"></div>
+        <div class="df-dot df-dot-g"></div>
+        <span class="df-title">Norsk Studio — camera-to-cdn.nrsk</span>
+        <div class="df-live">
+          <div class="df-live-dot"></div>
+          LIVE
+        </div>
+      </div>
+
+      <!-- SVG diagram -->
+      <div class="diagram-svg-wrap">
+        <svg viewBox="0 0 840 210" xmlns="http://www.w3.org/2000/svg"
+             style="width:100%;height:auto;font-family:'JetBrains Mono',monospace;display:block;">
+          <defs>
+            <marker id="arrowB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#00A9E0" opacity="0.7"/>
+            </marker>
+            <marker id="arrowG" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L8,3 z" fill="#84BD00" opacity="0.8"/>
+            </marker>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="2.5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- ── CAMERA SOURCE ── -->
+          <g transform="translate(16,65)">
+            <rect width="120" height="80" rx="3"
+                  fill="none" stroke="rgba(0,169,224,0.2)" stroke-width="1"/>
+            <!-- camera body -->
+            <rect x="30" y="18" width="42" height="28" rx="2"
+                  fill="none" stroke="#3a6a7f" stroke-width="1.5"/>
+            <!-- lens -->
+            <circle cx="51" cy="32" r="8"
+                    fill="none" stroke="#3a6a7f" stroke-width="1.5"/>
+            <circle cx="51" cy="32" r="3"
+                    fill="rgba(0,169,224,0.15)"/>
+            <!-- viewfinder -->
+            <polygon points="72,22 84,18 84,46 72,42"
+                     fill="none" stroke="#3a6a7f" stroke-width="1.5"/>
+            <text x="60" y="60" text-anchor="middle"
+                  fill="#4a7d95" font-size="9" letter-spacing="0.1em">CAMERA</text>
+            <text x="60" y="71" text-anchor="middle"
+                  fill="#2a5a72" font-size="8" letter-spacing="0.07em">SINGLE SOURCE</text>
+          </g>
+
+          <!-- Arrow 1: Camera → Norsk -->
+          <line x1="136" y1="105" x2="182" y2="105"
+                stroke="#00A9E0" stroke-width="1.5" opacity="0.55"
+                marker-end="url(#arrowB)" class="flow-line"
+                style="animation-delay:0s"/>
+
+          <!-- ── NORSK STUDIO BOX ── -->
+          <g transform="translate(182,18)">
+            <!-- outer border -->
+            <rect width="440" height="174" rx="3"
+                  fill="rgba(0,169,224,0.02)"
+                  stroke="#00A9E0" stroke-width="1" opacity="0.35"/>
+            <!-- top accent bar -->
+            <rect width="440" height="3" rx="1"
+                  fill="#00A9E0" opacity="0.5"/>
+            <!-- label -->
+            <text x="10" y="17" fill="#00A9E0"
+                  font-size="9" letter-spacing="0.18em" opacity="0.75">NORSK STUDIO</text>
+
+            <!-- ENCODE node -->
+            <g transform="translate(30,32)">
+              <rect width="160" height="100" rx="3"
+                    fill="#030f18" stroke="#00A9E0" stroke-width="1" opacity="0.65"
+                    filter="url(#glow)"/>
+              <rect width="160" height="3" rx="1" fill="#00A9E0" opacity="0.7"/>
+              <!-- waveform icon -->
+              <polyline points="30,36 40,22 50,44 60,28 70,44 80,22 90,44 100,36 110,36"
+                        fill="none" stroke="#00A9E0" stroke-width="1.2" opacity="0.5"/>
+              <text x="80" y="65" text-anchor="middle"
+                    fill="#d4eaf4" font-size="10" font-weight="500">ENCODE</text>
+              <text x="80" y="77" text-anchor="middle"
+                    fill="#4a7d95" font-size="8" letter-spacing="0.08em">+ PACKAGE</text>
+              <text x="80" y="89" text-anchor="middle"
+                    fill="#2a5a72" font-size="7.5" letter-spacing="0.06em">HLS · DASH · WebRTC</text>
+            </g>
+
+            <!-- Internal arrow -->
+            <line x1="190" y1="87" x2="228" y2="87"
+                  stroke="#00A9E0" stroke-width="1" opacity="0.35"
+                  marker-end="url(#arrowB)" class="flow-line"
+                  style="animation-delay:0.25s"/>
+
+            <!-- PACKAGE / OUTPUT node -->
+            <g transform="translate(228,32)">
+              <rect width="160" height="100" rx="3"
+                    fill="#030f18" stroke="#00A9E0" stroke-width="1" opacity="0.65"
+                    filter="url(#glow)"/>
+              <rect width="160" height="3" rx="1" fill="#00A9E0" opacity="0.7"/>
+              <!-- broadcast icon -->
+              <path d="M55,48 Q80,24 105,48" fill="none" stroke="#00A9E0" stroke-width="1.2" opacity="0.45"/>
+              <path d="M63,56 Q80,40 97,56" fill="none" stroke="#00A9E0" stroke-width="1.2" opacity="0.45"/>
+              <circle cx="80" cy="64" r="4" fill="#00A9E0" opacity="0.6"/>
+              <line x1="80" y1="68" x2="80" y2="76" stroke="#00A9E0" stroke-width="1" opacity="0.4"/>
+              <line x1="72" y1="76" x2="88" y2="76" stroke="#00A9E0" stroke-width="1" opacity="0.4"/>
+              <text x="80" y="90" text-anchor="middle"
+                    fill="#d4eaf4" font-size="10" font-weight="500">OUTPUT</text>
+            </g>
+          </g>
+
+          <!-- Arrow 2: Norsk → CDN (two outputs) -->
+          <!-- upper line → CDN -->
+          <line x1="622" y1="90" x2="672" y2="78"
+                stroke="#00A9E0" stroke-width="1.5" opacity="0.5"
+                marker-end="url(#arrowB)" class="flow-line"
+                style="animation-delay:0.5s"/>
+          <!-- lower line → S3 -->
+          <line x1="622" y1="120" x2="672" y2="132"
+                stroke="#84BD00" stroke-width="1.5" opacity="0.55"
+                marker-end="url(#arrowG)" class="flow-line"
+                style="animation-delay:0.75s"/>
+
+          <!-- ── CDN NODE ── -->
+          <g transform="translate(672,40)">
+            <rect width="100" height="68" rx="3"
+                  fill="#030f18" stroke="rgba(0,169,224,0.35)" stroke-width="1"/>
+            <!-- cloud -->
+            <path d="M28,44 Q14,44 14,34 Q14,24 24,24 Q26,16 36,16 Q46,16 48,24 Q58,24 58,34 Q58,44 44,44 Z"
+                  fill="none" stroke="#3a6a7f" stroke-width="1.5"/>
+            <text x="50" y="57" text-anchor="middle"
+                  fill="#6b9db5" font-size="9" letter-spacing="0.08em">CDN</text>
+          </g>
+
+          <!-- ── S3 / RECORDING NODE ── -->
+          <g transform="translate(672,120)">
+            <rect width="100" height="68" rx="3"
+                  fill="#030f18" stroke="rgba(132,189,0,0.3)" stroke-width="1"/>
+            <!-- cylinder (storage icon) -->
+            <ellipse cx="50" cy="28" rx="22" ry="7" fill="none" stroke="#5a7d20" stroke-width="1.5"/>
+            <line x1="28" y1="28" x2="28" y2="44" stroke="#5a7d20" stroke-width="1.5"/>
+            <line x1="72" y1="28" x2="72" y2="44" stroke="#5a7d20" stroke-width="1.5"/>
+            <path d="M28,44 Q50,52 72,44" fill="none" stroke="#5a7d20" stroke-width="1.5"/>
+            <text x="50" y="58" text-anchor="middle"
+                  fill="#84BD00" font-size="9" letter-spacing="0.08em">RECORD</text>
+          </g>
+
+          <!-- Arrow 3: CDN → Viewers -->
+          <line x1="772" y1="74" x2="808" y2="95"
+                stroke="#00A9E0" stroke-width="1.5" opacity="0.3"
+                marker-end="url(#arrowB)"/>
+
+          <!-- ── VIEWERS ── -->
+          <g transform="translate(800,72)">
+            <circle cx="18" cy="16" r="8"
+                    fill="none" stroke="#2a5a72" stroke-width="1.5"/>
+            <path d="M2,42 Q2,30 18,30 Q34,30 34,42"
+                  fill="none" stroke="#2a5a72" stroke-width="1.5"/>
+            <text x="18" y="56" text-anchor="middle"
+                  fill="#2a5a72" font-size="8" letter-spacing="0.06em">VIEWERS</text>
+          </g>
+
+          <!-- ── STATUS BAR ── -->
+          <rect x="0" y="188" width="840" height="22"
+                fill="rgba(0,169,224,0.03)"/>
+          <line x1="0" y1="188" x2="840" y2="188"
+                stroke="rgba(0,169,224,0.08)" stroke-width="1"/>
+          <circle cx="16" cy="199" r="3.5" fill="#84BD00"/>
+          <text x="26" y="203" fill="#84BD00" font-size="8.5" letter-spacing="0.06em">1 workflow running</text>
+          <text x="580" y="203" fill="#2a5a72" font-size="8.5" letter-spacing="0.04em">CPU 14%</text>
+          <text x="650" y="203" fill="#2a5a72" font-size="8.5" letter-spacing="0.04em">MEM 1.8 GB</text>
+          <text x="730" y="203" fill="#2a5a72" font-size="8.5" letter-spacing="0.04em">LATENCY 420 ms</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ============================================================
+     TRUST BAR
+     ============================================================ -->
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="tb-stat">
+      <span class="tb-stat-num">100,000+</span>
+      <span class="tb-stat-label">Live events / year</span>
+    </div>
+    <div class="tb-sep"></div>
+    <div class="tb-stat">
+      <span class="tb-stat-num">&lt; 1s</span>
+      <span class="tb-stat-label">Failover time</span>
+    </div>
+    <div class="tb-sep"></div>
+    <div class="tb-stat">
+      <span class="tb-stat-num">Free</span>
+      <span class="tb-stat-label">Full-featured trial</span>
+    </div>
+    <div class="tb-sep"></div>
+    <span class="tb-label">Trusted by</span>
+    <div class="tb-logos">
+      <span class="tb-name">NASDAQ OMX</span>
+      <span class="tb-name">G&amp;L</span>
+      <span class="tb-name">AWS</span>
+      <span class="tb-name">Akamai</span>
+      <span class="tb-name">GCP</span>
+    </div>
+  </div>
+</div>
+<!-- ============================================================
+     WHO IT'S FOR
+     ============================================================ -->
+<section class="for-section">
+  <div class="for-inner">
+    <p class="section-eyebrow">Who It's For</p>
+    <h2 class="section-h2">Built for every part of the broadcast stack</h2>
+    <p class="section-sub">From single-camera live streams to enterprise-scale channel operations — Norsk Studio adapts to your workflow.</p>
+
+    <div class="for-grid">
+
+      <!-- 01 -->
+      <div class="for-card">
+        <div class="for-num">01</div>
+        <svg class="for-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <!-- camera + play triangle -->
+          <rect x="2" y="9" width="22" height="18" rx="2"/>
+          <polygon points="24,14 34,18 24,22"/>
+          <circle cx="13" cy="18" r="4"/>
+        </svg>
+        <div class="for-title">Live Event Producers</div>
+        <p class="for-text">Sports, esports, concerts, conferences, and worship services. Multi-camera production with source switching, graphics overlays, and real-time monitoring — all from a single visual interface.</p>
+      </div>
+
+      <!-- 02 -->
+      <div class="for-card">
+        <div class="for-num">02</div>
+        <svg class="for-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <!-- broadcast tower -->
+          <path d="M8,28 Q4,20 4,14 Q4,6 18,6 Q32,6 32,14 Q32,20 28,28"/>
+          <path d="M12,28 Q9,21 9,15 Q9,10 18,10 Q27,10 27,15 Q27,21 24,28"/>
+          <line x1="18" y1="18" x2="18" y2="32"/>
+          <line x1="14" y1="32" x2="22" y2="32"/>
+          <circle cx="18" cy="18" r="2.5" fill="currentColor" stroke="none"/>
+        </svg>
+        <div class="for-title">Broadcast &amp; Media Companies</div>
+        <p class="for-text">Build and operate custom streaming services with full ABR ladders, DRM, subtitles, and delivery to CDNs and social platforms. Production-grade quality without proprietary hardware lock-in.</p>
+      </div>
+
+      <!-- 03 -->
+      <div class="for-card">
+        <div class="for-num">03</div>
+        <svg class="for-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <!-- server stack -->
+          <rect x="4" y="6" width="28" height="8" rx="2"/>
+          <rect x="4" y="18" width="28" height="8" rx="2"/>
+          <circle cx="28" cy="10" r="1.5" fill="currentColor" stroke="none"/>
+          <circle cx="28" cy="22" r="1.5" fill="currentColor" stroke="none"/>
+          <line x1="4" y1="30" x2="32" y2="30"/>
+          <line x1="10" y1="30" x2="10" y2="34"/>
+          <line x1="26" y1="30" x2="26" y2="34"/>
+        </svg>
+        <div class="for-title">Streaming Service Operators</div>
+        <p class="for-text">Run thousands of concurrent channels with fault-tolerant infrastructure, automated scaling, and per-event flexibility. Failover in under a second — your viewers will never know.</p>
+      </div>
+
+      <!-- 04 -->
+      <div class="for-card">
+        <div class="for-num">04</div>
+        <svg class="for-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <!-- code brackets -->
+          <polyline points="12,10 4,18 12,26"/>
+          <polyline points="24,10 32,18 24,26"/>
+          <line x1="20" y1="6" x2="16" y2="30"/>
+        </svg>
+        <div class="for-title">Developers &amp; Integrators</div>
+        <p class="for-text">Extend Studio with the OpenAPI or go deeper with the Norsk Engine SDK to build fully custom media applications in days, not months. Clean abstractions, TypeScript-first, excellent docs.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- ============================================================
+     HOW IT WORKS
+     ============================================================ -->
+<section class="how-section">
+  <div class="how-inner">
+    <p class="section-eyebrow">How It Works</p>
+    <h2 class="section-h2">Build. Run. Connect.</h2>
+    <p class="section-sub">Three steps from first workflow to production deployment.</p>
+
+    <!-- Row 1: Build — text left, visual right -->
+    <div class="how-row">
+      <div class="how-text-col">
+        <p class="how-step-label">Step 01 — Build</p>
+        <h3 class="how-title">Design workflows visually, no code required</h3>
+        <p class="how-text">Drag sources, encoders, packagers, and outputs onto the canvas. Connect them with a click. Add graphics overlays, set up source switching, configure ABR ladders — all from a single visual interface. Save any workflow as a reusable template.</p>
+        <div class="how-tags">
+          <span class="how-tag">RTMP</span>
+          <span class="how-tag">SRT</span>
+          <span class="how-tag">SDI</span>
+          <span class="how-tag">WebRTC</span>
+          <span class="how-tag">HLS</span>
+          <span class="how-tag">DASH</span>
+        </div>
+      </div>
+      <div class="how-visual">
+        <div class="how-visual-bar">
+          <div class="hv-dot hv-dot-r"></div>
+          <div class="hv-dot hv-dot-a"></div>
+          <div class="hv-dot hv-dot-g"></div>
+          <span class="hv-label">studio — canvas</span>
+        </div>
+        <div class="how-visual-body">
+          <svg viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg"
+               style="width:100%;height:auto;font-family:'JetBrains Mono',monospace;">
+            <defs>
+              <marker id="a" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L6,3 z" fill="#00A9E0" opacity="0.6"/>
+              </marker>
+            </defs>
+            <!-- Source node -->
+            <rect x="10" y="60" width="72" height="40" rx="3"
+                  fill="#030f18" stroke="rgba(0,169,224,0.4)" stroke-width="1"/>
+            <text x="46" y="76" text-anchor="middle" fill="#4a7d95" font-size="8" letter-spacing="0.08em">INPUT</text>
+            <text x="46" y="89" text-anchor="middle" fill="#d4eaf4" font-size="9.5">RTMP</text>
+            <!-- Arrow -->
+            <line x1="82" y1="80" x2="112" y2="80" stroke="#00A9E0" stroke-width="1.2"
+                  opacity="0.5" marker-end="url(#a)" stroke-dasharray="3 2"
+                  class="flow-line" style="animation-delay:0s"/>
+            <!-- Encode node -->
+            <rect x="114" y="50" width="72" height="60" rx="3"
+                  fill="#030f18" stroke="#00A9E0" stroke-width="1.2" opacity="0.8"/>
+            <rect x="114" y="50" width="72" height="3" rx="1" fill="#00A9E0" opacity="0.6"/>
+            <text x="150" y="74" text-anchor="middle" fill="#4a7d95" font-size="8" letter-spacing="0.08em">ENCODE</text>
+            <text x="150" y="87" text-anchor="middle" fill="#d4eaf4" font-size="9.5">H.264</text>
+            <text x="150" y="99" text-anchor="middle" fill="#3a6a7f" font-size="7.5">+ PACKAGE</text>
+            <!-- Arrow -->
+            <line x1="186" y1="80" x2="216" y2="80" stroke="#00A9E0" stroke-width="1.2"
+                  opacity="0.5" marker-end="url(#a)" stroke-dasharray="3 2"
+                  class="flow-line" style="animation-delay:0.3s"/>
+            <!-- Output node -->
+            <rect x="218" y="60" width="72" height="40" rx="3"
+                  fill="#030f18" stroke="rgba(132,189,0,0.4)" stroke-width="1"/>
+            <text x="254" y="76" text-anchor="middle" fill="#5a7d20" font-size="8" letter-spacing="0.08em">OUTPUT</text>
+            <text x="254" y="89" text-anchor="middle" fill="#84BD00" font-size="9.5">CDN</text>
+            <!-- Add node hint -->
+            <rect x="114" y="122" width="72" height="28" rx="3"
+                  fill="none" stroke="rgba(0,169,224,0.2)" stroke-width="1"
+                  stroke-dasharray="3 2"/>
+            <text x="150" y="140" text-anchor="middle" fill="#2a5a72" font-size="14">+</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Run — visual left, text right -->
+    <div class="how-row flip">
+      <div class="how-text-col">
+        <p class="how-step-label">Step 02 — Run</p>
+        <h3 class="how-title">Deploy anywhere with a single click</h3>
+        <p class="how-text">Press play to deploy on your own hardware, in the cloud, or both. Norsk runs natively on AWS, GCP, and Akamai. Switch sources and update graphics live without interrupting the stream — all from the same UI.</p>
+        <div class="how-tags">
+          <span class="how-tag">AWS</span>
+          <span class="how-tag">GCP</span>
+          <span class="how-tag">Akamai</span>
+          <span class="how-tag">Docker</span>
+          <span class="how-tag">Kubernetes</span>
+          <span class="how-tag">Bare metal</span>
+        </div>
+      </div>
+      <div class="how-visual">
+        <div class="how-visual-bar">
+          <div class="hv-dot hv-dot-r"></div>
+          <div class="hv-dot hv-dot-a"></div>
+          <div class="hv-dot hv-dot-g"></div>
+          <span class="hv-label">studio — deploy</span>
+          <span style="margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:10px;color:#84BD00;display:flex;align-items:center;gap:5px;">
+            <span style="width:5px;height:5px;background:#84BD00;border-radius:50%;display:inline-block;animation:pulse 1.6s infinite;"></span>
+            LIVE
+          </span>
+        </div>
+        <div class="how-visual-body">
+          <div style="width:100%;">
+            <!-- Deployment targets -->
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(0,169,224,0.06);border:1px solid rgba(0,169,224,0.2);border-radius:5px;">
+                <div style="width:6px;height:6px;background:#84BD00;border-radius:50%;flex-shrink:0;animation:pulse 1.6s infinite;"></div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#d4eaf4;flex:1;">aws-eu-west-1</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#84BD00;">RUNNING</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(0,169,224,0.04);border:1px solid rgba(0,169,224,0.1);border-radius:5px;">
+                <div style="width:6px;height:6px;background:#84BD00;border-radius:50%;flex-shrink:0;animation:pulse 1.6s 0.4s infinite;"></div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#d4eaf4;flex:1;">on-prem-venue</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#84BD00;">RUNNING</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(0,169,224,0.02);border:1px solid rgba(0,169,224,0.08);border-radius:5px;">
+                <div style="width:6px;height:6px;background:#2a5a72;border-radius:50%;flex-shrink:0;"></div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#3a6a7f;flex:1;">gcp-us-central1</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#3a6a7f;">STANDBY</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: Connect — text left, visual right -->
+    <div class="how-row">
+      <div class="how-text-col">
+        <p class="how-step-label">Step 03 — Connect</p>
+        <h3 class="how-title">Control everything via API</h3>
+        <p class="how-text">Trigger source switches, update overlays, or start recordings with a single HTTP request. Go deeper with the Norsk Engine SDK to build fully custom media applications — in TypeScript, in days rather than months.</p>
+        <div class="how-tags">
+          <span class="how-tag">OpenAPI</span>
+          <span class="how-tag">TypeScript SDK</span>
+          <span class="how-tag">Swagger UI</span>
+          <span class="how-tag">Webhooks</span>
+        </div>
+      </div>
+      <div class="how-visual">
+        <div class="how-visual-bar">
+          <div class="hv-dot hv-dot-r"></div>
+          <div class="hv-dot hv-dot-a"></div>
+          <div class="hv-dot hv-dot-g"></div>
+          <span class="hv-label">switch-source.ts</span>
+        </div>
+        <div class="how-visual-body">
+          <div class="how-code">
+            <div><span class="hc-comment">// Switch to backup camera</span></div>
+            <div><span class="hc-key">await</span> studio.<span class="hc-val">switchSource</span>({</div>
+            <div>&nbsp;&nbsp;<span class="hc-key">workflow</span>: <span class="hc-str">"main-event"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="hc-key">from</span>:&nbsp;&nbsp;&nbsp;&nbsp; <span class="hc-str">"camera-1"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="hc-key">to</span>:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="hc-str">"camera-2"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="hc-key">transition</span>: <span class="hc-str">"cut"</span>,</div>
+            <div>});</div>
+            <div>&nbsp;</div>
+            <div><span class="hc-comment">// → 200 OK  { latency: "420ms" }</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ============================================================
+     CAPABILITIES
+     ============================================================ -->
+<section class="cap-section">
+  <div class="cap-inner">
+    <p class="section-eyebrow">Capabilities</p>
+    <h2 class="section-h2">Everything a live production needs</h2>
+    <p class="section-sub">From encoding to delivery — every component of a professional broadcast stack, built in.</p>
+
+    <div class="cap-grid">
+
+      <div class="cap-item">
+        <div class="cap-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="cap-title">Adaptive Bitrate Streaming</div><div class="cap-desc">Full ABR ladders to HLS and DASH for any device and network condition.</div></div>
+      </div>
+
+      <div class="cap-item">
+        <div class="cap-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="cap-title">Graphics &amp; Subtitles</div><div class="cap-desc">Overlay branded graphics, tickers, and real-time captions on any stream.</div></div>
+      </div>
+
+      <div class="cap-item">
+        <div class="cap-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="cap-title">Multi-Platform Delivery</div><div class="cap-desc">Publish simultaneously to CDNs, YouTube, Twitch, and social platforms.</div></div>
+      </div>
+
+      <div class="cap-item">
+        <div class="cap-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="cap-title">Recording &amp; Live-to-VOD</div><div class="cap-desc">Record any stream and create on-demand clips directly from live content.</div></div>
+      </div>
+
+      <div class="cap-item">
+        <div class="cap-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="cap-title">DRM &amp; Content Protection</div><div class="cap-desc">Industry-standard digital rights management for protected content.</div></div>
+      </div>
+
+      <div class="cap-item">
+        <div class="cap-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="cap-title">Low-Latency WebRTC</div><div class="cap-desc">Sub-second latency delivery including venue-to-screen encoding.</div></div>
+      </div>
+
+      <div class="cap-item">
+        <div class="cap-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="cap-title">Hardware Acceleration</div><div class="cap-desc">NVIDIA NVENC, NETINT Quadra, and AMD Alveo for maximum throughput.</div></div>
+      </div>
+
+      <div class="cap-item">
+        <div class="cap-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="cap-title">Multi-Camera Production</div><div class="cap-desc">Real-time source switching with built-in multiview monitoring.</div></div>
+      </div>
+
+      <div class="cap-item">
+        <div class="cap-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="cap-title">Master Control Room</div><div class="cap-desc">Build an entire MCR with Norsk Studio — human or AI monitoring and decisioning.</div></div>
+      </div>
+
+      <div class="cap-item">
+        <div class="cap-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5L4 7.5L8.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="cap-title">Standards &amp; Format Conversion</div><div class="cap-desc">A declarative API that compiles your entire processing chain — resize, tone-map, composite, color-grade — into a single optimized pass.</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- ============================================================
+     RELIABILITY
+     ============================================================ -->
+<section class="rel-section">
+  <div class="rel-inner">
+
+    <div class="rel-text">
+      <p class="section-eyebrow">Reliability</p>
+      <h2 class="rel-h2">Engineered for the moments that can't fail</h2>
+      <p class="rel-body">Live video doesn't get a second take. Norsk is built with redundant source acquisition, automatic failover across servers and cloud regions, and infrastructure that keeps running even when individual components fail.</p>
+      <p class="rel-body-dim">With Norsk Manager, deploy workflows where they make the most sense — encode at the venue for lowest latency, produce in the cloud for flexibility, or run a hybrid setup that adapts to each event.</p>
+    </div>
+
+    <div class="rel-grid">
+      <div class="rel-card">
+        <div class="rel-num">&lt;1s</div>
+        <div class="rel-label">Automatic failover across servers and regions</div>
+      </div>
+      <div class="rel-card">
+        <div class="rel-num">3</div>
+        <div class="rel-label">Native cloud platforms supported</div>
+      </div>
+      <div class="rel-card">
+        <div class="rel-num">∞</div>
+        <div class="rel-label">Concurrent channels with Norsk Manager</div>
+      </div>
+      <div class="rel-card">
+        <div class="rel-num">0</div>
+        <div class="rel-label">Viewers who noticed the NASDAQ failover</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+<section class="test-section">
+  <div class="test-inner">
+    <p class="section-eyebrow">Testimonials</p>
+    <h2 class="section-h2">Trusted by broadcast professionals worldwide</h2>
+    <p class="section-sub">What teams building on Norsk have to say.</p>
+
+    <div class="test-grid">
+
+      <div class="test-card">
+        <div class="test-mark">"</div>
+        <p class="test-quote">When Amazon US East went down, we had most of our infrastructure running there. Some companies were down for days. We were down for around a second. None of our customers even noticed!</p>
+        <div class="test-attribution">
+          <div class="test-name">Simon Ball</div>
+          <div class="test-co">NASDAQ OMX</div>
+        </div>
+      </div>
+
+      <div class="test-card">
+        <div class="test-mark">"</div>
+        <p class="test-quote">Norsk is the Mjölnir of our media processing workflows and helps us to build quickly and reliably.</p>
+        <div class="test-attribution">
+          <div class="test-name">Alexander Leschinsky</div>
+          <div class="test-co">G&amp;L</div>
+        </div>
+      </div>
+
+      <div class="test-card">
+        <div class="test-mark">"</div>
+        <p class="test-quote">Norsk represents the future of how streaming media services will be built. What might have been thousands of lines of code were reduced to just a few.</p>
+        <div class="test-attribution">
+          <div class="test-name">Jason Thibeault</div>
+          <div class="test-co">Streaming Media</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- ============================================================
+     PRICING
+     ============================================================ -->
+<section class="pricing-section">
+  <div class="pricing-inner">
+    <p class="section-eyebrow">Pricing</p>
+    <h2 class="pricing-h2">Start free. Scale as you grow.</h2>
+    <p class="pricing-sub">Every plan starts with a free trial — install with one command and build your first workflow in minutes.</p>
+
+    <div class="pricing-grid">
+
+      <div class="p-card">
+        <div class="p-tier">Free Trial</div>
+        <div class="p-price">Free</div>
+        <div class="p-cadence">Full-featured, 20-min sessions</div>
+        <ul class="p-feats">
+          <li>On-prem or cloud</li>
+          <li>Full feature access</li>
+          <li>Email &amp; forum support</li>
+        </ul>
+        <a href="#" class="p-btn">Start Trial</a>
+      </div>
+
+      <div class="p-card featured">
+        <div class="p-tier">Pay-As-You-Go</div>
+        <div class="p-price">Per hour</div>
+        <div class="p-cadence">No commitment required</div>
+        <ul class="p-feats">
+          <li>GCP, AWS, and Akamai</li>
+          <li>No minimum commitment</li>
+          <li>Email &amp; forum support</li>
+        </ul>
+        <a href="#" class="p-btn">Get Started</a>
+      </div>
+
+      <div class="p-card">
+        <div class="p-tier">Annual License</div>
+        <div class="p-price">$2k+/yr</div>
+        <div class="p-cadence">Per channel, unlimited usage</div>
+        <ul class="p-feats">
+          <li>On-prem or cloud</li>
+          <li>Unlimited usage</li>
+          <li>No minimum commit</li>
+        </ul>
+        <a href="#" class="p-btn">View Pricing</a>
+      </div>
+
+      <div class="p-card">
+        <div class="p-tier">Enterprise</div>
+        <div class="p-price">Custom</div>
+        <div class="p-cadence">Let's talk</div>
+        <ul class="p-feats">
+          <li>Premium support</li>
+          <li>Engine SDK access</li>
+          <li>Studio source code</li>
+        </ul>
+        <a href="#" class="p-btn">Contact Us</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- ============================================================
+     GET STARTED CTA
+     ============================================================ -->
+<section class="gs-section">
+  <div class="gs-inner">
+    <p class="section-eyebrow">Get Started</p>
+    <h2 class="gs-h2">Up and running in minutes</h2>
+    <p class="gs-sub">Full functionality. 20-minute trial sessions. No credit card required.</p>
+
+    <div class="gs-steps">
+      <div class="gs-step">
+        <div class="gs-n">01</div>
+        <div class="gs-title">Get your license</div>
+        <div class="gs-detail">norsk.video/license<br>No credit card required.</div>
+      </div>
+      <div class="gs-step">
+        <div class="gs-n">02</div>
+        <div class="gs-title">Install with one command</div>
+        <div class="gs-detail">bash &lt;(curl -L norsk.video/studio/install)</div>
+      </div>
+      <div class="gs-step">
+        <div class="gs-n">03</div>
+        <div class="gs-title">Start building</div>
+        <div class="gs-detail">Open Studio in your browser and build your first workflow.</div>
+      </div>
+    </div>
+
+    <div class="gs-actions">
+      <a href="#" class="gs-btn-primary">Start Free Trial</a>
+      <a href="#" class="gs-btn-secondary">Contact Us</a>
+      <a href="#" class="gs-btn-secondary">View Docs</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <a href="#" class="footer-logo">
+    <img src="../Norsk Reversed Logo Small.png" alt="Norsk" style="height:22px;width:auto;display:block;">
+  </a>
+  <div class="footer-links">
+    <a href="#">Docs</a>
+    <a href="#">Pricing</a>
+    <a href="#">Blog</a>
+    <a href="#">GitHub</a>
+    <a href="#">Contact</a>
+  </div>
+  <span class="footer-copy">© 2026 id3as. All rights reserved.</span>
+</footer>
+
+</body>
+</html>
