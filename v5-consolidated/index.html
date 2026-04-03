@@ -529,9 +529,9 @@ nav {
    TRUST BAR
    ============================================================ */
 .trust-bar {
-  background: var(--bg-light);
-  border-top: 1px solid var(--border-l);
-  border-bottom: 1px solid var(--border-l);
+  background: #00263A;
+  border-top: 1px solid rgba(0,169,224,0.12);
+  border-bottom: 1px solid rgba(0,169,224,0.12);
   padding: 36px 52px;
 }
 
@@ -539,17 +539,30 @@ nav {
   max-width: 1000px;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.tb-stats-row {
+  display: flex;
   align-items: center;
   gap: 40px;
-  flex-wrap: wrap;
+}
+
+.tb-logos-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 36px;
 }
 
 .tb-stat { display: flex; flex-direction: column; gap: 3px; }
 
 .tb-stat-num {
   font-size: 22px;
-  font-weight: 800;
-  color: var(--text-l);
+  font-weight: 600;
+  color: white;
   letter-spacing: -0.03em;
   line-height: 1;
 }
@@ -557,7 +570,7 @@ nav {
 .tb-stat-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
-  color: var(--text-l-light);
+  color: var(--text-d-muted);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -565,39 +578,46 @@ nav {
 .tb-sep {
   width: 1px;
   height: 36px;
-  background: var(--border-l);
+  background: var(--border-d);
   flex-shrink: 0;
 }
 
 .tb-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--text-l-light);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: white;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  text-transform: none;
   white-space: nowrap;
 }
 
 .tb-logos {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 36px;
   flex-wrap: wrap;
-  margin-left: auto;
+  justify-content: center;
 }
 
-.tb-name {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--text-l-light);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  opacity: 0.7;
+.tb-logo {
+  height: 28px;
+  width: auto;
+  display: block;
+  opacity: 0.85;
   transition: opacity 0.2s;
 }
 
-.tb-name:hover { opacity: 1; }
+.tb-logo:hover { opacity: 1; }
+
+.tb-logo-placeholder {
+  height: 28px;
+  width: 80px;
+  border: 1px dashed var(--border-l);
+  border-radius: 4px;
+  opacity: 0.4;
+}
 
 /* ============================================================
    WHO IT'S FOR
@@ -1790,29 +1810,35 @@ footer {
      ============================================================ -->
 <div class="trust-bar">
   <div class="trust-bar-inner">
-    <div class="tb-stat">
-      <span class="tb-stat-num">100,000+</span>
-      <span class="tb-stat-label">Live events / year</span>
+
+    <!-- Stats row -->
+    <div class="tb-stats-row">
+      <div class="tb-stat">
+        <span class="tb-stat-num">100,000+</span>
+        <span class="tb-stat-label">Live events / year</span>
+      </div>
+      <div class="tb-sep"></div>
+      <div class="tb-stat">
+        <span class="tb-stat-num">&lt; 1s</span>
+        <span class="tb-stat-label">Failover time</span>
+      </div>
+      <div class="tb-sep"></div>
+      <div class="tb-stat">
+        <span class="tb-stat-num">Free</span>
+        <span class="tb-stat-label">Full-featured trial</span>
+      </div>
     </div>
-    <div class="tb-sep"></div>
-    <div class="tb-stat">
-      <span class="tb-stat-num">&lt; 1s</span>
-      <span class="tb-stat-label">Failover time</span>
+
+    <!-- Logos row -->
+    <div class="tb-logos-row">
+      <span class="tb-label">Trusted by</span>
+      <img src="../DAZN.png"         alt="DAZN"         class="tb-logo">
+      <img src="../statsperform.png" alt="Stats Perform" class="tb-logo">
+      <img src="../Notified.png"     alt="Notified"      class="tb-logo">
+      <img src="../Arqiva.png"       alt="Arqiva"        class="tb-logo">
+      <div class="tb-logo-placeholder"></div>
     </div>
-    <div class="tb-sep"></div>
-    <div class="tb-stat">
-      <span class="tb-stat-num">Free</span>
-      <span class="tb-stat-label">Full-featured trial</span>
-    </div>
-    <div class="tb-sep"></div>
-    <span class="tb-label">Trusted by</span>
-    <div class="tb-logos">
-      <span class="tb-name">NASDAQ OMX</span>
-      <span class="tb-name">G&amp;L</span>
-      <span class="tb-name">AWS</span>
-      <span class="tb-name">Akamai</span>
-      <span class="tb-name">GCP</span>
-    </div>
+
   </div>
 </div>
 <!-- ============================================================
