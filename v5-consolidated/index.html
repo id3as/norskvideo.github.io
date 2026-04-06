@@ -1380,6 +1380,86 @@ footer {
   .placeholder { padding: 60px 24px; }
 }
 
+/* ============================================================
+   WIP REVIEW PANEL
+   ============================================================ */
+#wip-panel {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  width: 320px;
+  background: #1a1a2e;
+  border: 1px solid rgba(255,200,0,0.4);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #e8e8e8;
+  overflow: hidden;
+}
+
+#wip-header {
+  background: rgba(255,200,0,0.15);
+  border-bottom: 1px solid rgba(255,200,0,0.3);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+
+#wip-header span {
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: #ffd700;
+}
+
+#wip-toggle {
+  font-size: 16px;
+  color: #ffd700;
+  line-height: 1;
+}
+
+#wip-body {
+  padding: 16px;
+}
+
+#wip-body ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+
+#wip-body li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.5;
+  color: #ccc;
+}
+
+#wip-body li::before {
+  content: '·';
+  color: #ffd700;
+  font-size: 18px;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+#wip-footer {
+  padding: 10px 16px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+  font-family: 'JetBrains Mono', monospace;
+}
+
 </style>
 </head>
 <body>
@@ -1627,7 +1707,7 @@ footer {
   <div class="diagram-inner">
     <p class="section-eyebrow">Signal Flow</p>
     <h2 class="section-h2">From source to screen in minutes</h2>
-    <p class="section-sub">A single-camera live workflow: ingest, encode, package, and deliver — all configured visually in Norsk Studio.</p>
+    <p class="section-sub" style="white-space:nowrap;max-width:none;">A single-camera live workflow: ingest, encode, package, and deliver — all configured visually in Norsk Studio.</p>
 
     <div class="diagram-frame">
       <!-- Window chrome -->
@@ -1848,7 +1928,7 @@ footer {
   <div class="for-inner">
     <p class="section-eyebrow">Who It's For</p>
     <h2 class="section-h2">Built for every part of the broadcast stack</h2>
-    <p class="section-sub">From single-camera live streams to enterprise-scale channel operations — Norsk Studio adapts to your workflow.</p>
+    <p class="section-sub" style="white-space:nowrap;max-width:none;">From single-camera live streams to enterprise-scale channel operations — Norsk Studio adapts to your workflow.</p>
 
     <div class="for-grid">
 
@@ -2328,6 +2408,24 @@ footer {
   </div>
   <span class="footer-copy">© 2026 id3as. All rights reserved.</span>
 </footer>
+
+<!-- ============================================================
+     WIP REVIEW PANEL  (remove before launch)
+     ============================================================ -->
+<div id="wip-panel">
+  <div id="wip-header" onclick="document.getElementById('wip-body').style.display = document.getElementById('wip-body').style.display === 'none' ? 'block' : 'none'; document.getElementById('wip-toggle').textContent = document.getElementById('wip-body').style.display === 'none' ? '+' : '−';">
+    <span>⚠ WORK IN PROGRESS</span>
+    <span id="wip-toggle">−</span>
+  </div>
+  <div id="wip-body">
+    <ul>
+      <li>Note 1 — add your feedback here</li>
+      <li>Note 2 — add your feedback here</li>
+      <li>Note 3 — add your feedback here</li>
+    </ul>
+  </div>
+  <div id="wip-footer">review draft · not for public use</div>
+</div>
 
 </body>
 </html>
