@@ -2309,43 +2309,52 @@ footer {
           <span class="hv-label">studio — canvas</span>
         </div>
         <div class="how-visual-body">
-          <svg viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg"
+          <svg viewBox="0 0 370 160" xmlns="http://www.w3.org/2000/svg"
                style="width:100%;height:auto;font-family:'JetBrains Mono',monospace;">
             <defs>
               <marker id="a" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
                 <path d="M0,0 L0,6 L6,3 z" fill="#00A9E0" opacity="0.6"/>
               </marker>
             </defs>
-            <!-- Source node -->
-            <rect x="10" y="60" width="72" height="40" rx="3"
+            <!-- Input SRT node -->
+            <rect x="4" y="62" width="68" height="36" rx="3"
                   fill="#030f18" stroke="rgba(0,169,224,0.4)" stroke-width="1"/>
-            <text x="46" y="76" text-anchor="middle" fill="#4a7d95" font-size="8" letter-spacing="0.08em">INPUT</text>
-            <text x="46" y="89" text-anchor="middle" fill="#d4eaf4" font-size="9.5">RTMP</text>
+            <text x="38" y="76" text-anchor="middle" fill="#4a7d95" font-size="8" letter-spacing="0.08em">INPUT</text>
+            <text x="38" y="89" text-anchor="middle" fill="#d4eaf4" font-size="9.5">SRT</text>
             <!-- Arrow -->
-            <line x1="82" y1="80" x2="112" y2="80" stroke="#00A9E0" stroke-width="1.2"
+            <line x1="72" y1="80" x2="90" y2="80" stroke="#00A9E0" stroke-width="1.2"
                   opacity="0.5" marker-end="url(#a)" stroke-dasharray="3 2"
                   class="flow-line" style="animation-delay:0s"/>
-            <!-- Encode node -->
-            <rect x="114" y="50" width="72" height="60" rx="3"
+            <!-- Encode + Package CMAF node -->
+            <rect x="92" y="46" width="78" height="68" rx="3"
                   fill="#030f18" stroke="#00A9E0" stroke-width="1.2" opacity="0.8"/>
-            <rect x="114" y="50" width="72" height="3" rx="1" fill="#00A9E0" opacity="0.6"/>
-            <text x="150" y="74" text-anchor="middle" fill="#4a7d95" font-size="8" letter-spacing="0.08em">ENCODE</text>
-            <text x="150" y="87" text-anchor="middle" fill="#d4eaf4" font-size="9.5">H.264</text>
-            <text x="150" y="99" text-anchor="middle" fill="#3a6a7f" font-size="7.5">+ PACKAGE</text>
+            <rect x="92" y="46" width="78" height="3" rx="1" fill="#00A9E0" opacity="0.6"/>
+            <text x="131" y="72" text-anchor="middle" fill="#4a7d95" font-size="8" letter-spacing="0.08em">ENCODE</text>
+            <text x="131" y="85" text-anchor="middle" fill="#d4eaf4" font-size="9.5">CMAF</text>
+            <text x="131" y="97" text-anchor="middle" fill="#3a6a7f" font-size="7.5">+ PACKAGE</text>
             <!-- Arrow -->
-            <line x1="186" y1="80" x2="216" y2="80" stroke="#00A9E0" stroke-width="1.2"
+            <line x1="170" y1="80" x2="188" y2="80" stroke="#00A9E0" stroke-width="1.2"
                   opacity="0.5" marker-end="url(#a)" stroke-dasharray="3 2"
                   class="flow-line" style="animation-delay:0.3s"/>
-            <!-- Output node -->
-            <rect x="218" y="60" width="72" height="40" rx="3"
+            <!-- Source Switcher node -->
+            <rect x="190" y="62" width="76" height="36" rx="3"
+                  fill="#030f18" stroke="rgba(0,169,224,0.4)" stroke-width="1"/>
+            <text x="228" y="76" text-anchor="middle" fill="#4a7d95" font-size="8" letter-spacing="0.08em">SOURCE</text>
+            <text x="228" y="89" text-anchor="middle" fill="#d4eaf4" font-size="9.5">SWITCHER</text>
+            <!-- Arrow -->
+            <line x1="266" y1="80" x2="284" y2="80" stroke="#00A9E0" stroke-width="1.2"
+                  opacity="0.5" marker-end="url(#a)" stroke-dasharray="3 2"
+                  class="flow-line" style="animation-delay:0.6s"/>
+            <!-- Output CDN node -->
+            <rect x="286" y="62" width="74" height="36" rx="3"
                   fill="#030f18" stroke="rgba(132,189,0,0.4)" stroke-width="1"/>
-            <text x="254" y="76" text-anchor="middle" fill="#5a7d20" font-size="8" letter-spacing="0.08em">OUTPUT</text>
-            <text x="254" y="89" text-anchor="middle" fill="#84BD00" font-size="9.5">CDN</text>
+            <text x="323" y="76" text-anchor="middle" fill="#5a7d20" font-size="8" letter-spacing="0.08em">OUTPUT</text>
+            <text x="323" y="89" text-anchor="middle" fill="#84BD00" font-size="9.5">CDN</text>
             <!-- Add node hint -->
-            <rect x="114" y="122" width="72" height="28" rx="3"
+            <rect x="92" y="122" width="78" height="28" rx="3"
                   fill="none" stroke="rgba(0,169,224,0.2)" stroke-width="1"
                   stroke-dasharray="3 2"/>
-            <text x="150" y="140" text-anchor="middle" fill="#2a5a72" font-size="14">+</text>
+            <text x="131" y="140" text-anchor="middle" fill="#2a5a72" font-size="14">+</text>
           </svg>
         </div>
       </div>
