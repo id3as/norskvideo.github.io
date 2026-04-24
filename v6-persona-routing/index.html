@@ -1875,7 +1875,7 @@ footer {
   <div class="diagram-inner">
     <p class="section-eyebrow">Signal Flow</p>
     <h2 class="section-h2">From source to screen in minutes</h2>
-    <p class="section-sub" style="white-space:nowrap;max-width:none;">A single-camera live workflow: ingest, encode, package, and deliver — all configured visually in Norsk Studio.</p>
+    <p class="section-sub" style="white-space:nowrap;max-width:none;">A dual-camera live workflow: ingest, encode, enhance, package, and deliver — all configured visually in Norsk Studio.</p>
 
     <div class="diagram-frame">
       <!-- Window chrome -->
@@ -1892,7 +1892,7 @@ footer {
 
       <!-- SVG diagram -->
       <div class="diagram-svg-wrap">
-        <svg viewBox="0 0 840 210" xmlns="http://www.w3.org/2000/svg"
+        <svg viewBox="0 0 840 230" xmlns="http://www.w3.org/2000/svg"
              style="width:100%;height:auto;font-family:'JetBrains Mono',monospace;display:block;">
           <defs>
             <marker id="arrowB" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
@@ -1907,103 +1907,136 @@ footer {
             </filter>
           </defs>
 
-          <!-- ── CAMERA SOURCE ── -->
-          <g transform="translate(16,65)">
+          <!-- ── CAMERA SOURCE 1 ── -->
+          <g transform="translate(10,18)">
             <rect width="120" height="80" rx="3"
                   fill="none" stroke="rgba(0,169,224,0.2)" stroke-width="1"/>
-            <!-- camera body -->
-            <rect x="30" y="18" width="42" height="28" rx="2"
+            <rect x="28" y="16" width="40" height="28" rx="2"
                   fill="none" stroke="#3a6a7f" stroke-width="1.5"/>
-            <!-- lens -->
-            <circle cx="51" cy="32" r="8"
+            <circle cx="48" cy="30" r="8"
                     fill="none" stroke="#3a6a7f" stroke-width="1.5"/>
-            <circle cx="51" cy="32" r="3"
+            <circle cx="48" cy="30" r="3"
                     fill="rgba(0,169,224,0.15)"/>
-            <!-- viewfinder -->
-            <polygon points="72,22 84,18 84,46 72,42"
+            <polygon points="68,20 80,16 80,44 68,40"
                      fill="none" stroke="#3a6a7f" stroke-width="1.5"/>
-            <text x="60" y="60" text-anchor="middle"
+            <text x="60" y="58" text-anchor="middle"
                   fill="#4a7d95" font-size="9" letter-spacing="0.1em">CAMERA</text>
-            <text x="60" y="71" text-anchor="middle"
-                  fill="#2a5a72" font-size="8" letter-spacing="0.07em">SINGLE SOURCE</text>
+            <text x="60" y="69" text-anchor="middle"
+                  fill="#2a5a72" font-size="8" letter-spacing="0.07em">SOURCE 1</text>
           </g>
 
-          <!-- Arrow 1: Camera → Norsk -->
-          <line x1="136" y1="105" x2="182" y2="105"
+          <!-- ── CAMERA SOURCE 2 ── -->
+          <g transform="translate(10,118)">
+            <rect width="120" height="80" rx="3"
+                  fill="none" stroke="rgba(0,169,224,0.2)" stroke-width="1"/>
+            <rect x="28" y="16" width="40" height="28" rx="2"
+                  fill="none" stroke="#3a6a7f" stroke-width="1.5"/>
+            <circle cx="48" cy="30" r="8"
+                    fill="none" stroke="#3a6a7f" stroke-width="1.5"/>
+            <circle cx="48" cy="30" r="3"
+                    fill="rgba(0,169,224,0.15)"/>
+            <polygon points="68,20 80,16 80,44 68,40"
+                     fill="none" stroke="#3a6a7f" stroke-width="1.5"/>
+            <text x="60" y="58" text-anchor="middle"
+                  fill="#4a7d95" font-size="9" letter-spacing="0.1em">CAMERA</text>
+            <text x="60" y="69" text-anchor="middle"
+                  fill="#2a5a72" font-size="8" letter-spacing="0.07em">SOURCE 2</text>
+          </g>
+
+          <!-- Arrow 1a: Camera 1 → Norsk ENCODE -->
+          <line x1="130" y1="58" x2="200" y2="72"
                 stroke="#00A9E0" stroke-width="1.5" opacity="0.55"
                 marker-end="url(#arrowB)" class="flow-line"
                 style="animation-delay:0s"/>
 
+          <!-- Arrow 1b: Camera 2 → Norsk ENCODE -->
+          <line x1="130" y1="158" x2="200" y2="128"
+                stroke="#00A9E0" stroke-width="1.5" opacity="0.55"
+                marker-end="url(#arrowB)" class="flow-line"
+                style="animation-delay:0.1s"/>
+
           <!-- ── NORSK STUDIO BOX ── -->
-          <g transform="translate(182,18)">
-            <!-- outer border -->
-            <rect width="440" height="174" rx="3"
+          <g transform="translate(182,17)">
+            <rect width="440" height="192" rx="3"
                   fill="rgba(0,169,224,0.02)"
                   stroke="#00A9E0" stroke-width="1" opacity="0.35"/>
-            <!-- top accent bar -->
             <rect width="440" height="3" rx="1"
                   fill="#00A9E0" opacity="0.5"/>
-            <!-- label -->
             <text x="10" y="17" fill="#00A9E0"
                   font-size="9" letter-spacing="0.18em" opacity="0.75">NORSK STUDIO</text>
 
             <!-- ENCODE node -->
-            <g transform="translate(30,32)">
-              <rect width="160" height="100" rx="3"
+            <g transform="translate(20,35)">
+              <rect width="120" height="100" rx="3"
                     fill="#030f18" stroke="#00A9E0" stroke-width="1" opacity="0.65"
                     filter="url(#glow)"/>
-              <rect width="160" height="3" rx="1" fill="#00A9E0" opacity="0.7"/>
-              <!-- waveform icon -->
-              <polyline points="30,36 40,22 50,44 60,28 70,44 80,22 90,44 100,36 110,36"
+              <rect width="120" height="3" rx="1" fill="#00A9E0" opacity="0.7"/>
+              <polyline points="12,38 22,24 32,46 42,30 52,46 62,24 72,46 82,38 108,38"
                         fill="none" stroke="#00A9E0" stroke-width="1.2" opacity="0.5"/>
-              <text x="80" y="65" text-anchor="middle"
+              <text x="60" y="65" text-anchor="middle"
                     fill="#d4eaf4" font-size="10" font-weight="500">ENCODE</text>
-              <text x="80" y="77" text-anchor="middle"
-                    fill="#4a7d95" font-size="8" letter-spacing="0.08em">+ PACKAGE</text>
-              <text x="80" y="89" text-anchor="middle"
-                    fill="#2a5a72" font-size="7.5" letter-spacing="0.06em">HLS · DASH · WebRTC</text>
             </g>
 
-            <!-- Internal arrow -->
-            <line x1="190" y1="87" x2="228" y2="87"
+            <!-- Internal arrow: ENCODE → ENHANCE -->
+            <line x1="141" y1="85" x2="158" y2="85"
                   stroke="#00A9E0" stroke-width="1" opacity="0.35"
                   marker-end="url(#arrowB)" class="flow-line"
                   style="animation-delay:0.25s"/>
 
-            <!-- PACKAGE / OUTPUT node -->
-            <g transform="translate(228,32)">
-              <rect width="160" height="100" rx="3"
+            <!-- ENHANCE node -->
+            <g transform="translate(160,35)">
+              <rect width="120" height="100" rx="3"
                     fill="#030f18" stroke="#00A9E0" stroke-width="1" opacity="0.65"
                     filter="url(#glow)"/>
-              <rect width="160" height="3" rx="1" fill="#00A9E0" opacity="0.7"/>
-              <!-- broadcast icon -->
-              <path d="M55,48 Q80,24 105,48" fill="none" stroke="#00A9E0" stroke-width="1.2" opacity="0.45"/>
-              <path d="M63,56 Q80,40 97,56" fill="none" stroke="#00A9E0" stroke-width="1.2" opacity="0.45"/>
-              <circle cx="80" cy="64" r="4" fill="#00A9E0" opacity="0.6"/>
-              <line x1="80" y1="68" x2="80" y2="76" stroke="#00A9E0" stroke-width="1" opacity="0.4"/>
-              <line x1="72" y1="76" x2="88" y2="76" stroke="#00A9E0" stroke-width="1" opacity="0.4"/>
-              <text x="80" y="90" text-anchor="middle"
-                    fill="#d4eaf4" font-size="10" font-weight="500">OUTPUT</text>
+              <rect width="120" height="3" rx="1" fill="#00A9E0" opacity="0.7"/>
+              <!-- adjustment sliders icon -->
+              <line x1="15" y1="30" x2="105" y2="30" stroke="#00A9E0" stroke-width="1" opacity="0.35"/>
+              <circle cx="38" cy="30" r="5" fill="none" stroke="#00A9E0" stroke-width="1.3" opacity="0.6"/>
+              <line x1="15" y1="48" x2="105" y2="48" stroke="#00A9E0" stroke-width="1" opacity="0.35"/>
+              <circle cx="72" cy="48" r="5" fill="none" stroke="#00A9E0" stroke-width="1.3" opacity="0.6"/>
+              <text x="60" y="72" text-anchor="middle"
+                    fill="#d4eaf4" font-size="10" font-weight="500">ENHANCE</text>
+            </g>
+
+            <!-- Internal arrow: ENHANCE → PACKAGE -->
+            <line x1="281" y1="85" x2="298" y2="85"
+                  stroke="#00A9E0" stroke-width="1" opacity="0.35"
+                  marker-end="url(#arrowB)" class="flow-line"
+                  style="animation-delay:0.5s"/>
+
+            <!-- PACKAGE node -->
+            <g transform="translate(300,35)">
+              <rect width="120" height="100" rx="3"
+                    fill="#030f18" stroke="#00A9E0" stroke-width="1" opacity="0.65"
+                    filter="url(#glow)"/>
+              <rect width="120" height="3" rx="1" fill="#00A9E0" opacity="0.7"/>
+              <path d="M35,38 Q60,14 85,38" fill="none" stroke="#00A9E0" stroke-width="1.2" opacity="0.45"/>
+              <path d="M43,46 Q60,30 77,46" fill="none" stroke="#00A9E0" stroke-width="1.2" opacity="0.45"/>
+              <circle cx="60" cy="54" r="4" fill="#00A9E0" opacity="0.6"/>
+              <line x1="60" y1="58" x2="60" y2="66" stroke="#00A9E0" stroke-width="1" opacity="0.4"/>
+              <line x1="52" y1="66" x2="68" y2="66" stroke="#00A9E0" stroke-width="1" opacity="0.4"/>
+              <text x="60" y="80" text-anchor="middle"
+                    fill="#d4eaf4" font-size="10" font-weight="500">PACKAGE</text>
+              <text x="60" y="92" text-anchor="middle"
+                    fill="#2a5a72" font-size="7.5" letter-spacing="0.06em">HLS · DASH · WebRTC</text>
             </g>
           </g>
 
-          <!-- Arrow 2: Norsk → CDN (two outputs) -->
-          <!-- upper line → CDN -->
+          <!-- Arrow 2: Norsk → CDN (upper) -->
           <line x1="622" y1="90" x2="672" y2="78"
                 stroke="#00A9E0" stroke-width="1.5" opacity="0.5"
                 marker-end="url(#arrowB)" class="flow-line"
-                style="animation-delay:0.5s"/>
-          <!-- lower line → S3 -->
+                style="animation-delay:0.75s"/>
+          <!-- Arrow 2: Norsk → S3 (lower) -->
           <line x1="622" y1="120" x2="672" y2="132"
                 stroke="#84BD00" stroke-width="1.5" opacity="0.55"
                 marker-end="url(#arrowG)" class="flow-line"
-                style="animation-delay:0.75s"/>
+                style="animation-delay:1s"/>
 
           <!-- ── CDN NODE ── -->
           <g transform="translate(672,40)">
             <rect width="100" height="68" rx="3"
                   fill="#030f18" stroke="rgba(0,169,224,0.35)" stroke-width="1"/>
-            <!-- cloud -->
             <path d="M28,44 Q14,44 14,34 Q14,24 24,24 Q26,16 36,16 Q46,16 48,24 Q58,24 58,34 Q58,44 44,44 Z"
                   fill="none" stroke="#3a6a7f" stroke-width="1.5"/>
             <text x="50" y="57" text-anchor="middle"
@@ -2014,7 +2047,6 @@ footer {
           <g transform="translate(672,120)">
             <rect width="100" height="68" rx="3"
                   fill="#030f18" stroke="rgba(132,189,0,0.3)" stroke-width="1"/>
-            <!-- cylinder (storage icon) -->
             <ellipse cx="50" cy="28" rx="22" ry="7" fill="none" stroke="#5a7d20" stroke-width="1.5"/>
             <line x1="28" y1="28" x2="28" y2="44" stroke="#5a7d20" stroke-width="1.5"/>
             <line x1="72" y1="28" x2="72" y2="44" stroke="#5a7d20" stroke-width="1.5"/>
@@ -2039,15 +2071,15 @@ footer {
           </g>
 
           <!-- ── STATUS BAR ── -->
-          <rect x="0" y="188" width="840" height="22"
+          <rect x="0" y="208" width="840" height="22"
                 fill="rgba(0,169,224,0.03)"/>
-          <line x1="0" y1="188" x2="840" y2="188"
+          <line x1="0" y1="208" x2="840" y2="208"
                 stroke="rgba(0,169,224,0.08)" stroke-width="1"/>
-          <circle cx="16" cy="199" r="3.5" fill="#84BD00"/>
-          <text x="26" y="203" fill="#84BD00" font-size="8.5" letter-spacing="0.06em">1 workflow running</text>
-          <text x="580" y="203" fill="#2a5a72" font-size="8.5" letter-spacing="0.04em">CPU 14%</text>
-          <text x="650" y="203" fill="#2a5a72" font-size="8.5" letter-spacing="0.04em">MEM 1.8 GB</text>
-          <text x="730" y="203" fill="#2a5a72" font-size="8.5" letter-spacing="0.04em">LATENCY 420 ms</text>
+          <circle cx="16" cy="219" r="3.5" fill="#84BD00"/>
+          <text x="26" y="223" fill="#84BD00" font-size="8.5" letter-spacing="0.06em">1 workflow running</text>
+          <text x="580" y="223" fill="#2a5a72" font-size="8.5" letter-spacing="0.04em">CPU 14%</text>
+          <text x="650" y="223" fill="#2a5a72" font-size="8.5" letter-spacing="0.04em">MEM 1.8 GB</text>
+          <text x="730" y="223" fill="#2a5a72" font-size="8.5" letter-spacing="0.04em">LATENCY 420 ms</text>
         </svg>
       </div>
     </div>
@@ -2677,6 +2709,7 @@ footer {
       <li>Note 4 - Need to change reference to Swagger in the "Build. Run. Connect." section</li>
       <li>Note 5 - Do we remove the reference to AMD Alveo</li>
       <li>Note 6 - Need to re-do the pricing section</li>
+      <li>Note 7 - The "&lt;1s failover time" stat in the hero needs to be replaced</li>
     </ul>
   </div>
   <div id="wip-footer">review draft · not for public use</div>

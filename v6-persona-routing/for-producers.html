@@ -34,13 +34,13 @@ nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   height: 64px; display: flex; align-items: center; justify-content: space-between;
   padding: 0 52px;
-  background: rgba(1,15,24,0.9); backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border-d);
+  background: rgba(1,15,24,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: none;
 }
-.nav-logo { font-size: 17px; font-weight: 700; color: #fff; text-decoration: none; letter-spacing: -0.02em; }
-.nav-logo span { color: var(--blue); }
-.nav-back { font-size: 13px; color: var(--text-d-muted); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
-.nav-back:hover { color: var(--text-d); }
+.nav-logo { text-decoration: none; }
+.nav-links { display: flex; gap: 32px; list-style: none; position: absolute; left: 50%; transform: translateX(-50%); }
+.nav-links a { color: #84BD00; text-decoration: none; font-size: 16px; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: white; }
 .nav-actions { display: flex; gap: 12px; align-items: center; }
 .btn-ghost { font-size: 14px; font-weight: 500; color: var(--text-d); text-decoration: none; padding: 8px 18px; border: 1px solid var(--border-d); border-radius: 6px; transition: border-color 0.2s, color 0.2s; }
 .btn-ghost:hover { border-color: var(--blue); color: var(--blue); }
@@ -189,13 +189,32 @@ nav {
   display: inline-block;
 }
 .btn-dark:hover { background: #003a55; }
+/* Deployment scenarios */
+.scenarios-section{background:var(--bg-light);padding:100px 52px;border-top:1px solid var(--border-l)}
+.scenarios-inner{max-width:1000px;margin:0 auto}
+.scenarios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-l);border:1px solid var(--border-l);border-radius:10px;overflow:hidden}
+.scenario-card{background:var(--bg-white);padding:40px 36px}
+.scenario-type{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--blue);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px}
+.scenario-title{font-size:16px;font-weight:700;color:var(--text-l);letter-spacing:-0.02em;margin-bottom:12px}
+.scenario-challenge{font-size:14px;color:var(--text-l-mid);line-height:1.65;margin-bottom:16px}
+.scenario-outcome{font-size:13.5px;color:var(--text-l);line-height:1.65;margin-bottom:20px}
+.scenario-link{font-size:13px;font-weight:600;color:var(--blue);text-decoration:none;transition:color 0.2s}
+.scenario-link:hover{color:var(--dark)}
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo">Norsk<span>Studio</span></a>
-  <a href="index.html#who" class="nav-back">← All solutions</a>
+  <a href="index.html" class="nav-logo">
+    <img src="../Norsk Reversed Logo Small.png" alt="Norsk" style="height:42px;width:auto;display:block;">
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Norsk Studio</a></li>
+    <li><a href="index.html#who">Solutions</a></li>
+    <li><a href="whats-new.html">What's New</a></li>
+    <li><a href="index.html#pricing">Pricing</a></li>
+    <li><a href="#">Blog</a></li>
+  </ul>
   <div class="nav-actions">
     <a href="#" class="btn-ghost">Get in Touch</a>
     <a href="#" class="btn-solid">Start free trial</a>
@@ -231,15 +250,48 @@ nav {
       </div>
       <div class="step-card">
         <div class="step-num">Step 02</div>
-        <div class="step-title">See producer-focused case studies</div>
-        <p class="step-text">Discover how teams like yours have run sports broadcasts, live concerts, and 24/7 news channels using Norsk Studio.</p>
-        <a href="#" class="step-link">Read case studies →</a>
+        <div class="step-title">Explore common event scenarios</div>
+        <p class="step-text">See how teams like yours have used Norsk for sports broadcasts, 24/7 news channels, and live corporate events — from multi-camera switching to AI-powered overnight monitoring.</p>
+        <a href="#scenarios" class="step-link">See event scenarios →</a>
       </div>
       <div class="step-card">
         <div class="step-num">Step 03</div>
         <div class="step-title">Run your first production workflow</div>
         <p class="step-text">The free trial gets you from sign-up to a live workflow in under 30 minutes. No infrastructure to provision.</p>
         <a href="#" class="step-link">Start free trial →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPLOYMENT SCENARIOS -->
+<section class="scenarios-section" id="scenarios">
+  <div class="scenarios-inner">
+    <p class="section-eyebrow">Common Event Types</p>
+    <h2 class="section-h2">How producers use Norsk Studio</h2>
+    <p class="section-sub">Common event scenarios and how Norsk Studio handles them — with room for your production story as we grow together.</p>
+
+    <div class="scenarios-grid">
+      <div class="scenario-card">
+        <div class="scenario-type">Sports Producer</div>
+        <h3 class="scenario-title">Multi-camera sports broadcast with real-time source switching</h3>
+        <p class="scenario-challenge">A live sports producer needed to manage six camera inputs, switch between sources in real time, apply picture-in-picture for replays, and deliver simultaneously to a CDN and a venue's internal distribution — all from a single operator interface.</p>
+        <p class="scenario-outcome">A single Norsk Studio workflow handled all six inputs, source switching, PiP composition, and dual-destination output. The producer controlled everything from one visual interface during the live event, with per-input monitoring visible throughout.</p>
+        <a href="#" class="scenario-link">Talk to us about your next event →</a>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-type">News Operations</div>
+        <h3 class="scenario-title">24/7 news channel with AI-powered stream monitoring</h3>
+        <p class="scenario-challenge">A news operations team running a 24/7 channel couldn't staff continuous manual monitoring overnight. They needed the system to detect signal issues, trigger alerts, and switch to backup sources automatically — without human intervention.</p>
+        <p class="scenario-outcome">Norsk Reasoning monitored the stream continuously, detected anomalies in real time, and triggered automated failover and alerts without operator intervention overnight. The operations team reviewed decisions each morning and refined detection rules over time.</p>
+        <a href="#" class="scenario-link">Talk to us about your channel →</a>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-type">Live Events Team</div>
+        <h3 class="scenario-title">Corporate event with distributed remote contributors</h3>
+        <p class="scenario-challenge">A corporate live events team needed to bring in six remote presenters via WebRTC alongside on-site cameras, mix them into a single output stream, and deliver to the company's internal platform and a public streaming destination simultaneously.</p>
+        <p class="scenario-outcome">Remote presenters joined via browser-based WebRTC — no specialist hardware on their end. Norsk mixed remote and on-site inputs in the workflow with real-time monitoring for each contributor. Both destinations received the same output from a single encoding pass.</p>
+        <a href="#" class="scenario-link">Talk to us about your next event →</a>
       </div>
     </div>
   </div>
