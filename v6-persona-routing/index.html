@@ -103,7 +103,7 @@ nav {
 .nav-dropdown-menu {
   display: none;
   position: absolute;
-  top: calc(100% + 12px);
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(1,15,24,0.97);
@@ -111,7 +111,7 @@ nav {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(0,169,224,0.15);
   border-radius: 8px;
-  padding: 8px 0;
+  padding: 12px 0 8px;
   min-width: 250px;
   z-index: 200;
   list-style: none;
@@ -1592,6 +1592,9 @@ footer {
   right: 24px;
   z-index: 9999;
   width: 320px;
+  max-height: calc(100vh - 48px);
+  display: flex;
+  flex-direction: column;
   background: #1a1a2e;
   border: 1px solid rgba(255,200,0,0.4);
   border-radius: 10px;
@@ -1628,6 +1631,8 @@ footer {
 
 #wip-body {
   padding: 16px;
+  overflow-y: auto;
+  flex: 1;
 }
 
 #wip-body ul {
@@ -1676,7 +1681,13 @@ footer {
   </a>
 
   <ul class="nav-links">
-    <li><a href="#">Norsk Studio</a></li>
+    <li class="nav-dropdown">
+      <a href="#">Products</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="norsk-studio-live-media-workflow-server/">Norsk Studio</a></li>
+        <li><a href="#">Norsk SDK</a></li>
+      </ul>
+    </li>
     <li><a href="blog.html">Blog</a></li>
     <li class="nav-dropdown">
       <a href="#who">Solutions For</a>

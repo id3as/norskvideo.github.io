@@ -54,7 +54,7 @@ nav {
 .nav-links a:hover { color: #fff; }
 .nav-links a.active { color: #fff; }
 .nav-links li { position: relative; }
-.nav-dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%); background: rgba(1,15,24,0.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(0,169,224,0.15); border-radius: 8px; padding: 8px 0; min-width: 250px; z-index: 200; list-style: none; }
+.nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: rgba(1,15,24,0.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(0,169,224,0.15); border-radius: 8px; padding: 12px 0 8px; min-width: 250px; z-index: 200; list-style: none; }
 .nav-dropdown:hover .nav-dropdown-menu { display: block; }
 .nav-dropdown-menu a { display: block; padding: 10px 20px; color: #84BD00; font-size: 14px; font-weight: 400; white-space: nowrap; }
 .nav-dropdown-menu a:hover { color: white; background: rgba(0,169,224,0.08); }
@@ -356,7 +356,7 @@ footer {
     <img src="../Norsk Reversed Logo Small.png" alt="Norsk" style="height:42px;width:auto;display:block;">
   </a>
   <ul class="nav-links">
-    <li><a href="index.html">Norsk Studio</a></li>
+    <li class="nav-dropdown"><a href="#">Products</a><ul class="nav-dropdown-menu"><li><a href="norsk-studio-live-media-workflow-server/">Norsk Studio</a></li><li><a href="#">Norsk SDK</a></li></ul></li>
     <li class="nav-dropdown">
       <a href="index.html#who">Solutions For</a>
       <ul class="nav-dropdown-menu">
