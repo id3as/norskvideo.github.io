@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Norsk Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --blue:          #00A9E0;
+  --blue-bright:   #00c4ff;
+  --green:         #84BD00;
+  --dark:          #00263A;
+  --bg-dark:       #010f18;
+  --bg-mid:        #021520;
+  --bg-card:       #051e2e;
+  --border-d:      rgba(0,169,224,0.12);
+  --border-card:   rgba(0,169,224,0.1);
+  --text-d:        #d4eaf4;
+  --text-d-muted:  #5a8fa8;
+  --text-d-dim:    #2a5a72;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-d);
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 64px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 52px;
+  background: rgba(1,15,24,0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-d);
+}
+.nav-logo { text-decoration: none; }
+.nav-links {
+  display: flex; gap: 32px; list-style: none;
+  position: absolute; left: 50%; transform: translateX(-50%);
+}
+.nav-links a { color: #84BD00; text-decoration: none; font-size: 16px; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: #fff; }
+.nav-links a.active { color: #fff; }
+.nav-links li { position: relative; }
+.nav-dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%); background: rgba(1,15,24,0.97); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(0,169,224,0.15); border-radius: 8px; padding: 8px 0; min-width: 250px; z-index: 200; list-style: none; }
+.nav-dropdown:hover .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu a { display: block; padding: 10px 20px; color: #84BD00; font-size: 14px; font-weight: 400; white-space: nowrap; }
+.nav-dropdown-menu a:hover { color: white; background: rgba(0,169,224,0.08); }
+.nav-actions { display: flex; gap: 12px; align-items: center; }
+.btn-ghost { font-size: 14px; font-weight: 500; color: var(--text-d); text-decoration: none; padding: 8px 18px; border: 1px solid var(--border-d); border-radius: 6px; transition: border-color 0.2s, color 0.2s; }
+.btn-ghost:hover { border-color: var(--blue); color: #fff; }
+.btn-solid { font-size: 14px; font-weight: 600; color: #fff; text-decoration: none; padding: 8px 18px; background: var(--blue); border-radius: 6px; transition: background 0.2s; }
+.btn-solid:hover { background: var(--blue-bright); }
+
+/* ============================================================
+   PAGE HEADER
+   ============================================================ */
+.page-header {
+  padding: 120px 52px 64px;
+  background: var(--bg-dark);
+  border-bottom: 1px solid var(--border-d);
+}
+.page-header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.page-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.page-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+}
+.page-header h1 {
+  font-size: 40px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+.page-header-sub {
+  font-size: 16px;
+  color: var(--text-d-muted);
+  line-height: 1.65;
+  max-width: 520px;
+}
+.post-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-d-dim);
+  white-space: nowrap;
+}
+.post-count strong { color: var(--text-d-muted); }
+
+/* ============================================================
+   FILTER BAR
+   ============================================================ */
+.filter-bar {
+  position: sticky;
+  top: 64px;
+  z-index: 100;
+  background: rgba(1,15,24,0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-d);
+  padding: 0 52px;
+}
+.filter-bar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  gap: 4px;
+  padding: 12px 0;
+}
+.filter-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-d-muted);
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.filter-btn:hover { color: var(--text-d); border-color: var(--border-d); }
+.filter-btn.active { color: var(--blue); border-color: rgba(0,169,224,0.3); background: rgba(0,169,224,0.06); }
+
+/* ============================================================
+   BLOG GRID
+   ============================================================ */
+.blog-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 52px 80px;
+}
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* ============================================================
+   BLOG CARD
+   ============================================================ */
+.blog-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s, transform 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+.blog-card:hover {
+  border-color: rgba(0,169,224,0.3);
+  transform: translateY(-2px);
+}
+
+/* Image area */
+.blog-img {
+  position: relative;
+  height: 170px;
+  overflow: hidden;
+  background: var(--bg-mid);
+  flex-shrink: 0;
+}
+.blog-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Placeholder gradient when no image */
+.blog-img-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--grad-from, #021520) 0%, var(--grad-to, #041c2c) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.blog-img-placeholder svg {
+  opacity: 0.08;
+  width: 80px;
+  height: 80px;
+}
+/* Accent bar at bottom of image */
+.blog-img::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--card-accent, var(--blue));
+  opacity: 0.7;
+}
+
+/* Card body */
+.blog-body {
+  padding: 24px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.blog-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.blog-cat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  background: var(--cat-bg, rgba(0,169,224,0.1));
+  color: var(--cat-color, var(--blue));
+  border: 1px solid var(--cat-border, rgba(0,169,224,0.2));
+}
+.blog-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-d-dim);
+  letter-spacing: 0.04em;
+}
+.blog-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+.blog-card:hover .blog-title { color: var(--blue-bright); }
+.blog-excerpt {
+  font-size: 13.5px;
+  color: var(--text-d-muted);
+  line-height: 1.65;
+  flex: 1;
+  margin-bottom: 18px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.blog-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--blue);
+  text-decoration: none;
+  transition: color 0.2s;
+  align-self: flex-start;
+}
+.blog-link:hover { color: var(--blue-bright); }
+
+/* Category colour tokens */
+.cat-ai    { --cat-bg: rgba(0,169,224,0.1);  --cat-color: #00A9E0; --cat-border: rgba(0,169,224,0.2);  --card-accent: #00A9E0; --grad-from: #021a2c; --grad-to: #031d30; }
+.cat-partner { --cat-bg: rgba(132,189,0,0.1); --cat-color: #84BD00; --cat-border: rgba(132,189,0,0.2);  --card-accent: #84BD00; --grad-from: #071a02; --grad-to: #0a2003; }
+.cat-eng   { --cat-bg: rgba(120,100,220,0.1); --cat-color: #9b87f5; --cat-border: rgba(120,100,220,0.2); --card-accent: #9b87f5; --grad-from: #100b20; --grad-to: #130d25; }
+.cat-std   { --cat-bg: rgba(245,166,35,0.1);  --cat-color: #F5A623; --cat-border: rgba(245,166,35,0.2);  --card-accent: #F5A623; --grad-from: #1c1002; --grad-to: #201303; }
+.cat-product { --cat-bg: rgba(0,200,180,0.1); --cat-color: #00C8B4; --cat-border: rgba(0,200,180,0.2);  --card-accent: #00C8B4; --grad-from: #021c1a; --grad-to: #031f1d; }
+
+/* ============================================================
+   SCROLL SENTINEL & LOAD INDICATOR
+   ============================================================ */
+#scroll-sentinel {
+  height: 1px;
+  margin-top: 40px;
+}
+.load-indicator {
+  display: none;
+  text-align: center;
+  padding: 32px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-d-dim);
+  text-transform: uppercase;
+}
+.load-indicator.visible { display: block; }
+
+.end-message {
+  display: none;
+  text-align: center;
+  padding: 48px 0 0;
+  font-size: 14px;
+  color: var(--text-d-dim);
+}
+.end-message.visible { display: block; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--bg-dark);
+  border-top: 1px solid var(--border-d);
+  padding: 40px 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px; flex-wrap: wrap;
+}
+.footer-logo { font-size: 16px; font-weight: 700; color: #fff; text-decoration: none; letter-spacing: -0.02em; }
+.footer-logo span { color: var(--blue); }
+.footer-copy { font-size: 13px; color: var(--text-d-dim); }
+.footer-links { display: flex; gap: 24px; list-style: none; }
+.footer-links a { font-size: 13px; color: var(--text-d-dim); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--text-d-muted); }
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="../Norsk Reversed Logo Small.png" alt="Norsk" style="height:42px;width:auto;display:block;">
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Norsk Studio</a></li>
+    <li class="nav-dropdown">
+      <a href="index.html#who">Solutions</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="for-broadcasters.html">Broadcasters &amp; Enterprise Leaders</a></li>
+        <li><a href="for-engineers.html">Media Workflow Engineers</a></li>
+        <li><a href="for-developers.html">Streaming Engineering Leaders</a></li>
+        <li><a href="for-integrators.html">Solution Architects &amp; Integrators</a></li>
+        <li><a href="for-producers.html">Live Event Producers</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="whats-new.html">What's New</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="whats-new.html#nab-2026">NAB 2026</a></li>
+        <li><a href="whats-new.html#q1-2026">Q1 2026</a></li>
+        <li><a href="whats-new.html#q4-2025">Q4 2025</a></li>
+        <li><a href="whats-new.html#ibc-2025">IBC 2025</a></li>
+      </ul>
+    </li>
+    <li><a href="index.html#pricing">Pricing</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="#" class="btn-ghost">Get in Touch</a>
+    <a href="#" class="btn-solid">Start free trial</a>
+  </div>
+</nav>
+
+<!-- ============================================================
+     PAGE HEADER
+     ============================================================ -->
+<header class="page-header">
+  <div class="page-header-inner">
+    <div>
+      <p class="page-eyebrow">Insights &amp; Updates</p>
+      <h1>The Norsk Blog</h1>
+      <p class="page-header-sub">Engineering deep-dives, product news, partnerships, and thinking on the future of live video.</p>
+    </div>
+    <p class="post-count"><strong>12</strong> posts</p>
+  </div>
+</header>
+
+<!-- ============================================================
+     FILTER BAR
+     ============================================================ -->
+<div class="filter-bar">
+  <div class="filter-bar-inner">
+    <button class="filter-btn active" data-filter="all"     onclick="filterPosts('all')">All</button>
+    <button class="filter-btn"        data-filter="ai"      onclick="filterPosts('ai')">AI &amp; Automation</button>
+    <button class="filter-btn"        data-filter="partner" onclick="filterPosts('partner')">Partnerships</button>
+    <button class="filter-btn"        data-filter="eng"     onclick="filterPosts('eng')">Engineering</button>
+    <button class="filter-btn"        data-filter="std"     onclick="filterPosts('std')">Standards &amp; Protocols</button>
+    <button class="filter-btn"        data-filter="product" onclick="filterPosts('product')">Product</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     BLOG POSTS
+     ============================================================ -->
+<div class="blog-main">
+  <div class="blog-grid" id="blog-grid">
+
+    <!-- 1 — April 13, 2026 -->
+    <a href="https://norsk.video/blog/context-is-king-ai-in-live-video-production" class="blog-card cat-ai" data-category="ai">
+      <div class="blog-img">
+        <div class="blog-img-placeholder">
+          <svg viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1">
+            <circle cx="40" cy="40" r="30"/><circle cx="40" cy="40" r="18"/><circle cx="40" cy="40" r="6"/>
+            <line x1="40" y1="10" x2="40" y2="70"/><line x1="10" y1="40" x2="70" y2="40"/>
+          </svg>
+        </div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">AI &amp; Automation</span>
+          <span class="blog-date">Apr 13, 2026</span>
+        </div>
+        <h3 class="blog-title">Context is King: AI in Live Video Production</h3>
+        <p class="blog-excerpt">The promise of AI in live video is easy to oversell. Norsk and CaptionHub's recent collaboration on real-time AI captioning shows what it looks like when the technology actually delivers.</p>
+        <span class="blog-link">Read more →</span>
+      </div>
+    </a>
+
+    <!-- 2 — April 13, 2026 -->
+    <a href="https://norsk.video/blog/norsk-and-cloudflare-to-demo-moq-workflow-at-nab-2026" class="blog-card cat-partner" data-category="partner">
+      <div class="blog-img">
+        <div class="blog-img-placeholder">
+          <svg viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1">
+            <rect x="10" y="25" width="26" height="18" rx="2"/><rect x="44" y="25" width="26" height="18" rx="2"/>
+            <line x1="36" y1="34" x2="44" y2="34"/><circle cx="40" cy="34" r="3"/>
+            <path d="M20 43 Q20 60 40 60 Q60 60 60 43"/>
+          </svg>
+        </div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Partnerships</span>
+          <span class="blog-date">Apr 13, 2026</span>
+        </div>
+        <h3 class="blog-title">Norsk and Cloudflare to Demo MoQ Workflow at NAB 2026</h3>
+        <p class="blog-excerpt">If you've been paying attention to announcements on LinkedIn, this year's NAB Show marks a significant milestone for sub-second delivery at CDN scale — and we'll be demonstrating it live at Booth W3113.</p>
+        <span class="blog-link">Read more →</span>
+      </div>
+    </a>
+
+    <!-- 3 — March 10, 2026 -->
+    <a href="https://norsk.video/blog/cmsd-mqa-for-standards-based-end-to-end-media-quality-monitoring" class="blog-card cat-std" data-category="std">
+      <div class="blog-img">
+        <div class="blog-img-placeholder">
+          <svg viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1">
+            <polyline points="10,55 25,35 38,45 52,25 65,38 75,28"/>
+            <line x1="10" y1="60" x2="75" y2="60"/>
+            <line x1="10" y1="20" x2="10" y2="60"/>
+          </svg>
+        </div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Standards &amp; Protocols</span>
+          <span class="blog-date">Mar 10, 2026</span>
+        </div>
+        <h3 class="blog-title">CMSD-MQA for Standards-Based, End-to-End Media Quality Monitoring</h3>
+        <p class="blog-excerpt">Last winter, Norsk CEO Adrian Roe joined a workshop introducing a new, standards-based approach to media quality monitoring — one that could reshape how the industry thinks about end-to-end visibility.</p>
+        <span class="blog-link">Read more →</span>
+      </div>
+    </a>
+
+    <!-- 4 — December 22, 2025 -->
+    <a href="https://norsk.video/blog/five-live-streaming-workflows-you-can-build-with-norsk-studios-mcp" class="blog-card cat-product" data-category="product">
+      <div class="blog-img">
+        <div class="blog-img-placeholder">
+          <svg viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1">
+            <rect x="12" y="20" width="56" height="40" rx="3"/>
+            <line x1="22" y1="32" x2="58" y2="32"/><line x1="22" y1="40" x2="50" y2="40"/><line x1="22" y1="48" x2="44" y2="48"/>
+          </svg>
+        </div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Product</span>
+          <span class="blog-date">Dec 22, 2025</span>
+        </div>
+        <h3 class="blog-title">Five Live Streaming Workflows You Can Build with Norsk Studio's MCP</h3>
+        <p class="blog-excerpt">As we close out 2025, we find ourselves in the peculiar position of having to confess that some of the most interesting workflows being built with Norsk Studio are ones we didn't plan for.</p>
+        <span class="blog-link">Read more →</span>
+      </div>
+    </a>
+
+    <!-- 5 — December 5, 2025 -->
+    <a href="https://norsk.video/blog/norsk-announces-integration-with-layercakes-streamcake" class="blog-card cat-partner" data-category="partner">
+      <div class="blog-img">
+        <div class="blog-img-placeholder">
+          <svg viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1">
+            <rect x="10" y="25" width="26" height="18" rx="2"/><rect x="44" y="25" width="26" height="18" rx="2"/>
+            <line x1="36" y1="34" x2="44" y2="34"/><circle cx="40" cy="34" r="3"/>
+            <path d="M20 43 Q20 60 40 60 Q60 60 60 43"/>
+          </svg>
+        </div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Partnerships</span>
+          <span class="blog-date">Dec 5, 2025</span>
+        </div>
+        <h3 class="blog-title">Norsk Announces Integration with Layercake's Streamcake</h3>
+        <p class="blog-excerpt">Layercake, the company behind the intelligent media workflow platform Streamcake, today announced a native integration with Norsk Studio — bringing together visual workflow design and intelligent automation.</p>
+        <span class="blog-link">Read more →</span>
+      </div>
+    </a>
+
+    <!-- 6 — October 25, 2025 -->
+    <a href="https://norsk.video/blog/visualizing-live-stream-synchronization-and-metrics-in-norsk" class="blog-card cat-eng" data-category="eng">
+      <div class="blog-img">
+        <div class="blog-img-placeholder">
+          <svg viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1">
+            <rect x="8" y="20" width="64" height="40" rx="2"/>
+            <line x1="8" y1="35" x2="72" y2="35"/>
+            <circle cx="28" cy="27" r="2"/><circle cx="38" cy="27" r="2"/><circle cx="48" cy="27" r="2"/>
+            <polyline points="16,55 26,45 36,50 48,38 60,44"/>
+          </svg>
+        </div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Engineering</span>
+          <span class="blog-date">Oct 25, 2025</span>
+        </div>
+        <h3 class="blog-title">Visualizing Live Stream Synchronization and Metrics in Norsk</h3>
+        <p class="blog-excerpt">Every live streaming workflow relies on synchronization, ensuring that multiple streams stay aligned in time. Here's how Norsk surfaces that data in a way operators can actually use under pressure.</p>
+        <span class="blog-link">Read more →</span>
+      </div>
+    </a>
+
+    <!-- 7 — October 25, 2025 -->
+    <a href="https://norsk.video/blog/how-norsk-handles-discontinuities-in-live-streams" class="blog-card cat-eng" data-category="eng">
+      <div class="blog-img">
+        <div class="blog-img-placeholder">
+          <svg viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1">
+            <line x1="10" y1="40" x2="28" y2="40"/>
+            <line x1="52" y1="40" x2="70" y2="40"/>
+            <path d="M28 40 Q35 20 40 40 Q45 60 52 40" stroke-dasharray="2 2"/>
+            <circle cx="28" cy="40" r="3"/><circle cx="52" cy="40" r="3"/>
+          </svg>
+        </div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Engineering</span>
+          <span class="blog-date">Oct 25, 2025</span>
+        </div>
+        <h3 class="blog-title">How Norsk Handles Discontinuities in Live Streams</h3>
+        <p class="blog-excerpt">In a perfect world, time would only move forward monotonically. Live video doesn't live in that world — and Norsk's approach to stream discontinuities is built around that reality.</p>
+        <span class="blog-link">Read more →</span>
+      </div>
+    </a>
+
+    <!-- 8 — October 25, 2025 -->
+    <a href="https://norsk.video/blog/how-norsk-ensures-your-live-streams-are-in-sync" class="blog-card cat-eng" data-category="eng">
+      <div class="blog-img">
+        <div class="blog-img-placeholder">
+          <svg viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1">
+            <circle cx="40" cy="40" r="24"/>
+            <line x1="40" y1="16" x2="40" y2="40"/>
+            <line x1="40" y1="40" x2="56" y2="30"/>
+            <circle cx="40" cy="40" r="3" fill="white" stroke="none"/>
+          </svg>
+        </div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Engineering</span>
+          <span class="blog-date">Oct 25, 2025</span>
+        </div>
+        <h3 class="blog-title">How Norsk Ensures Your Live Streams Are in Sync</h3>
+        <p class="blog-excerpt">Given the chaotic nature of incoming video streams, a live streaming system like Norsk has to do a lot of work behind the scenes to keep everything aligned. This post explains how.</p>
+        <span class="blog-link">Read more →</span>
+      </div>
+    </a>
+
+    <!-- 9 — October 8, 2025 -->
+    <a href="https://norsk.video/blog/how-to-override-configuration-settings-in-norsk-studio" class="blog-card cat-product" data-category="product">
+      <div class="blog-img">
+        <div class="blog-img-placeholder">
+          <svg viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1">
+            <circle cx="40" cy="40" r="14"/>
+            <line x1="40" y1="10" x2="40" y2="22"/><line x1="40" y1="58" x2="40" y2="70"/>
+            <line x1="10" y1="40" x2="22" y2="40"/><line x1="58" y1="40" x2="70" y2="40"/>
+            <line x1="18" y1="18" x2="26" y2="26"/><line x1="54" y1="54" x2="62" y2="62"/>
+            <line x1="62" y1="18" x2="54" y2="26"/><line x1="26" y1="54" x2="18" y2="62"/>
+          </svg>
+        </div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Product</span>
+          <span class="blog-date">Oct 8, 2025</span>
+        </div>
+        <h3 class="blog-title">How to Override Configuration Settings in Norsk Studio</h3>
+        <p class="blog-excerpt">Norsk Studio offers a flexible method for overriding configuration settings without touching your base workflow definition — useful for environment-specific deployments and rapid iteration.</p>
+        <span class="blog-link">Read more →</span>
+      </div>
+    </a>
+
+    <!-- 10 — October 2, 2025 -->
+    <a href="https://norsk.video/blog/understanding-cmsd-smarter-streaming-quality-monitoring" class="blog-card cat-std" data-category="std">
+      <div class="blog-img">
+        <div class="blog-img-placeholder">
+          <svg viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1">
+            <polyline points="10,55 25,35 38,45 52,25 65,38 75,28"/>
+            <line x1="10" y1="60" x2="75" y2="60"/>
+            <line x1="10" y1="20" x2="10" y2="60"/>
+          </svg>
+        </div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Standards &amp; Protocols</span>
+          <span class="blog-date">Oct 2, 2025</span>
+        </div>
+        <h3 class="blog-title">Understanding CMSD: Smarter Streaming Quality Monitoring</h3>
+        <p class="blog-excerpt">One of the most potentially disruptive developments in the streaming and broadcast space is a quiet standard called CMSD — and it's about to change how quality monitoring works end-to-end.</p>
+        <span class="blog-link">Read more →</span>
+      </div>
+    </a>
+
+    <!-- 11 — October 2, 2025 -->
+    <a href="https://norsk.video/blog/what-is-tams-and-why-does-it-matter" class="blog-card cat-std" data-category="std">
+      <div class="blog-img">
+        <div class="blog-img-placeholder">
+          <svg viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1">
+            <rect x="12" y="18" width="56" height="12" rx="2"/>
+            <rect x="12" y="34" width="56" height="12" rx="2"/>
+            <rect x="12" y="50" width="56" height="12" rx="2"/>
+            <line x1="22" y1="18" x2="22" y2="62"/><line x1="35" y1="18" x2="35" y2="62"/>
+          </svg>
+        </div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Standards &amp; Protocols</span>
+          <span class="blog-date">Oct 2, 2025</span>
+        </div>
+        <h3 class="blog-title">What is TAMS, and Why Does It Matter?</h3>
+        <p class="blog-excerpt">Your viewers expect to control when and how they watch — pausing live broadcasts, rewinding, catching up. TAMS is the standard that makes this possible without rebuilding your pipeline.</p>
+        <span class="blog-link">Read more →</span>
+      </div>
+    </a>
+
+    <!-- 12 — September 25, 2025 -->
+    <a href="https://norsk.video/blog/introducing-norsk-kick-start-and-developer-onboarding-packages" class="blog-card cat-product" data-category="product">
+      <div class="blog-img">
+        <div class="blog-img-placeholder">
+          <svg viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="1">
+            <polygon points="40,12 70,65 10,65"/>
+            <line x1="40" y1="30" x2="40" y2="50"/>
+            <circle cx="40" cy="56" r="2" fill="white" stroke="none"/>
+          </svg>
+        </div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span class="blog-cat">Product</span>
+          <span class="blog-date">Sep 25, 2025</span>
+        </div>
+        <h3 class="blog-title">Introducing Norsk Kick Start and Developer Onboarding Packages</h3>
+        <p class="blog-excerpt">Building compelling live streaming workflows shouldn't require months of trial and error. The new Kick Start and Developer Onboarding packages are designed to get teams to first production stream faster.</p>
+        <span class="blog-link">Read more →</span>
+      </div>
+    </a>
+
+  </div><!-- /blog-grid -->
+
+  <div id="scroll-sentinel"></div>
+  <div class="load-indicator" id="load-indicator">Loading…</div>
+  <div class="end-message" id="end-message">You've reached the end. <a href="#" style="color:var(--blue);">Back to top ↑</a></div>
+
+</div><!-- /blog-main -->
+
+<footer>
+  <a href="index.html" class="footer-logo">Norsk<span>Studio</span></a>
+  <p class="footer-copy">© 2026 Norsk. All rights reserved.</p>
+  <ul class="footer-links">
+    <li><a href="#">Documentation</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="#">Privacy</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</footer>
+
+<script>
+// ── Category filter ──────────────────────────────────────────
+function filterPosts(category) {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.filter === category);
+  });
+  const cards = document.querySelectorAll('.blog-card');
+  cards.forEach(card => {
+    const match = category === 'all' || card.dataset.category === category;
+    card.style.display = match ? '' : 'none';
+  });
+}
+
+// ── Infinite scroll ──────────────────────────────────────────
+const BATCH = 6;
+const allCards = Array.from(document.querySelectorAll('.blog-card'));
+const sentinel = document.getElementById('scroll-sentinel');
+const loadIndicator = document.getElementById('load-indicator');
+const endMessage = document.getElementById('end-message');
+let shown = 0;
+
+function showBatch() {
+  const next = Math.min(shown + BATCH, allCards.length);
+  for (let i = shown; i < next; i++) {
+    allCards[i].classList.add('visible');
+  }
+  shown = next;
+  if (shown >= allCards.length) {
+    sentinel.remove();
+    loadIndicator.classList.remove('visible');
+    endMessage.classList.add('visible');
+  }
+}
+
+// Hide all cards initially, then show first batch
+allCards.forEach(c => { c.style.opacity = '0'; c.style.transform = 'translateY(12px)'; c.style.transition = 'opacity 0.3s ease, transform 0.3s ease'; });
+
+function revealBatch() {
+  const next = Math.min(shown + BATCH, allCards.length);
+  for (let i = shown; i < next; i++) {
+    const card = allCards[i];
+    setTimeout(() => {
+      card.style.opacity = '';
+      card.style.transform = '';
+    }, (i - shown) * 60);
+  }
+  shown = next;
+  if (shown >= allCards.length) {
+    if (sentinel.parentNode) sentinel.remove();
+    endMessage.classList.add('visible');
+  }
+}
+
+// First batch on load
+revealBatch();
+
+// Subsequent batches via IntersectionObserver
+const observer = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    loadIndicator.classList.add('visible');
+    setTimeout(() => {
+      revealBatch();
+      loadIndicator.classList.remove('visible');
+    }, 300);
+  }
+}, { rootMargin: '200px' });
+
+if (sentinel.parentNode) observer.observe(sentinel);
+</script>
+
+</body>
+</html>
