@@ -201,6 +201,15 @@ nav {
 .scenario-outcome{font-size:13.5px;color:var(--text-l);line-height:1.65;margin-bottom:20px}
 .scenario-link{font-size:13px;font-weight:600;color:var(--blue);text-decoration:none;transition:color 0.2s}
 .scenario-link:hover{color:var(--dark)}
+#wip-panel{position:fixed;bottom:24px;right:24px;z-index:9999;width:320px;max-height:calc(100vh - 48px);display:flex;flex-direction:column;background:#1a1a2e;border:1px solid rgba(255,200,0,0.4);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.4);font-family:'Inter',sans-serif;font-size:13px;color:#e8e8e8;overflow:hidden}
+#wip-header{background:rgba(255,200,0,0.15);border-bottom:1px solid rgba(255,200,0,0.3);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none}
+#wip-header span{font-weight:600;font-size:12px;letter-spacing:0.05em;color:#ffd700}
+#wip-toggle{font-size:16px;color:#ffd700;line-height:1}
+#wip-body{padding:16px;overflow-y:auto;flex:1}
+#wip-body ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin:0;padding:0}
+#wip-body li{display:flex;align-items:flex-start;gap:10px;line-height:1.5;color:#ccc}
+#wip-body li::before{content:'·';color:#ffd700;font-size:18px;line-height:1.2;flex-shrink:0}
+#wip-footer{padding:10px 16px;border-top:1px solid rgba(255,255,255,0.06);font-size:11px;color:rgba(255,255,255,0.25);font-family:'JetBrains Mono',monospace}
 </style>
 </head>
 <body>
@@ -365,6 +374,20 @@ nav {
     <a href="#" class="btn-dark">Start free trial</a>
   </div>
 </section>
+
+<!-- WIP REVIEW PANEL  (remove before launch) -->
+<div id="wip-panel">
+  <div id="wip-header" onclick="document.getElementById('wip-body').style.display = document.getElementById('wip-body').style.display === 'none' ? 'block' : 'none'; document.getElementById('wip-toggle').textContent = document.getElementById('wip-body').style.display === 'none' ? '+' : '−';">
+    <span>⚠ WORK IN PROGRESS</span>
+    <span id="wip-toggle">−</span>
+  </div>
+  <div id="wip-body">
+    <ul>
+      <li>Note 1 — Similar to Broadcast &amp; Enterprise Leaders page — lack of case studies means we have to provide something like buying journeys and implementation scenarios.</li>
+    </ul>
+  </div>
+  <div id="wip-footer">review draft · not for public use</div>
+</div>
 
 </body>
 </html>
