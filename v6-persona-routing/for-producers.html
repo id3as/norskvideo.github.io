@@ -41,6 +41,7 @@ nav {
 .nav-links { display: flex; gap: 32px; list-style: none; position: absolute; left: 50%; transform: translateX(-50%); }
 .nav-links a { color: #84BD00; text-decoration: none; font-size: 16px; font-weight: 500; transition: color 0.2s; }
 .nav-links a:hover { color: white; }
+.nav-links li{position:relative}.nav-dropdown-menu{display:none;position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);background:rgba(1,15,24,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(0,169,224,0.15);border-radius:8px;padding:8px 0;min-width:250px;z-index:200;list-style:none}.nav-dropdown:hover .nav-dropdown-menu{display:block}.nav-dropdown-menu a{display:block;padding:10px 20px;color:#84BD00;font-size:14px;font-weight:400;white-space:nowrap}.nav-dropdown-menu a:hover{color:white;background:rgba(0,169,224,0.08)}
 .nav-actions { display: flex; gap: 12px; align-items: center; }
 .btn-ghost { font-size: 14px; font-weight: 500; color: var(--text-d); text-decoration: none; padding: 8px 18px; border: 1px solid var(--border-d); border-radius: 6px; transition: border-color 0.2s, color 0.2s; }
 .btn-ghost:hover { border-color: var(--blue); color: var(--blue); }
@@ -210,7 +211,16 @@ nav {
   </a>
   <ul class="nav-links">
     <li><a href="index.html">Norsk Studio</a></li>
-    <li><a href="index.html#who">Solutions</a></li>
+    <li class="nav-dropdown">
+      <a href="index.html#who">Solutions</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="for-broadcasters.html">Broadcasters &amp; Enterprise Leaders</a></li>
+        <li><a href="for-engineers.html">Media Workflow Engineers</a></li>
+        <li><a href="for-developers.html">Streaming Engineering Leaders</a></li>
+        <li><a href="for-integrators.html">Solution Architects &amp; Integrators</a></li>
+        <li><a href="for-producers.html">Live Event Producers</a></li>
+      </ul>
+    </li>
     <li><a href="whats-new.html">What's New</a></li>
     <li><a href="index.html#pricing">Pricing</a></li>
     <li><a href="#">Blog</a></li>
