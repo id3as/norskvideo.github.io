@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Norsk Studio for Broadcasters &amp; Enterprise Leaders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue:#00A9E0; --blue-bright:#00c4ff; --green:#84BD00; --dark:#00263A;
+  --bg-dark:#ffffff; --border-d:#e2e2e2;
+  --bg-light:#f5f5f5; --bg-white:#ffffff; --border-l:#e2e2e2;
+  --text-d:#111111; --text-d-muted:#666666;
+  --text-l:#111111; --text-l-mid:#444444;
+  /* ── theme tokens ── */
+  --nav-bg:             rgba(255,255,255,0.95);
+  --nav-border:         1px solid #e2e2e2;
+  --nav-link:           #666666;
+  --nav-link-hover:     #111111;
+  --nav-active:         #111111;
+  --dropdown-bg:        rgba(255,255,255,0.98);
+  --dropdown-link:      #444444;
+  --dropdown-hov-color: #111111;
+  --dropdown-hov-bg:    #f5f5f5;
+  --logo-filter:        brightness(0);
+  --svg-node-bg:        #f0f4f6;
+  --svg-node-text:      #111111;
+  --svg-label:          #888888;
+  --svg-dim:            #aaaaaa;
+  --svg-line:           #bbbbbb;
+}
+html[data-theme="dark"] {
+  --bg-dark:            #010f18;
+  --bg-mid:             #021520;
+  --bg-light:           #021a2e;
+  --bg-white:           #021520;
+  --bg-card:            #021a2e;
+  --border-d:           rgba(0,169,224,0.12);
+  --border-card:        rgba(0,169,224,0.12);
+  --border-l:           rgba(0,38,58,0.1);
+  --text-d:             #d4eaf4;
+  --text-d-muted:       #5a8fa8;
+  --text-d-dim:         #8aacba;
+  --text-l:             #d4eaf4;
+  --text-l-mid:         #8aacba;
+  --text-l-light:       #5a8fa8;
+  --nav-bg:             rgba(1,15,24,0.9);
+  --nav-border:         none;
+  --nav-link:           #84BD00;
+  --nav-link-hover:     #ffffff;
+  --nav-active:         #ffffff;
+  --dropdown-bg:        rgba(1,15,24,0.97);
+  --dropdown-link:      #84BD00;
+  --dropdown-hov-color: #ffffff;
+  --dropdown-hov-bg:    rgba(255,255,255,0.05);
+  --logo-filter:        none;
+  --svg-node-bg:        #030f18;
+  --svg-node-text:      #d4eaf4;
+  --svg-label:          #4a7d95;
+  --svg-dim:            #2a5a72;
+  --svg-line:           #2a5a72;
+}
+
+*{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+body{font-family:'Geist',-apple-system,sans-serif;background:#ffffff;color:#111111;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 52px;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid #e2e2e2}
+.nav-logo{text-decoration:none}
+.nav-links{display:flex;gap:32px;list-style:none;position:absolute;left:50%;transform:translateX(-50%)}
+.nav-links a{color:var(--nav-link);text-decoration:none;font-size:16px;font-weight:500;transition:color 0.2s}
+.nav-links a:hover{color:var(--nav-link-hover)}
+.nav-links li{position:relative}.nav-dropdown-menu{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:var(--dropdown-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid #e2e2e2;border-radius:8px;padding:12px 0 8px;min-width:250px;z-index:200;list-style:none}.nav-dropdown:hover .nav-dropdown-menu{display:block}.nav-dropdown-menu a{display:block;padding:10px 20px;color:var(--dropdown-link);font-size:14px;font-weight:400;white-space:nowrap}.nav-dropdown-menu a:hover{color:var(--dropdown-hov-color);background:var(--dropdown-hov-bg)}
+.nav-actions{display:flex;gap:12px;align-items:center}
+.btn-ghost{font-size:14px;font-weight:500;color:var(--text-d);text-decoration:none;padding:8px 18px;border:1px solid #e2e2e2;border-radius:6px;transition:border-color 0.2s,color 0.2s}
+.btn-ghost:hover{border-color:#999999;color:#111111}
+.btn-solid{font-size:14px;font-weight:600;color:var(--dark);background:var(--blue);text-decoration:none;padding:8px 18px;border-radius:6px}
+.p-hero{padding:140px 52px 100px;background:var(--bg-dark);position:relative;overflow:hidden}
+.p-hero::before{content:'';position:absolute;top:0;left:-300px;width:900px;height:600px;background:radial-gradient(ellipse,rgba(0,0,0,0.02) 0%,transparent 70%);pointer-events:none}
+.p-hero-inner{max-width:760px}
+.p-eyebrow{font-family:'Geist Mono',monospace;font-size:11px;color:var(--blue);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:20px}
+.p-hero h1{font-size:clamp(36px,5vw,54px);font-weight:800;letter-spacing:-0.03em;line-height:1.1;color:var(--dark);margin-bottom:24px}
+.p-hero h1 em{color:var(--blue);font-style:normal}
+.p-hero-sub{font-size:18px;color:#666666;line-height:1.65;max-width:600px;margin-bottom:40px}
+.p-hero-ctas{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.btn-primary{font-size:15px;font-weight:600;color:var(--dark);background:var(--blue);text-decoration:none;padding:13px 28px;border-radius:7px;transition:background 0.2s}
+.btn-primary:hover{background:var(--blue-bright)}
+.btn-secondary{font-size:15px;font-weight:500;color:var(--dark);text-decoration:none;transition:color 0.2s}
+.btn-secondary:hover{color:var(--blue)}
+/* Reassurance strip */
+.reassure-strip{display:flex;gap:32px;margin-top:48px;padding-top:40px;border-top:1px solid var(--border-d);flex-wrap:wrap}
+.reassure-item{}
+.reassure-num{font-family:'Geist Mono',monospace;font-size:22px;font-weight:500;color:#fff;letter-spacing:-0.02em;margin-bottom:4px}
+.reassure-label{font-size:12px;color:var(--text-d-muted)}
+/* Deployment scenarios */
+.scenarios-section{background:var(--bg-light);padding:100px 52px}
+.scenarios-inner{max-width:1000px;margin:0 auto}
+.section-eyebrow{font-family:'Geist Mono',monospace;font-size:11px;color:var(--green);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px}
+.section-h2{font-size:clamp(28px,3.5vw,38px);font-weight:800;letter-spacing:-0.03em;color:var(--text-l);margin-bottom:16px}
+.section-sub{font-size:16px;color:var(--text-l-mid);line-height:1.65;max-width:560px;margin-bottom:60px}
+.scenarios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-l);border:1px solid var(--border-l);border-radius:10px;overflow:hidden}
+.scenario-card{background:var(--bg-white);padding:40px 36px}
+.scenario-type{font-family:'Geist Mono',monospace;font-size:11px;font-weight:700;color:var(--blue);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px}
+.scenario-title{font-size:16px;font-weight:700;color:var(--text-l);letter-spacing:-0.02em;margin-bottom:12px}
+.scenario-challenge{font-size:14px;color:var(--text-l-mid);line-height:1.65;margin-bottom:16px}
+.scenario-outcome{font-size:13.5px;color:var(--text-l);line-height:1.65;margin-bottom:20px}
+.scenario-link{font-size:13px;font-weight:600;color:var(--blue);text-decoration:none;transition:color 0.2s}
+.scenario-link:hover{color:var(--blue)}
+/* Journey */
+.journey-section{background:var(--bg-dark);padding:100px 52px;border-top:1px solid var(--border-d)}
+.journey-inner{max-width:1000px;margin:0 auto}
+.journey-inner .section-eyebrow{color:var(--blue)}
+.journey-inner .section-h2{color:#fff}
+.journey-inner .section-sub{color:var(--text-d-muted)}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-d);border:1px solid #e2e2e2;border-radius:10px;overflow:hidden}
+.step-card{background:#f8f8f8;padding:40px 36px}
+.step-num{font-family:'Geist Mono',monospace;font-size:11px;color:var(--blue);letter-spacing:0.1em;margin-bottom:16px}
+.step-title{font-size:17px;font-weight:700;color:var(--text-d);letter-spacing:-0.02em;margin-bottom:10px}
+.step-text{font-size:14px;color:#666666;line-height:1.7;margin-bottom:20px}
+.step-link{font-size:13px;font-weight:600;color:var(--blue);text-decoration:none;transition:color 0.2s}
+.step-link:hover{color:var(--blue-bright)}
+/* ROI section */
+.roi-section{background:var(--bg-light);padding:100px 52px;border-top:1px solid var(--border-l)}
+.roi-inner{max-width:1000px;margin:0 auto}
+.roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+.roi-left{}
+.roi-right{}
+.roi-points{list-style:none;display:flex;flex-direction:column;gap:20px;margin-top:40px}
+.roi-point{display:flex;gap:16px;align-items:flex-start}
+.roi-icon{font-size:18px;color:var(--green);flex-shrink:0;margin-top:2px}
+.roi-point-title{font-size:15px;font-weight:700;color:var(--text-l);margin-bottom:4px}
+.roi-point-text{font-size:13.5px;color:var(--text-l-mid);line-height:1.65}
+.pricing-note{background:var(--bg-white);border:1px solid var(--border-l);border-radius:10px;padding:36px}
+.pricing-note-label{font-family:'Geist Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px}
+.pricing-note-title{font-size:20px;font-weight:800;color:var(--text-l);letter-spacing:-0.02em;margin-bottom:12px}
+.pricing-note-text{font-size:14px;color:var(--text-l-mid);line-height:1.7;margin-bottom:24px}
+.btn-contact{font-size:14px;font-weight:600;color:var(--dark);background:var(--blue);text-decoration:none;padding:11px 24px;border-radius:6px;transition:background 0.2s;display:inline-block}
+.btn-contact:hover{background:var(--blue-bright)}
+#wip-panel{position:fixed;bottom:24px;right:24px;z-index:9999;width:320px;max-height:calc(100vh - 48px);display:flex;flex-direction:column;background:#1a1a2e;border:1px solid rgba(255,200,0,0.4);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.4);font-family:'Geist',-apple-system,sans-serif;font-size:13px;color:#e8e8e8;overflow:hidden}
+#wip-header{background:rgba(255,200,0,0.15);border-bottom:1px solid rgba(255,200,0,0.3);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none}
+#wip-header span{font-weight:600;font-size:12px;letter-spacing:0.05em;color:#ffd700}
+#wip-toggle{font-size:16px;color:#ffd700;line-height:1}
+#wip-body{padding:16px;overflow-y:auto;flex:1}
+#wip-body ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin:0;padding:0}
+#wip-body li{display:flex;align-items:flex-start;gap:10px;line-height:1.5;color:#ccc}
+#wip-body li::before{content:'·';color:#ffd700;font-size:18px;line-height:1.2;flex-shrink:0}
+#wip-footer{padding:10px 16px;border-top:1px solid rgba(255,255,255,0.06);font-size:11px;color:rgba(255,255,255,0.25);font-family:'Geist Mono',monospace}
+</style>
+<script>(function(){var t=localStorage.getItem('nv-theme');if(t)document.documentElement.setAttribute('data-theme',t);})();</script>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="../Norsk Reversed Logo Small.png" alt="Norsk" style="height:42px;width:auto;display:block;filter:var(--logo-filter);">
+  </a>
+  <ul class="nav-links">
+    <li class="nav-dropdown"><a href="#">Platform</a><ul class="nav-dropdown-menu"><li><a href="norsk-studio-live-media-workflow-server/">Norsk Studio</a></li><li><a href="https://docs.norsk.video/welcome/index.html">Norsk SDK</a></li></ul></li><li class="nav-dropdown"><a href="#">Products</a><ul class="nav-dropdown-menu"><li><a href="#">Norsk Reasoning</a></li><li><a href="#">Norsk Playout</a></li><li><a href="#">Norsk Mezzanine</a></li></ul></li>
+    <li class="nav-dropdown">
+      <a href="index.html#who">Solutions for</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="for-broadcasters.html">Broadcasters &amp; Enterprise Leaders</a></li>
+        <li><a href="for-engineers.html">Media Workflow Engineers</a></li>
+        <li><a href="for-developers.html">Streaming Engineering Leaders</a></li>
+        <li><a href="for-integrators.html">Solution Architects &amp; Integrators</a></li>
+        <li><a href="for-producers.html">Live Event Producers</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="whats-new.html">What's New</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="whats-new.html#nab-2026">NAB 2026</a></li>
+        <li><a href="whats-new.html#q1-2026">Q1 2026</a></li>
+        <li><a href="whats-new.html#q4-2025">Q4 2025</a></li>
+        <li><a href="whats-new.html#ibc-2025">IBC 2025</a></li>
+      </ul>
+    </li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="#">Pricing</a></li>
+  </ul>
+  <div class="nav-actions"><button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle dark / light mode" style="background:none;border:none;cursor:pointer;font-size:17px;line-height:1;padding:2px 6px;border-radius:4px;color:var(--nav-link);transition:color 0.2s;user-select:none;margin-right:4px;">☾</button>
+    <a href="#" class="btn-ghost">Talk to Sales</a>
+    <a href="#" class="btn-solid">Request a demo</a>
+  </div>
+</nav>
+
+<section class="p-hero">
+  <div class="p-hero-inner">
+    <p class="p-eyebrow">For Broadcasters &amp; Enterprise Leaders</p>
+    <h1>Modernize your workflows <em>safely</em></h1>
+    <p class="p-hero-sub">No rip-and-replace. No broadcast disruption. Norsk Studio integrates with your existing infrastructure without replacing it — or on the way to replacing it — so you can modernise at your own pace, with reliability built by people who've run broadcast at scale.</p>
+    <div class="p-hero-ctas">
+      <a href="#" class="btn-primary">Request a strategy discussion</a>
+      <a href="#scenarios" class="btn-secondary">See how it's deployed →</a>
+    </div>
+    <div class="reassure-strip">
+      <div class="reassure-item">
+        <div class="reassure-num">&lt;1s</div>
+        <div class="reassure-label">Automatic failover</div>
+      </div>
+      <div class="reassure-item">
+        <div class="reassure-num">99.99%</div>
+        <div class="reassure-label">Uptime in production deployments</div>
+      </div>
+      <div class="reassure-item">
+        <div class="reassure-num">Hybrid</div>
+        <div class="reassure-label">On-prem + cloud, your choice</div>
+      </div>
+      <div class="reassure-item">
+        <div class="reassure-num">Trusted</div>
+        <div class="reassure-label">By DAZN, Arqiva &amp; Notified</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPLOYMENT SCENARIOS -->
+<section class="scenarios-section" id="scenarios">
+  <div class="scenarios-inner">
+    <p class="section-eyebrow">Deployment Scenarios</p>
+    <h2 class="section-h2">How broadcasters deploy Norsk Studio</h2>
+    <p class="section-sub" style="max-width:none">Common patterns from organisations modernizing live broadcast infrastructure — with room for your case study as we grow.</p>
+
+    <div class="scenarios-grid">
+      <div class="scenario-card">
+        <div class="scenario-type">Multi-Channel Broadcaster</div>
+        <h3 class="scenario-title">OTT launch without touching the broadcast chain</h3>
+        <p class="scenario-challenge">A regional broadcaster needed to add an OTT streaming tier alongside existing playout infrastructure — without any risk to the broadcast chain that clients depended on for zero-failure delivery.</p>
+        <p class="scenario-outcome">Norsk deployed as a hybrid layer alongside the existing chain. Broadcast playout ran untouched; Norsk handled OTT ingest, encoding, and packaging independently. OTT launched with no broadcast incidents.</p>
+        <a href="#" class="scenario-link">Talk to us about your situation →</a>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-type">Sports Rights Holder</div>
+        <h3 class="scenario-title">Multi-CDN delivery from a single production workflow</h3>
+        <p class="scenario-challenge">A sports media company needed to deliver live events to multiple CDN partners simultaneously — each with different format and latency requirements — without duplicating infrastructure for each distribution endpoint.</p>
+        <p class="scenario-outcome">One Norsk workflow handled simultaneous HLS, DASH, and WebRTC packaging with per-destination output configuration. A single ingest and encode path fed all distribution endpoints, eliminating redundant infrastructure per partner.</p>
+        <a href="#" class="scenario-link">Talk to us about your situation →</a>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-type">Enterprise Broadcaster</div>
+        <h3 class="scenario-title">Channel consolidation with GPU-accelerated processing</h3>
+        <p class="scenario-challenge">An enterprise media organisation was running dedicated encoding hardware per channel. Scaling to new channels meant hardware procurement cycles that couldn't keep pace with business demands.</p>
+        <p class="scenario-outcome">Norsk Spectrum's GPU-accelerated standards conversion replaced multiple single-purpose appliances. Higher channel density on shared infrastructure, faster deployment of new channels, at lower cost per channel.</p>
+        <a href="#" class="scenario-link">Talk to us about your situation →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section class="journey-section" id="journey">
+  <div class="journey-inner">
+    <p class="section-eyebrow">Your evaluation journey</p>
+    <h2 class="section-h2">From strategic interest to confident decision</h2>
+    <p class="section-sub">How broadcast and enterprise leaders typically move through their Norsk Studio evaluation.</p>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">Step 01</div>
+        <div class="step-title">Explore deployment scenarios</div>
+        <p class="step-text">Start by understanding how organizations with similar challenges deployed Norsk Studio and evaluating the outcomes they achieved.</p>
+        <a href="#scenarios" class="step-link">See deployment scenarios →</a>
+      </div>
+      <div class="step-card">
+        <div class="step-num">Step 02</div>
+        <div class="step-title">Understand the ROI</div>
+        <p class="step-text">Review the business case: infrastructure consolidation, reduced tooling costs, team efficiency, and viewer retention impact from improved reliability.</p>
+        <a href="#roi" class="step-link">See the ROI framework →</a>
+      </div>
+      <div class="step-card">
+        <div class="step-num">Step 03</div>
+        <div class="step-title">Talk strategy &amp; pricing</div>
+        <p class="step-text">Have a conversation with our solutions team — focused on your specific situation, your existing stack, and the deployment model that makes the most sense for your organisation.</p>
+        <a href="#" class="step-link">Request a strategy discussion →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROI & PRICING NOTE -->
+<section class="roi-section" id="roi">
+  <div class="roi-inner">
+    <div class="roi-grid">
+      <div class="roi-left">
+        <p class="section-eyebrow">Business Case</p>
+        <h2 class="section-h2">The ROI of modernising with Norsk Studio</h2>
+        <p class="section-sub" style="margin-bottom:36px">The cost of broadcast disruption far exceeds the cost of prevention. Norsk Studio lets you modernize your workflow incrementally, without betting your broadcast on it.</p>
+
+        <ul class="roi-points">
+          <li class="roi-point">
+            <span class="roi-icon">→</span>
+            <div>
+              <div class="roi-point-title">Reduce tooling sprawl and cost per channel</div>
+              <p class="roi-point-text">Replace multiple single-purpose tools with one platform that handles ingest, transcoding, processing, packaging, monitoring, and delivery.</p>
+            </div>
+          </li>
+          <li class="roi-point">
+            <span class="roi-icon">→</span>
+            <div>
+              <div class="roi-point-title">Faster feature delivery</div>
+              <p class="roi-point-text">New broadcast capabilities that used to take months now take days. No vendor roadmap dependency.</p>
+            </div>
+          </li>
+          <li class="roi-point">
+            <span class="roi-icon">→</span>
+            <div>
+              <div class="roi-point-title">Protect existing infrastructure investment</div>
+              <p class="roi-point-text">Seamless integration means your existing broadcast hardware doesn't become stranded assets overnight.</p>
+            </div>
+          </li>
+          <li class="roi-point">
+            <span class="roi-icon">→</span>
+            <div>
+              <div class="roi-point-title">Operational risk reduction — including AI automation</div>
+              <p class="roi-point-text">Automated failover, real-time monitoring, and fault-tolerant architecture reduce the operational risk your teams carry every broadcast. Norsk Reasoning adds an AI layer that monitors streams and acts autonomously — switching cameras, triggering recordings, alerting on-call — eliminating entire categories of manual monitoring work.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="roi-right">
+        <div class="pricing-note">
+          <div class="pricing-note-label">Pricing</div>
+          <div class="pricing-note-title">Enterprise pricing is a conversation, not a list price</div>
+          <p class="pricing-note-text">Broadcast and enterprise deployments vary significantly in scale, infrastructure, and operational requirements. We'd rather understand your situation and give you a number that reflects it than put a price on a page that doesn't fit anyone exactly.</p>
+          <a href="#" class="btn-contact">Request a pricing discussion</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WIP REVIEW PANEL  (remove before launch) -->
+<div id="wip-panel">
+  <div id="wip-header" onclick="document.getElementById('wip-body').style.display = document.getElementById('wip-body').style.display === 'none' ? 'block' : 'none'; document.getElementById('wip-toggle').textContent = document.getElementById('wip-body').style.display === 'none' ? '+' : '−';">
+    <span>⚠ WORK IN PROGRESS</span>
+    <span id="wip-toggle">−</span>
+  </div>
+  <div id="wip-body">
+    <ul>
+      <li>Note 1 — Ideally, the 'Deployment Scenarios' section should be real case studies. I think we can use NASDAQ for one, and maybe WDR/G&amp;L for another (since we can name them) ... do we have a third? If not, it can be a 'deployment scenario' without naming the customer.</li>
+    </ul>
+  </div>
+  <div id="wip-footer">review draft · not for public use</div>
+</div>
+
+<script>
+(function(){
+  var t=localStorage.getItem('nv-theme')||'light';
+  document.documentElement.setAttribute('data-theme',t);
+  var b=document.getElementById('theme-toggle');
+  if(b)b.textContent=t==='dark'?'☀':'☾';
+})();
+function toggleTheme(){
+  var c=document.documentElement.getAttribute('data-theme')||'light';
+  var n=c==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',n);
+  localStorage.setItem('nv-theme',n);
+  var b=document.getElementById('theme-toggle');
+  if(b)b.textContent=n==='dark'?'☀':'☾';
+}
+</script>
+</body>
+</html>
