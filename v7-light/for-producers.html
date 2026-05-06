@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Norsk Studio for Live Event Producers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue:         #00A9E0;
+  --blue-bright:  #00c4ff;
+  --green:        #84BD00;
+  --dark:         #00263A;
+  --bg-dark:      #ffffff;
+  --bg-mid:       #f5f5f5;
+  --border-d:     #e2e2e2;
+  --bg-light:     #f5f5f5;
+  --bg-white:     #ffffff;
+  --border-l:     rgba(0,38,58,0.1);
+  --text-d:       #111111;
+  --text-d-muted: #666666;
+  --text-l:       #00263A;
+  --text-l-mid:   #3a6070;
+  --text-l-light: #8aacba;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Geist', -apple-system, sans-serif; background: var(--bg-dark); color: var(--text-d); overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 64px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 52px;
+  background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid #e2e2e2;
+}
+.nav-logo { text-decoration: none; }
+.nav-links { display: flex; gap: 32px; list-style: none; position: absolute; left: 50%; transform: translateX(-50%); }
+.nav-links a { color: #666666; text-decoration: none; font-size: 16px; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: #111111; }
+.nav-links li{position:relative}.nav-dropdown-menu{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.98);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid #e2e2e2;border-radius:8px;padding:12px 0 8px;min-width:250px;z-index:200;list-style:none}.nav-dropdown:hover .nav-dropdown-menu{display:block}.nav-dropdown-menu a{display:block;padding:10px 20px;color:#444444;font-size:14px;font-weight:400;white-space:nowrap}.nav-dropdown-menu a:hover{color:#00263A;background:#f5f5f5}
+.nav-actions { display: flex; gap: 12px; align-items: center; }
+.btn-ghost { font-size: 14px; font-weight: 500; color: var(--text-d); text-decoration: none; padding: 8px 18px; border: 1px solid #e2e2e2; border-radius: 6px; transition: border-color 0.2s, color 0.2s; }
+.btn-ghost:hover { border-color: var(--blue); color: var(--blue); }
+.btn-solid { font-size: 14px; font-weight: 600; color: var(--dark); background: var(--blue); text-decoration: none; padding: 8px 18px; border-radius: 6px; transition: background 0.2s; }
+.btn-solid:hover { background: var(--blue-bright); }
+
+/* PERSONA HERO */
+.p-hero {
+  padding: 140px 52px 100px;
+  background: var(--bg-dark);
+  position: relative;
+  overflow: hidden;
+}
+.p-hero::before {
+  content: '';
+  position: absolute;
+  top: -200px; left: -200px;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(0,169,224,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.p-hero-inner { max-width: 720px; }
+.p-eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  color: var(--blue); letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.p-hero h1 {
+  font-size: clamp(36px, 5vw, 54px);
+  font-weight: 800; letter-spacing: -0.03em; line-height: 1.1;
+  color: #fff; margin-bottom: 24px;
+}
+.p-hero h1 em { color: var(--blue); font-style: normal; }
+.p-hero-sub {
+  font-size: 18px; color: #666666; line-height: 1.65;
+  max-width: 560px; margin-bottom: 40px;
+}
+.p-hero-ctas { display: flex; gap: 16px; align-items: center; }
+.btn-primary {
+  font-size: 15px; font-weight: 600; color: var(--dark);
+  background: var(--blue); text-decoration: none;
+  padding: 13px 28px; border-radius: 7px; transition: background 0.2s;
+}
+.btn-primary:hover { background: var(--blue-bright); }
+.btn-secondary {
+  font-size: 15px; font-weight: 500; color: var(--text-d);
+  text-decoration: none; transition: color 0.2s;
+}
+.btn-secondary:hover { color: var(--blue); }
+
+/* JOURNEY STEPS */
+.journey-section {
+  background: var(--bg-light);
+  padding: 100px 52px;
+  border-top: 1px solid var(--border-l);
+}
+.journey-inner { max-width: 1000px; margin: 0 auto; }
+.section-eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--green); letter-spacing: 0.12em;
+  text-transform: uppercase; margin-bottom: 16px;
+}
+.section-h2 {
+  font-size: clamp(28px, 3.5vw, 38px);
+  font-weight: 800; letter-spacing: -0.03em; line-height: 1.15;
+  color: var(--text-l); margin-bottom: 16px;
+}
+.section-sub {
+  font-size: 16px; color: var(--text-l-mid); line-height: 1.65;
+  max-width: 560px; margin-bottom: 60px;
+}
+.steps-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--border-l); border: 1px solid var(--border-l);
+  border-radius: 10px; overflow: hidden;
+}
+.step-card {
+  background: var(--bg-white);
+  padding: 40px 36px;
+}
+.step-num {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--blue); letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+.step-title {
+  font-size: 17px; font-weight: 700; color: var(--text-l);
+  letter-spacing: -0.02em; margin-bottom: 10px;
+}
+.step-text {
+  font-size: 14px; color: var(--text-l-mid); line-height: 1.7;
+  margin-bottom: 20px;
+}
+.step-link {
+  font-size: 13px; font-weight: 600; color: var(--blue);
+  text-decoration: none; transition: color 0.2s;
+}
+.step-link:hover { color: var(--blue); }
+
+/* CAPABILITIES */
+.cap-section {
+  background: var(--bg-light);
+  padding: 100px 52px;
+  border-top: 1px solid var(--border-l);
+}
+.cap-inner { max-width: 1000px; margin: 0 auto; }
+.cap-inner .section-eyebrow { color: var(--blue); }
+.cap-inner .section-h2 { color: var(--dark); }
+.cap-inner .section-sub { color: #666666; }
+.cap-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+}
+.cap-item {}
+.cap-label {
+  font-size: 13px; font-weight: 700; color: var(--blue);
+  letter-spacing: 0.02em; margin-bottom: 8px;
+  text-transform: uppercase; font-size: 11px;
+}
+.cap-title {
+  font-size: 16px; font-weight: 700; color: var(--text-d);
+  letter-spacing: -0.02em; margin-bottom: 8px;
+}
+.cap-text {
+  font-size: 13.5px; color: #666666; line-height: 1.65;
+}
+
+/* CONVERSION CTA */
+.convert-section {
+  background: var(--blue);
+  padding: 80px 52px;
+  text-align: center;
+}
+.convert-inner { max-width: 600px; margin: 0 auto; }
+.convert-inner h2 {
+  font-size: 32px; font-weight: 800; color: var(--dark);
+  letter-spacing: -0.03em; margin-bottom: 16px;
+}
+.convert-inner p {
+  font-size: 16px; color: #555555; line-height: 1.6; margin-bottom: 32px;
+}
+.btn-dark {
+  font-size: 15px; font-weight: 700; color: #fff;
+  background: var(--dark); text-decoration: none;
+  padding: 14px 32px; border-radius: 7px; transition: background 0.2s;
+  display: inline-block;
+}
+.btn-dark:hover { background: #003a55; }
+/* Deployment scenarios */
+.scenarios-section{background:var(--bg-light);padding:100px 52px;border-top:1px solid var(--border-l)}
+.scenarios-inner{max-width:1000px;margin:0 auto}
+.scenarios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-l);border:1px solid var(--border-l);border-radius:10px;overflow:hidden}
+.scenario-card{background:var(--bg-white);padding:40px 36px}
+.scenario-type{font-family:'Geist Mono',monospace;font-size:11px;font-weight:700;color:var(--blue);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px}
+.scenario-title{font-size:16px;font-weight:700;color:var(--text-l);letter-spacing:-0.02em;margin-bottom:12px}
+.scenario-challenge{font-size:14px;color:var(--text-l-mid);line-height:1.65;margin-bottom:16px}
+.scenario-outcome{font-size:13.5px;color:var(--text-l);line-height:1.65;margin-bottom:20px}
+.scenario-link{font-size:13px;font-weight:600;color:var(--blue);text-decoration:none;transition:color 0.2s}
+.scenario-link:hover{color:var(--blue)}
+#wip-panel{position:fixed;bottom:24px;right:24px;z-index:9999;width:320px;max-height:calc(100vh - 48px);display:flex;flex-direction:column;background:#1a1a2e;border:1px solid rgba(255,200,0,0.4);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.4);font-family:'Geist',-apple-system,sans-serif;font-size:13px;color:#e8e8e8;overflow:hidden}
+#wip-header{background:rgba(255,200,0,0.15);border-bottom:1px solid rgba(255,200,0,0.3);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none}
+#wip-header span{font-weight:600;font-size:12px;letter-spacing:0.05em;color:#ffd700}
+#wip-toggle{font-size:16px;color:#ffd700;line-height:1}
+#wip-body{padding:16px;overflow-y:auto;flex:1}
+#wip-body ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin:0;padding:0}
+#wip-body li{display:flex;align-items:flex-start;gap:10px;line-height:1.5;color:#ccc}
+#wip-body li::before{content:'·';color:#ffd700;font-size:18px;line-height:1.2;flex-shrink:0}
+#wip-footer{padding:10px 16px;border-top:1px solid rgba(255,255,255,0.06);font-size:11px;color:rgba(255,255,255,0.25);font-family:'Geist Mono',monospace}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="../Norsk Reversed Logo Small.png" alt="Norsk" style="height:42px;width:auto;display:block;filter:brightness(0);">
+  </a>
+  <ul class="nav-links">
+    <li class="nav-dropdown"><a href="#">Platform</a><ul class="nav-dropdown-menu"><li><a href="norsk-studio-live-media-workflow-server/">Norsk Studio</a></li><li><a href="https://docs.norsk.video/welcome/index.html">Norsk SDK</a></li></ul></li><li class="nav-dropdown"><a href="#">Products</a><ul class="nav-dropdown-menu"><li><a href="#">Norsk Reasoning</a></li><li><a href="#">Norsk Playout</a></li><li><a href="#">Norsk Mezzanine</a></li></ul></li>
+    <li class="nav-dropdown">
+      <a href="index.html#who">Solutions for</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="for-broadcasters.html">Broadcasters &amp; Enterprise Leaders</a></li>
+        <li><a href="for-engineers.html">Media Workflow Engineers</a></li>
+        <li><a href="for-developers.html">Streaming Engineering Leaders</a></li>
+        <li><a href="for-integrators.html">Solution Architects &amp; Integrators</a></li>
+        <li><a href="for-producers.html">Live Event Producers</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="whats-new.html">What's New</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="whats-new.html#nab-2026">NAB 2026</a></li>
+        <li><a href="whats-new.html#q1-2026">Q1 2026</a></li>
+        <li><a href="whats-new.html#q4-2025">Q4 2025</a></li>
+        <li><a href="whats-new.html#ibc-2025">IBC 2025</a></li>
+      </ul>
+    </li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="#">Pricing</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="#" class="btn-ghost">Get in Touch</a>
+    <a href="#" class="btn-solid">Start free trial</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="p-hero">
+  <div class="p-hero-inner">
+    <p class="p-eyebrow">For Live Event Producers</p>
+    <h1>Create <em>event-ready</em> workflows in minutes</h1>
+    <p class="p-hero-sub">High-pressure events demand tools that don't fail. Norsk Studio gives you a single visual interface for multi-camera production, source switching, and real-time monitoring — without the duct tape.</p>
+    <div class="p-hero-ctas">
+      <a href="#" class="btn-primary">See a live event workflow</a>
+      <a href="#journey" class="btn-secondary">How it works for you →</a>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY STEPS -->
+<section class="journey-section" id="journey">
+  <div class="journey-inner">
+    <p class="section-eyebrow">Your journey</p>
+    <h2 class="section-h2">From first workflow to flawless broadcast</h2>
+    <p class="section-sub">Three steps tailored to how live event producers actually work.</p>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">Step 01</div>
+        <div class="step-title">Explore common event scenarios</div>
+        <p class="step-text">See how teams like yours have used Norsk for sports broadcasts, 24/7 news channels, and live corporate events — from multi-camera switching to AI-powered overnight monitoring.</p>
+        <a href="#scenarios" class="step-link">See event scenarios →</a>
+      </div>
+      <div class="step-card">
+        <div class="step-num">Step 02</div>
+        <div class="step-title">Build your first workflows</div>
+        <p class="step-text">Multi-camera sports event? News desk? Videoconference? Build exactly the workflow you need — minimal coding required.</p>
+        <a href="#" class="step-link">Explore templates →</a>
+      </div>
+      <div class="step-card">
+        <div class="step-num">Step 03</div>
+        <div class="step-title">Run and test</div>
+        <p class="step-text">The free trial gets you from sign-up to a live workflow in under 30 minutes. No infrastructure to provision.</p>
+        <a href="#" class="step-link">Start free trial →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPLOYMENT SCENARIOS -->
+<section class="scenarios-section" id="scenarios">
+  <div class="scenarios-inner">
+    <p class="section-eyebrow">Common Event Types</p>
+    <h2 class="section-h2">How producers use Norsk Studio</h2>
+    <p class="section-sub">Common event scenarios and how Norsk Studio handles them — with room for your production story as we grow together.</p>
+
+    <div class="scenarios-grid">
+      <div class="scenario-card">
+        <div class="scenario-type">Sports Producer</div>
+        <h3 class="scenario-title">Multi-camera sports broadcast with real-time source switching</h3>
+        <p class="scenario-challenge">A live sports producer needed to manage six camera inputs, switch between sources in real time, apply picture-in-picture for replays, and deliver simultaneously to a CDN and a venue's internal distribution — all from a single operator interface.</p>
+        <p class="scenario-outcome">A single Norsk Studio workflow handled all six inputs, source switching, PiP composition, and dual-destination output. The producer controlled everything from one visual interface during the live event, with per-input monitoring visible throughout.</p>
+        <a href="#" class="scenario-link">Talk to us about your next event →</a>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-type">News Operations</div>
+        <h3 class="scenario-title">24/7 news channel with AI-powered stream monitoring</h3>
+        <p class="scenario-challenge">A news operations team running a 24/7 channel couldn't staff continuous manual monitoring overnight. They needed the system to detect signal issues, trigger alerts, and switch to backup sources automatically — without human intervention.</p>
+        <p class="scenario-outcome">Norsk Reasoning monitored the stream continuously, detected anomalies in real time, and triggered automated failover and alerts without operator intervention overnight. The operations team reviewed decisions each morning and refined detection rules over time.</p>
+        <a href="#" class="scenario-link">Talk to us about your channel →</a>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-type">Live Events Team</div>
+        <h3 class="scenario-title">Corporate event with distributed remote contributors</h3>
+        <p class="scenario-challenge">A corporate live events team needed to bring in six remote presenters via WebRTC alongside on-site cameras, mix them into a single output stream, and deliver to the company's internal platform and a public streaming destination simultaneously.</p>
+        <p class="scenario-outcome">Remote presenters joined via browser-based WebRTC — no specialist hardware on their end. Norsk mixed remote and on-site inputs in the workflow with real-time monitoring for each contributor. Both destinations received the same output from a single encoding pass.</p>
+        <a href="#" class="scenario-link">Talk to us about your next event →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="cap-section">
+  <div class="cap-inner">
+    <p class="section-eyebrow">Capabilities</p>
+    <h2 class="section-h2">Everything an event producer needs</h2>
+    <p class="section-sub">Purpose-built for live — not adapted from a general-purpose streaming tool.</p>
+
+    <div class="cap-grid">
+      <div class="cap-item">
+        <div class="cap-label">Production</div>
+        <div class="cap-title">Source Switching &amp; PiP</div>
+        <p class="cap-text">Cut between camera inputs, apply picture-in-picture, and layer graphics — all in real time through the visual interface.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-label">Connectivity</div>
+        <div class="cap-title">WebRTC Remote Contribution</div>
+        <p class="cap-text">Pull in remote guests and field reporters via WebRTC with sub-second latency. No specialist hardware required at their end.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-label">Operations</div>
+        <div class="cap-title">AI-Powered Monitoring &amp; Automation</div>
+        <p class="cap-text">Norsk Reasoning observes your live stream in real time and acts on what it detects — switching cameras, triggering recordings, firing webhooks, and updating graphics. Describe detection objectives in plain language; the AI handles the rest, with human override always available.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-label">Delivery</div>
+        <div class="cap-title">Multi-Destination Output</div>
+        <p class="cap-text">Push simultaneously to CDNs, social platforms, and internal distribution — all from a single workflow configuration.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-label">Scale</div>
+        <div class="cap-title">Runs Anywhere</div>
+        <p class="cap-text">Deploy on your venue's on-prem hardware, in the cloud, or hybrid. Norsk Studio adapts to your infrastructure — not the other way around.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-label">Reliability</div>
+        <div class="cap-title">Sub-Second Failover</div>
+        <p class="cap-text">Automatic failover keeps streams live when inputs drop. Built by engineers who've run broadcast infrastructure at scale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONVERSION -->
+<section class="convert-section">
+  <div class="convert-inner">
+    <h2>Ready to run a workflow?</h2>
+    <p>Start a free trial or talk to a producer specialist who can walk you through a workflow matched to your next event.</p>
+    <a href="#" class="btn-dark">Start free trial</a>
+  </div>
+</section>
+
+<!-- WIP REVIEW PANEL  (remove before launch) -->
+<div id="wip-panel">
+  <div id="wip-header" onclick="document.getElementById('wip-body').style.display = document.getElementById('wip-body').style.display === 'none' ? 'block' : 'none'; document.getElementById('wip-toggle').textContent = document.getElementById('wip-body').style.display === 'none' ? '+' : '−';">
+    <span>⚠ WORK IN PROGRESS</span>
+    <span id="wip-toggle">−</span>
+  </div>
+  <div id="wip-body">
+    <ul>
+      <li>Note 1 — Similar to Broadcast &amp; Enterprise Leaders page — lack of case studies means we have to provide something like buying journeys and implementation scenarios. I've made some tweaks, but Claude provided most of what's here.</li>
+    </ul>
+  </div>
+  <div id="wip-footer">review draft · not for public use</div>
+</div>
+
+</body>
+</html>

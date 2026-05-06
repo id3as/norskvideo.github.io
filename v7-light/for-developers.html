@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Norsk Studio for Streaming Engineering Leaders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue:#00A9E0; --blue-bright:#00c4ff; --green:#84BD00; --dark:#00263A;
+  --bg-dark:#ffffff; --border-d:#e2e2e2;
+  --bg-light:#f5f5f5; --bg-white:#ffffff; --border-l:#e2e2e2;
+  --text-d:#111111; --text-d-muted:#666666;
+  --text-l:#111111; --text-l-mid:#444444;
+}
+*{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+body{font-family:'Geist',-apple-system,sans-serif;background:#ffffff;color:#111111;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 52px;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid #e2e2e2}
+.nav-logo{text-decoration:none}
+.nav-links{display:flex;gap:32px;list-style:none;position:absolute;left:50%;transform:translateX(-50%)}
+.nav-links a{color:#666666;text-decoration:none;font-size:16px;font-weight:500;transition:color 0.2s}
+.nav-links a:hover{color:#111111}
+.nav-links li{position:relative}.nav-dropdown-menu{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:rgba(255,255,255,0.98);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid #e2e2e2;border-radius:8px;padding:12px 0 8px;min-width:250px;z-index:200;list-style:none}.nav-dropdown:hover .nav-dropdown-menu{display:block}.nav-dropdown-menu a{display:block;padding:10px 20px;color:#444444;font-size:14px;font-weight:400;white-space:nowrap}.nav-dropdown-menu a:hover{color:#00263A;background:#f5f5f5}
+.nav-actions{display:flex;gap:12px;align-items:center}
+.btn-ghost{font-size:14px;font-weight:500;color:var(--text-d);text-decoration:none;padding:8px 18px;border:1px solid #e2e2e2;border-radius:6px;transition:border-color 0.2s,color 0.2s}
+.btn-ghost:hover{border-color:#999999;color:#111111}
+.btn-solid{font-size:14px;font-weight:600;color:var(--dark);background:var(--blue);text-decoration:none;padding:8px 18px;border-radius:6px}
+.p-hero{padding:140px 52px 100px;background:var(--bg-dark);position:relative;overflow:hidden}
+.p-hero::before{content:'';position:absolute;top:-100px;right:-200px;width:800px;height:800px;background:radial-gradient(circle,rgba(0,0,0,0.02) 0%,transparent 70%);pointer-events:none}
+.p-hero-inner{max-width:720px}
+.p-eyebrow{font-family:'Geist Mono',monospace;font-size:11px;color:var(--blue);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:20px}
+.p-hero h1{font-size:clamp(36px,5vw,54px);font-weight:800;letter-spacing:-0.03em;line-height:1.1;color:var(--dark);margin-bottom:24px}
+.p-hero h1 em{color:var(--blue);font-style:normal}
+.p-hero-sub{font-size:18px;color:#666666;line-height:1.65;max-width:580px;margin-bottom:40px}
+.p-hero-ctas{display:flex;gap:16px;align-items:center}
+.btn-primary{font-size:15px;font-weight:600;color:var(--dark);background:var(--blue);text-decoration:none;padding:13px 28px;border-radius:7px;transition:background 0.2s}
+.btn-primary:hover{background:var(--blue-bright)}
+.btn-secondary{font-size:15px;font-weight:500;color:var(--dark);text-decoration:none;transition:color 0.2s}
+.btn-secondary:hover{color:var(--blue)}
+.journey-section{background:var(--bg-light);padding:100px 52px}
+.journey-inner{max-width:1000px;margin:0 auto}
+.section-eyebrow{font-family:'Geist Mono',monospace;font-size:11px;color:var(--green);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px}
+.section-h2{font-size:clamp(28px,3.5vw,38px);font-weight:800;letter-spacing:-0.03em;color:var(--text-l);margin-bottom:16px}
+.section-sub{font-size:16px;color:var(--text-l-mid);line-height:1.65;max-width:560px;margin-bottom:60px}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-l);border:1px solid var(--border-l);border-radius:10px;overflow:hidden}
+.step-card{background:var(--bg-white);padding:40px 36px}
+.step-num{font-family:'Geist Mono',monospace;font-size:11px;color:var(--blue);letter-spacing:0.1em;margin-bottom:16px}
+.step-title{font-size:17px;font-weight:700;color:var(--text-l);letter-spacing:-0.02em;margin-bottom:10px}
+.step-text{font-size:14px;color:var(--text-l-mid);line-height:1.7;margin-bottom:20px}
+.step-link{font-size:13px;font-weight:600;color:var(--blue);text-decoration:none;transition:color 0.2s}
+.step-link:hover{color:var(--blue)}
+.cap-section{background:var(--bg-light);padding:100px 52px;border-top:1px solid var(--border-l)}
+.cap-inner{max-width:1000px;margin:0 auto}
+.cap-inner .section-eyebrow{color:var(--blue)}
+.cap-inner .section-h2{color:var(--dark)}
+.cap-inner .section-sub{color:var(--text-l-mid)}
+.cap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.cap-label{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px}
+.cap-title{font-size:16px;font-weight:700;color:var(--dark);letter-spacing:-0.02em;margin-bottom:8px}
+.cap-text{font-size:13.5px;color:#666666;line-height:1.65}
+/* Two-audience callout */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border-d);border:1px solid #e2e2e2;border-radius:10px;overflow:hidden;margin-top:60px}
+.audience-card{background:#f8f8f8;padding:40px 36px}
+.audience-label{font-family:'Geist Mono',monospace;font-size:10px;color:var(--blue);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0;line-height:1}
+.audience-title{font-size:17px;font-weight:700;color:var(--text-d);letter-spacing:-0.02em;margin-bottom:10px;margin-top:-4px}
+.audience-text{font-size:14px;color:#666666;line-height:1.7}
+.convert-section{background:var(--bg-light);padding:80px 52px;text-align:center;border-top:1px solid var(--border-l)}
+.convert-inner{max-width:600px;margin:0 auto}
+.convert-inner h2{font-size:32px;font-weight:800;color:var(--dark);letter-spacing:-0.03em;margin-bottom:16px}
+.convert-inner p{font-size:16px;color:#666666;line-height:1.6;margin-bottom:32px}
+.btn-blue{font-size:15px;font-weight:700;color:var(--dark);background:var(--blue);text-decoration:none;padding:14px 32px;border-radius:7px;transition:background 0.2s;display:inline-block}
+.btn-blue:hover{background:var(--blue-bright)}
+/* Deployment scenarios */
+.scenarios-section{background:var(--bg-light);padding:100px 52px;border-top:1px solid var(--border-l)}
+.scenarios-inner{max-width:1000px;margin:0 auto}
+.scenarios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border-l);border:1px solid var(--border-l);border-radius:10px;overflow:hidden}
+.scenario-card{background:var(--bg-white);padding:40px 36px}
+.scenario-type{font-family:'Geist Mono',monospace;font-size:11px;font-weight:700;color:var(--blue);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px}
+.scenario-title{font-size:16px;font-weight:700;color:var(--text-l);letter-spacing:-0.02em;margin-bottom:12px}
+.scenario-challenge{font-size:14px;color:var(--text-l-mid);line-height:1.65;margin-bottom:16px}
+.scenario-outcome{font-size:13.5px;color:var(--text-l);line-height:1.65;margin-bottom:20px}
+.scenario-link{font-size:13px;font-weight:600;color:var(--blue);text-decoration:none;transition:color 0.2s}
+.scenario-link:hover{color:var(--blue)}
+#wip-panel{position:fixed;bottom:24px;right:24px;z-index:9999;width:320px;max-height:calc(100vh - 48px);display:flex;flex-direction:column;background:#1a1a2e;border:1px solid rgba(255,200,0,0.4);border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.4);font-family:'Geist',-apple-system,sans-serif;font-size:13px;color:#e8e8e8;overflow:hidden}
+#wip-header{background:rgba(255,200,0,0.15);border-bottom:1px solid rgba(255,200,0,0.3);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none}
+#wip-header span{font-weight:600;font-size:12px;letter-spacing:0.05em;color:#ffd700}
+#wip-toggle{font-size:16px;color:#ffd700;line-height:1}
+#wip-body{padding:16px;overflow-y:auto;flex:1}
+#wip-body ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin:0;padding:0}
+#wip-body li{display:flex;align-items:flex-start;gap:10px;line-height:1.5;color:#ccc}
+#wip-body li::before{content:'·';color:#ffd700;font-size:18px;line-height:1.2;flex-shrink:0}
+#wip-footer{padding:10px 16px;border-top:1px solid rgba(255,255,255,0.06);font-size:11px;color:rgba(255,255,255,0.25);font-family:'Geist Mono',monospace}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="../Norsk Reversed Logo Small.png" alt="Norsk" style="height:42px;width:auto;display:block;filter:brightness(0);">
+  </a>
+  <ul class="nav-links">
+    <li class="nav-dropdown"><a href="#">Platform</a><ul class="nav-dropdown-menu"><li><a href="norsk-studio-live-media-workflow-server/">Norsk Studio</a></li><li><a href="https://docs.norsk.video/welcome/index.html">Norsk SDK</a></li></ul></li><li class="nav-dropdown"><a href="#">Products</a><ul class="nav-dropdown-menu"><li><a href="#">Norsk Reasoning</a></li><li><a href="#">Norsk Playout</a></li><li><a href="#">Norsk Mezzanine</a></li></ul></li>
+    <li class="nav-dropdown">
+      <a href="index.html#who">Solutions for</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="for-broadcasters.html">Broadcasters &amp; Enterprise Leaders</a></li>
+        <li><a href="for-engineers.html">Media Workflow Engineers</a></li>
+        <li><a href="for-developers.html">Streaming Engineering Leaders</a></li>
+        <li><a href="for-integrators.html">Solution Architects &amp; Integrators</a></li>
+        <li><a href="for-producers.html">Live Event Producers</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="whats-new.html">What's New</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="whats-new.html#nab-2026">NAB 2026</a></li>
+        <li><a href="whats-new.html#q1-2026">Q1 2026</a></li>
+        <li><a href="whats-new.html#q4-2025">Q4 2025</a></li>
+        <li><a href="whats-new.html#ibc-2025">IBC 2025</a></li>
+      </ul>
+    </li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="#">Pricing</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="#" class="btn-ghost">Get in Touch</a>
+    <a href="#" class="btn-solid">Start free trial</a>
+  </div>
+</nav>
+
+<section class="p-hero">
+  <div class="p-hero-inner">
+    <p class="p-eyebrow">For Streaming Engineering Leaders &amp; Product Teams</p>
+    <h1>Ship live features faster — without <em>overloading</em> your team</h1>
+    <p class="p-hero-sub">Low-code prototyping closes the loop between product and engineering. API transparency keeps your developers in control. Norsk Studio is the platform you hand to product so they stop filing tickets for things that should take an afternoon.</p>
+    <div class="p-hero-ctas">
+      <a href="#" class="btn-primary">See the prototyping workflow</a>
+      <a href="#journey" class="btn-secondary">Your path through Studio →</a>
+    </div>
+  </div>
+</section>
+
+<section class="journey-section" id="journey">
+  <div class="journey-inner">
+    <p class="section-eyebrow">Your journey</p>
+    <h2 class="section-h2">From feature idea to production deployment</h2>
+    <p class="section-sub" style="max-width:none">Whether you're leading an engineering team or owning a live video product roadmap, Studio fits both perspectives.</p>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">Step 01</div>
+        <div class="step-title">Start with the Studio Kickstart</div>
+        <p class="step-text">Understand the full stack in 30 minutes. Norsk Engine is the programmable core; Studio is the visual surface on top. Both are yours.</p>
+        <a href="#" class="step-link">Open the Engine Quickstart →</a>
+      </div>
+      <div class="step-card">
+        <div class="step-num">Step 02</div>
+        <div class="step-title">Jump to SDK docs &amp; repos</div>
+        <p class="step-text">TypeScript-first, well-documented, actively maintained. Review the SDK API surface and sample projects before your team commits a single hour.</p>
+        <a href="#" class="step-link">Browse SDK docs &amp; GitHub →</a>
+      </div>
+      <div class="step-card">
+        <div class="step-num">Step 03</div>
+        <div class="step-title">Review sample architectures</div>
+        <p class="step-text">End-to-end reference architectures for live streaming at scale. Use them as starting points for your system design or team evaluation.</p>
+        <a href="#" class="step-link">Explore sample architectures →</a>
+      </div>
+    </div>
+
+    <!-- Two-audience note -->
+    <div class="two-col">
+      <div class="audience-card">
+        <div class="audience-label">Engineering Leaders</div>
+        <div class="audience-title">You care about developer velocity</div>
+        <p class="audience-text">Studio's minimal-code layer means product can prototype and validate live features without filing engineering tickets. Your team focuses on custom processing logic that actually needs code — not boilerplate ingest and delivery wiring.</p>
+      </div>
+      <div class="audience-card">
+        <div class="audience-label">VP Product</div>
+        <div class="audience-title">You care about subscriber outcomes</div>
+        <p class="audience-text">Rapid iteration on live features directly reduces churn. Real-time workflow control gives product teams the ability to experiment and adapt without engineering bottlenecks. Ship the features that keep viewers watching.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPLOYMENT SCENARIOS -->
+<section class="scenarios-section" id="scenarios">
+  <div class="scenarios-inner">
+    <p class="section-eyebrow">How Teams Use Studio</p>
+    <h2 class="section-h2">Common scenarios from engineering and product teams</h2>
+    <p class="section-sub" style="max-width:none">The situations Norsk Studio was built to solve — with room for your team's story as we grow together.</p>
+
+    <div class="scenarios-grid">
+      <div class="scenario-card">
+        <div class="scenario-type">Streaming Product Team</div>
+        <h3 class="scenario-title">Shipping a live clipping feature without rearchitecting ingest</h3>
+        <p class="scenario-challenge">A product team wanted to add real-time clip generation to their live stream — without filing an engineering epic that would tie up the platform team for a quarter.</p>
+        <p class="scenario-outcome">Using Studio's visual builder, they prototyped the clip workflow in an afternoon. Engineers reviewed the generated workflow graph, customised the output node via the SDK, and deployed to production within a sprint.</p>
+        <a href="#" class="scenario-link">Talk to us about your roadmap →</a>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-type">Engineering Leader</div>
+        <h3 class="scenario-title">Reducing the backlog of product-originated live feature requests</h3>
+        <p class="scenario-challenge">An engineering leader was fielding a constant stream of tickets from product for live feature prototypes — each requiring engineering time for ingest wiring, encoding configuration, and delivery setup before product could even validate the idea.</p>
+        <p class="scenario-outcome">Once Studio was in place, product assembled and validated live feature prototypes independently. Engineering focused on custom processing logic that actually required code. Ticket volume for boilerplate pipeline work dropped sharply.</p>
+        <a href="#" class="scenario-link">Talk to us about your team →</a>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-type">Engineering Team</div>
+        <h3 class="scenario-title">Evaluating Norsk Engine before committing to a custom build</h3>
+        <p class="scenario-challenge">An engineering team was scoping a custom live video platform and wanted to understand whether Norsk Engine could replace a bespoke media pipeline — before committing to months of custom development.</p>
+        <p class="scenario-outcome">They evaluated the Engine SDK and sample architectures against their requirements, replacing planned custom ingest and packaging work with Norsk Engine nodes while keeping custom processing logic in-house via the TypeScript SDK. Time-to-first-stream: under a day.</p>
+        <a href="#" class="scenario-link">Talk to us about your evaluation →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cap-section">
+  <div class="cap-inner">
+    <p class="section-eyebrow">Capabilities</p>
+    <h2 class="section-h2">A platform that serves both product and engineering</h2>
+    <p class="section-sub" style="max-width:none">Studio doesn't force a choice between visual simplicity and full programmability. You get both.</p>
+
+    <div class="cap-grid">
+      <div class="cap-item">
+        <div class="cap-label">Velocity</div>
+        <div class="cap-title">No-Code Prototyping</div>
+        <p class="cap-text">Product teams can build and test live feature prototypes in Studio with minimal coding. Engineers review the generated workflow graph and deploy to production.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-label">Control</div>
+        <div class="cap-title">Full API Transparency</div>
+        <p class="cap-text">Every Studio workflow exposes an auto-generated OpenAPI spec. Your orchestration systems talk to Norsk the same way they talk to anything else.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-label">Depth</div>
+        <div class="cap-title">Norsk Engine SDK</div>
+        <p class="cap-text">When product needs a custom processing behaviour, engineers drop into the TypeScript SDK — without switching platforms or rewriting the pipeline from scratch.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-label">Iteration</div>
+        <div class="cap-title">Real-Time Workflow Control &amp; AI Automation</div>
+        <p class="cap-text">Modify live workflows without restarting streams. Norsk Reasoning adds an AI layer that can autonomously switch sources, trigger recordings, and fire webhooks — eliminating categories of manual monitoring work your team currently carries.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-label">Quality</div>
+        <div class="cap-title">Broadcast-Grade Reliability</div>
+        <p class="cap-text">Built by engineers from the broadcast industry. Norsk isn't adapted from a general-purpose media tool — it's engineered for the reliability your subscribers expect.</p>
+      </div>
+      <div class="cap-item">
+        <div class="cap-label">Deployment</div>
+        <div class="cap-title">Your Choice of Infrastructure</div>
+        <p class="cap-text">Cloud, on-prem, or hybrid. Norsk runs wherever your existing media infrastructure lives — no forced migration to a proprietary environment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="convert-section">
+  <div class="convert-inner">
+    <h2>Start building</h2>
+    <p>Try Norsk Studio free and build your first live feature prototype today. Or talk to a solution engineer about how Studio fits your roadmap.</p>
+    <a href="#" class="btn-blue">Start free trial</a>
+  </div>
+</section>
+
+<!-- WIP REVIEW PANEL  (remove before launch) -->
+<div id="wip-panel">
+  <div id="wip-header" onclick="document.getElementById('wip-body').style.display = document.getElementById('wip-body').style.display === 'none' ? 'block' : 'none'; document.getElementById('wip-toggle').textContent = document.getElementById('wip-body').style.display === 'none' ? '+' : '−';">
+    <span>⚠ WORK IN PROGRESS</span>
+    <span id="wip-toggle">−</span>
+  </div>
+  <div id="wip-body">
+    <ul>
+      <li>Note 1 — Similar to Broadcast &amp; Enterprise Leaders page — lack of case studies means we have to provide something like buying journeys and implementation scenarios. Claude provided the current text.</li>
+    </ul>
+  </div>
+  <div id="wip-footer">review draft · not for public use</div>
+</div>
+
+</body>
+</html>

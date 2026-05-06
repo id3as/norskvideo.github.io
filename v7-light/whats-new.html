@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What's New — Norsk Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --blue:          #00A9E0;
+  --blue-bright:   #00c4ff;
+  --green:         #84BD00;
+  --dark:          #00263A;
+  --bg-dark:       #ffffff;
+  --bg-mid:        #f5f5f5;
+  --bg-card:       #ffffff;
+  --border-d:      #e2e2e2;
+  --border-card:   #e2e2e2;
+  --bg-light:      #f5f5f5;
+  --bg-white:      #ffffff;
+  --border-l:      #e2e2e2;
+  --text-d:        #111111;
+  --text-d-muted:  #666666;
+  --text-d-dim:    #999999;
+  --text-l:        #111111;
+  --text-l-mid:    #444444;
+  --nab-gold:      #F5A623;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Geist', -apple-system, sans-serif;
+  background: #ffffff;
+  color: #111111;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 64px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 52px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-d);
+}
+.nav-logo {
+  font-size: 17px; font-weight: 700; color: #fff;
+  text-decoration: none; letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--blue); }
+.nav-links {
+  display: flex; gap: 32px; list-style: none;
+  position: absolute; left: 50%; transform: translateX(-50%);
+}
+.nav-links a {
+  color: #666666; text-decoration: none;
+  font-size: 16px; font-weight: 500; transition: color 0.2s;
+}
+.nav-links a:hover { color: #fff; }
+.nav-links a.active { color: #fff; }
+.nav-links li { position: relative; }
+.nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid #e2e2e2; border-radius: 8px; padding: 12px 0 8px; min-width: 250px; z-index: 200; list-style: none; }
+.nav-dropdown:hover .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu a { display: block; padding: 10px 20px; color: #84BD00; font-size: 14px; font-weight: 400; white-space: nowrap; }
+.nav-dropdown-menu a:hover { color: var(--dark); background: #f5f5f5; }
+.nav-actions { display: flex; gap: 12px; align-items: center; }
+.btn-ghost {
+  font-size: 14px; font-weight: 500; color: var(--text-d);
+  text-decoration: none; padding: 8px 18px;
+  border: 1px solid #e2e2e2; border-radius: 6px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--blue); color: var(--blue); }
+.btn-solid {
+  font-size: 14px; font-weight: 600; color: var(--dark);
+  background: var(--blue); text-decoration: none;
+  padding: 8px 18px; border-radius: 6px; transition: background 0.2s;
+}
+.btn-solid:hover { background: var(--blue-bright); }
+
+/* ============================================================
+   PAGE HEADER
+   ============================================================ */
+.page-header {
+  padding: 120px 52px 72px;
+  background: var(--bg-dark);
+  position: relative; overflow: hidden;
+  border-bottom: 1px solid var(--border-d);
+}
+.page-header::before {
+  content: '';
+  position: absolute; top: -300px; left: -200px;
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(0,0,0,0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+.page-header-inner {
+  max-width: 1160px; margin: 0 auto;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 32px; flex-wrap: wrap;
+}
+.page-header-left {}
+.page-eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  color: var(--blue); letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.page-header h1 {
+  font-size: clamp(36px, 5vw, 52px);
+  font-weight: 800; letter-spacing: -0.03em; line-height: 1.1;
+  color: #fff; margin-bottom: 16px;
+}
+.page-header-sub {
+  font-size: 17px; color: #666666; line-height: 1.6;
+  max-width: 500px;
+}
+.page-header-meta {
+  text-align: right; flex-shrink: 0;
+}
+.update-count {
+  font-size: 13px; color: #666666; margin-bottom: 12px;
+}
+.update-count strong { color: var(--text-d); }
+.subscribe-link {
+  font-size: 13px; font-weight: 600; color: var(--blue);
+  text-decoration: none; display: flex; align-items: center;
+  gap: 6px; justify-content: flex-end; transition: color 0.2s;
+}
+.subscribe-link:hover { color: var(--blue-bright); }
+
+/* ============================================================
+   STICKY FILTER BAR
+   ============================================================ */
+.filter-bar {
+  position: sticky; top: 64px; z-index: 100;
+  background: rgba(1,15,24,0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-d);
+  padding: 0 52px;
+}
+.filter-bar-inner {
+  max-width: 1160px; margin: 0 auto;
+  display: flex; align-items: center; gap: 4px;
+  height: 52px;
+}
+.filter-btn {
+  font-size: 13px; font-weight: 500;
+  color: #666666;
+  background: transparent;
+  border: none; cursor: pointer;
+  padding: 6px 14px; border-radius: 5px;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+  font-family: 'Geist', -apple-system, sans-serif;
+}
+.filter-btn:hover { background: #f0f0f0; color: #111111; }
+.filter-btn.active {
+  background: #f0f0f0;
+  color: var(--blue);
+}
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+.updates-main {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 52px 120px;
+}
+
+/* ============================================================
+   BATCH SECTION (trade show groups)
+   ============================================================ */
+.batch-section {
+  padding-top: 72px;
+}
+
+.batch-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 24px; flex-wrap: wrap;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border-d);
+  margin-bottom: 40px;
+}
+.batch-header-left {}
+.batch-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+  color: var(--nab-gold);
+  background: rgba(245,166,35,0.1);
+  border: 1px solid rgba(245,166,35,0.25);
+  padding: 4px 12px; border-radius: 4px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.batch-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--nab-gold);
+  border-radius: 50%;
+}
+.batch-title {
+  font-size: 26px; font-weight: 800;
+  color: #fff; letter-spacing: -0.03em;
+  margin-bottom: 6px;
+}
+.batch-subtitle {
+  font-size: 14px; color: #666666; line-height: 1.5;
+}
+.batch-count {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--text-d-dim);
+  letter-spacing: 0.05em; text-align: right; flex-shrink: 0;
+  padding-top: 4px;
+}
+.batch-count strong {
+  display: block;
+  font-size: 32px; font-weight: 500;
+  color: #666666; letter-spacing: -0.04em;
+  margin-bottom: 2px;
+}
+
+.batch-quote {
+  background: #f8f8f8;
+  border-left: 3px solid var(--border-d);
+  padding: 20px 24px;
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 40px;
+}
+.batch-quote blockquote {
+  font-size: 15px; color: #666666;
+  line-height: 1.65; font-style: italic;
+  margin-bottom: 8px;
+}
+.batch-quote cite {
+  font-size: 12px; color: var(--text-d-dim);
+  font-style: normal; font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ── Quarterly badge (subdued vs trade-show gold) ── */
+.quarterly-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+  color: #666666;
+  background: rgba(90,143,168,0.08);
+  border: 1px solid rgba(90,143,168,0.2);
+  padding: 4px 12px; border-radius: 4px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+/* ── Placeholder card indicator (dev/review only) ── */
+.update-card.placeholder {
+  opacity: 0.7;
+  border: 1px dashed rgba(255,255,255,0.08);
+  position: relative;
+}
+.update-card.placeholder::after {
+  content: 'placeholder';
+  position: absolute; top: 10px; right: 12px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 9px; letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.18);
+}
+
+/* ============================================================
+   UPDATE CARDS GRID
+   ============================================================ */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-card);
+  border: 1px solid var(--border-card);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.update-card {
+  background: var(--bg-card);
+  padding: 36px 32px;
+  display: flex; flex-direction: column;
+  transition: background 0.2s;
+  position: relative;
+}
+.update-card:hover { background: #072030; }
+
+.update-card.featured {
+  grid-column: span 2;
+  background: #051c2c;
+  border-right: 1px solid rgba(0,196,255,0.1);
+}
+.update-card.featured:hover { background: #072436; }
+
+/* Category tag + badge row */
+.card-meta {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 20px; flex-wrap: wrap;
+}
+.cat-tag {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 3px;
+  border: 1px solid;
+}
+.cat-ai       { color: var(--blue-bright); background: rgba(0,196,255,0.08); border-color: rgba(0,196,255,0.2); }
+.cat-processing { color: var(--green);    background: rgba(132,189,0,0.08);  border-color: rgba(132,189,0,0.2); }
+.cat-delivery  { color: var(--blue);      background: rgba(0,169,224,0.06); border-color: #e2e2e2; }
+.cat-standards { color: #00D4AA;          background: rgba(0,212,170,0.08); border-color: rgba(0,212,170,0.2); }
+.cat-platform  { color: #8aacba;          background: rgba(138,172,186,0.08); border-color: rgba(138,172,186,0.15); }
+
+.badge-new {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--dark);
+  background: var(--green);
+  padding: 3px 8px; border-radius: 3px;
+}
+.badge-preview {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--dark);
+  background: var(--blue-bright);
+  padding: 3px 8px; border-radius: 3px;
+}
+
+/* Card content */
+.card-name {
+  font-size: 20px; font-weight: 800;
+  color: #fff; letter-spacing: -0.025em;
+  line-height: 1.15; margin-bottom: 12px;
+}
+.update-card.featured .card-name { font-size: 24px; }
+
+.card-desc {
+  font-size: 14px; color: #666666;
+  line-height: 1.7; margin-bottom: 20px;
+  flex: 1;
+}
+.update-card.featured .card-desc { font-size: 15px; }
+
+.card-usecases {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-bottom: 24px;
+}
+.use-tag {
+  font-size: 11px; color: var(--text-d-dim);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 3px 9px; border-radius: 3px;
+}
+
+.card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  margin-top: auto;
+}
+.card-date {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--text-d-dim);
+}
+.card-link {
+  font-size: 13px; font-weight: 600;
+  color: var(--blue); text-decoration: none;
+  transition: color 0.2s;
+}
+.card-link:hover { color: var(--blue-bright); }
+
+/* Demo partner note */
+.card-partner {
+  font-size: 12px; color: var(--text-d-dim);
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 6px;
+}
+.card-partner::before {
+  content: '⊕';
+  color: var(--blue); font-size: 11px;
+}
+
+/* Booth note in batch header */
+.booth-note {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--text-d-dim);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 6px 14px; border-radius: 5px;
+  margin-top: 16px;
+}
+
+/* No-results message */
+.no-results {
+  display: none;
+  padding: 72px 0; text-align: center;
+  color: #666666; font-size: 15px;
+}
+.no-results.visible { display: block; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--bg-light);
+  border-top: 1px solid var(--border-l);
+  padding: 40px 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px; flex-wrap: wrap;
+}
+.footer-logo {
+  font-size: 16px; font-weight: 700; color: #fff;
+  text-decoration: none; letter-spacing: -0.02em;
+}
+.footer-logo span { color: var(--blue); }
+.footer-copy { font-size: 13px; color: var(--text-d-dim); }
+.footer-links { display: flex; gap: 24px; list-style: none; }
+.footer-links a {
+  font-size: 13px; color: var(--text-d-dim);
+  text-decoration: none; transition: color 0.2s;
+}
+.footer-links a:hover { color: #666666; }
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="../Norsk Reversed Logo Small.png" alt="Norsk" style="height:42px;width:auto;display:block;filter:brightness(0);">
+  </a>
+  <ul class="nav-links">
+    <li class="nav-dropdown"><a href="#">Platform</a><ul class="nav-dropdown-menu"><li><a href="norsk-studio-live-media-workflow-server/">Norsk Studio</a></li><li><a href="https://docs.norsk.video/welcome/index.html">Norsk SDK</a></li></ul></li><li class="nav-dropdown"><a href="#">Products</a><ul class="nav-dropdown-menu"><li><a href="#">Norsk Reasoning</a></li><li><a href="#">Norsk Playout</a></li><li><a href="#">Norsk Mezzanine</a></li></ul></li>
+    <li class="nav-dropdown">
+      <a href="index.html#who">Solutions for</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="for-broadcasters.html">Broadcasters &amp; Enterprise Leaders</a></li>
+        <li><a href="for-engineers.html">Media Workflow Engineers</a></li>
+        <li><a href="for-developers.html">Streaming Engineering Leaders</a></li>
+        <li><a href="for-integrators.html">Solution Architects &amp; Integrators</a></li>
+        <li><a href="for-producers.html">Live Event Producers</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="#" class="active">What's New</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="#nab-2026">NAB 2026</a></li>
+        <li><a href="#q1-2026">Q1 2026</a></li>
+        <li><a href="#q4-2025">Q4 2025</a></li>
+        <li><a href="#ibc-2025">IBC 2025</a></li>
+      </ul>
+    </li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="#">Pricing</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="#" class="btn-ghost">Get in Touch</a>
+    <a href="#" class="btn-solid">Start free trial</a>
+  </div>
+</nav>
+
+<!-- ============================================================
+     PAGE HEADER
+     ============================================================ -->
+<header class="page-header">
+  <div class="page-header-inner">
+    <div class="page-header-left">
+      <p class="page-eyebrow">Product Updates</p>
+      <h1>What's New in Norsk Studio</h1>
+      <p class="page-header-sub">New components and capabilities, shipped every few weeks. Filter by category or browse the full history.</p>
+    </div>
+    <div class="page-header-meta">
+      <p class="update-count"><strong>9 updates</strong> since January 2026</p>
+      <a href="#" class="subscribe-link">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 7h12M7 1l6 6-6 6"/></svg>
+        Subscribe to updates
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     STICKY FILTER BAR
+     ============================================================ -->
+<div class="filter-bar">
+  <div class="filter-bar-inner">
+    <button class="filter-btn active" data-filter="all" onclick="filterUpdates('all')">All</button>
+    <button class="filter-btn" data-filter="ai" onclick="filterUpdates('ai')">AI &amp; Automation</button>
+    <button class="filter-btn" data-filter="processing" onclick="filterUpdates('processing')">Processing</button>
+    <button class="filter-btn" data-filter="delivery" onclick="filterUpdates('delivery')">Delivery</button>
+    <button class="filter-btn" data-filter="standards" onclick="filterUpdates('standards')">Standards &amp; Interop</button>
+    <button class="filter-btn" data-filter="platform" onclick="filterUpdates('platform')">Platform</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     UPDATES
+     ============================================================ -->
+<div class="updates-main">
+
+  <!-- ── NAB 2026 BATCH ────────────────────────────────────────── -->
+  <section class="batch-section" id="nab-2026">
+
+    <div class="batch-header">
+      <div class="batch-header-left">
+        <div class="batch-badge">NAB Show 2026</div>
+        <h2 class="batch-title">Seven new solutions at NAB 2026</h2>
+        <p class="batch-subtitle">AI, quality monitoring, standards conversion, and next-generation delivery protocols.<br>Las Vegas · April 2026</p>
+        <div class="booth-note">Booth W3113 · West Hall · Las Vegas Convention Center</div>
+      </div>
+      <div class="batch-count">
+        <strong>7</strong>
+        new components &amp; features
+      </div>
+    </div>
+
+    <div class="batch-quote">
+      <blockquote>"Norsk Reasoning represents a fundamental shift in how live production operates. AI that can observe a live stream, understand what's happening across both video and audio, and take action in real time eliminates entire categories of manual monitoring work."</blockquote>
+      <cite>Adrian Roe, CEO — Norsk</cite>
+    </div>
+
+    <div class="cards-grid">
+
+      <!-- Norsk Reasoning — featured, spans 2 cols -->
+      <div class="update-card featured" id="norsk-reasoning" data-category="ai">
+        <div class="card-meta">
+          <span class="cat-tag cat-ai">AI &amp; Automation</span>
+          <span class="badge-new">New</span>
+        </div>
+        <div class="card-name">Norsk Reasoning</div>
+        <p class="card-desc">A multi-modal AI system natively integrated into the Norsk pipeline that moves beyond passive analysis to autonomous action. Operators describe detection objectives in natural language; a planning model structures those into a detection specification that a faster evaluation model executes against the live stream in real time. The system processes video and audio simultaneously, maintains temporal context across the stream, and can autonomously switch camera sources, trigger recordings, fire webhooks, and update graphics — with human override always available.<br><br>Supported models include GPT-4o, Gemini, Claude, and local alternatives through a unified, vendor-neutral interface.</p>
+        <div class="card-usecases">
+          <span class="use-tag">Sports production automation</span>
+          <span class="use-tag">News monitoring</span>
+          <span class="use-tag">Remote production</span>
+          <span class="use-tag">Live event operations</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">April 2026</span>
+          <a href="#" class="card-link">Read the docs →</a>
+        </div>
+      </div>
+
+      <!-- Norsk Mezzanine -->
+      <div class="update-card" id="norsk-mezzanine" data-category="processing">
+        <div class="card-meta">
+          <span class="cat-tag cat-processing">Processing</span>
+          <span class="badge-new">New</span>
+        </div>
+        <div class="card-name">Norsk Mezzanine</div>
+        <p class="card-desc">GPU-accelerated standards conversion for frame rates, resolutions, HDR/SDR formats, and color spaces. Offloading motion-compensated frame interpolation and color space mapping to GPU cores delivers higher channel density, lower latency, and significantly reduced cost per channel compared to CPU-based or dedicated hardware approaches.</p>
+        <div class="card-usecases">
+          <span class="use-tag">Broadcast modernisation</span>
+          <span class="use-tag">24/7 channel operations</span>
+          <span class="use-tag">HDR/SDR conversion</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">April 2026</span>
+          <a href="#" class="card-link">Read the docs →</a>
+        </div>
+      </div>
+
+      <!-- MoQ -->
+      <div class="update-card" id="moq" data-category="delivery">
+        <div class="card-meta">
+          <span class="cat-tag cat-delivery">Delivery</span>
+          <span class="badge-new">New</span>
+        </div>
+        <div class="card-name">Media over QUIC (MoQ)</div>
+        <p class="card-desc">Native MoQ support delivers sub-second latency at CDN scale — matching WebRTC's responsiveness while supporting relay-based delivery to large audiences. Demonstrated in a joint demo with Cloudflare, showing live media delivered over Cloudflare's global MoQ relay network from a Norsk Studio workflow.</p>
+        <div class="card-partner">Joint demo with Cloudflare — Booth W2300G</div>
+        <div class="card-usecases">
+          <span class="use-tag">Sub-second live delivery</span>
+          <span class="use-tag">Large-audience streams</span>
+          <span class="use-tag">Sports &amp; news live</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">April 2026</span>
+          <a href="#" class="card-link">Read the docs →</a>
+        </div>
+      </div>
+
+      <!-- CMSD-MQA -->
+      <div class="update-card" id="cmsd-mqa" data-category="delivery">
+        <div class="card-meta">
+          <span class="cat-tag cat-delivery">Delivery</span>
+          <span class="badge-new">New</span>
+        </div>
+        <div class="card-name">CMSD-MQA Support</div>
+        <p class="card-desc">Support for Common Media Server Data – Media Quality Assessment, an emerging SVTA standard that embeds objective video quality scores into HTTP response headers as content moves through the delivery chain. Preserves quality scores from encoder to CDN to player, enabling quality-based switching decisions across the entire workflow — not just at a single monitoring point.</p>
+        <div class="card-partner">SVTA demo — Booth C4449-E, with Akamai, G&amp;L Systemhaus, and Touchstream</div>
+        <div class="card-usecases">
+          <span class="use-tag">OTT quality management</span>
+          <span class="use-tag">CDN-level decisions</span>
+          <span class="use-tag">Quality-based ABR</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">April 2026</span>
+          <a href="#" class="card-link">Read the docs →</a>
+        </div>
+      </div>
+
+      <!-- TAMS -->
+      <div class="update-card" id="tams" data-category="platform">
+        <div class="card-meta">
+          <span class="cat-tag cat-platform">Platform</span>
+          <span class="badge-new">New</span>
+        </div>
+        <div class="card-name">TAMS Integration</div>
+        <p class="card-desc">The MediaStore component brings Time-Addressable Media Store natively into Norsk Studio workflows. Live content becomes immediately queryable as it's captured, eliminating the traditional boundary between live production and VOD. TAMS — developed by BBC R&D and adopted by AWS, Adobe, Sky, and others — stores segmented media in cloud object storage with HTTP API access indexed by timeline position.</p>
+        <div class="card-usecases">
+          <span class="use-tag">Live-to-VOD</span>
+          <span class="use-tag">Sports highlights</span>
+          <span class="use-tag">Content management</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">April 2026</span>
+          <a href="#" class="card-link">Read the docs →</a>
+        </div>
+      </div>
+
+      <!-- MXL -->
+      <div class="update-card" id="mxl" data-category="standards">
+        <div class="card-meta">
+          <span class="cat-tag cat-standards">Standards &amp; Interop</span>
+          <span class="badge-new">New</span>
+        </div>
+        <div class="card-name">MXL Interoperability</div>
+        <p class="card-desc">Support for the Media eXchange Layer, a Linux Foundation-hosted open standard for shared-memory media exchange between software applications within the same server or cluster. MXL 1.0.0 enables sub-millisecond media transfer between components — a 20× latency improvement over intra-server ST 2110 workflows — enabling tighter integration across the software-defined broadcast stack.</p>
+        <div class="card-usecases">
+          <span class="use-tag">Software-defined broadcast</span>
+          <span class="use-tag">Media processing pipelines</span>
+          <span class="use-tag">Low-latency interchange</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">April 2026</span>
+          <a href="#" class="card-link">Read the docs →</a>
+        </div>
+      </div>
+
+      <!-- Norsk Playout — preview -->
+      <div class="update-card" id="norsk-playout" data-category="platform">
+        <div class="card-meta">
+          <span class="cat-tag cat-platform">Platform</span>
+          <span class="badge-preview">Preview</span>
+        </div>
+        <div class="card-name">Norsk Playout</div>
+        <p class="card-desc">An early look at Norsk Playout — a scheduled playout system designed to switch seamlessly between live feeds, VoD assets, and TAMS-stored media. Human operators and the Norsk Reasoning AI layer provide parallel oversight and control, combining automation with human-in-the-loop reliability. General availability to follow later in 2026.</p>
+        <div class="card-usecases">
+          <span class="use-tag">Scheduled broadcast</span>
+          <span class="use-tag">Mixed live/VOD channels</span>
+          <span class="use-tag">AI-assisted playout</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">April 2026 — First Look</span>
+          <a href="#" class="card-link">Join the preview →</a>
+        </div>
+      </div>
+
+    </div><!-- /cards-grid -->
+
+  </section><!-- /nab-2026 -->
+
+  <!-- ── Q1 2026 CONTINUOUS RELEASES ──────────────────────────── -->
+  <section class="batch-section" id="q1-2026">
+
+    <div class="batch-header">
+      <div class="batch-header-left">
+        <div class="quarterly-badge">Q1 2026</div>
+        <h2 class="batch-title">January – March 2026</h2>
+        <p class="batch-subtitle">Continuous releases shipped between IBC 2025 and NAB 2026.</p>
+      </div>
+      <div class="batch-count">
+        <strong>2</strong>
+        components
+      </div>
+    </div>
+
+    <div class="cards-grid">
+
+      <!-- Placeholder 1 — replace with real component -->
+      <div class="update-card placeholder" id="[component-slug]" data-category="processing">
+        <div class="card-meta">
+          <span class="cat-tag cat-processing">Processing</span>
+          <span class="badge-new">New</span>
+        </div>
+        <div class="card-name">[Component Name]</div>
+        <p class="card-desc">Replace this with the component description — 2–3 sentences covering what it does and the problem it solves. Keep it marketing-first: outcomes before mechanisms.</p>
+        <div class="card-usecases">
+          <span class="use-tag">Use case one</span>
+          <span class="use-tag">Use case two</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">March 2026</span>
+          <a href="#" class="card-link">Read the docs →</a>
+        </div>
+      </div>
+
+      <!-- Placeholder 2 — replace with real component -->
+      <div class="update-card placeholder" id="[component-slug-2]" data-category="platform">
+        <div class="card-meta">
+          <span class="cat-tag cat-platform">Platform</span>
+          <span class="badge-new">New</span>
+        </div>
+        <div class="card-name">[Component Name]</div>
+        <p class="card-desc">Replace this with the component description — 2–3 sentences covering what it does and the problem it solves. Keep it marketing-first: outcomes before mechanisms.</p>
+        <div class="card-usecases">
+          <span class="use-tag">Use case one</span>
+          <span class="use-tag">Use case two</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">January 2026</span>
+          <a href="#" class="card-link">Read the docs →</a>
+        </div>
+      </div>
+
+    </div>
+
+  </section><!-- /q1-2026 -->
+
+  <!-- ── Q4 2025 CONTINUOUS RELEASES ──────────────────────────── -->
+  <section class="batch-section" id="q4-2025">
+
+    <div class="batch-header">
+      <div class="batch-header-left">
+        <div class="quarterly-badge">Q4 2025</div>
+        <h2 class="batch-title">October – December 2025</h2>
+        <p class="batch-subtitle">Continuous releases shipped between IBC 2025 and the end of 2025.</p>
+      </div>
+      <div class="batch-count">
+        <strong>2</strong>
+        components
+      </div>
+    </div>
+
+    <div class="cards-grid">
+
+      <!-- Placeholder 1 — replace with real component -->
+      <div class="update-card placeholder" id="q4-2025-component-1" data-category="processing">
+        <div class="card-meta">
+          <span class="cat-tag cat-processing">Processing</span>
+          <span class="badge-new">New</span>
+        </div>
+        <div class="card-name">[Component Name]</div>
+        <p class="card-desc">Replace this with the component description — 2–3 sentences covering what it does and the problem it solves. Keep it marketing-first: outcomes before mechanisms.</p>
+        <div class="card-usecases">
+          <span class="use-tag">Use case one</span>
+          <span class="use-tag">Use case two</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">December 2025</span>
+          <a href="#" class="card-link">Read the docs →</a>
+        </div>
+      </div>
+
+      <!-- Placeholder 2 — replace with real component -->
+      <div class="update-card placeholder" id="q4-2025-component-2" data-category="platform">
+        <div class="card-meta">
+          <span class="cat-tag cat-platform">Platform</span>
+          <span class="badge-new">New</span>
+        </div>
+        <div class="card-name">[Component Name]</div>
+        <p class="card-desc">Replace this with the component description — 2–3 sentences covering what it does and the problem it solves. Keep it marketing-first: outcomes before mechanisms.</p>
+        <div class="card-usecases">
+          <span class="use-tag">Use case one</span>
+          <span class="use-tag">Use case two</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">October 2025</span>
+          <a href="#" class="card-link">Read the docs →</a>
+        </div>
+      </div>
+
+    </div>
+
+  </section><!-- /q4-2025 -->
+
+  <!-- ── IBC 2025 ────────────────────────────────────────────── -->
+  <section class="batch-section" id="ibc-2025">
+
+    <div class="batch-header">
+      <div class="batch-header-left">
+        <div class="batch-badge">IBC 2025</div>
+        <h2 class="batch-title">Announcements at IBC 2025</h2>
+        <p class="batch-subtitle">Amsterdam · September 2025</p>
+      </div>
+      <div class="batch-count">
+        <strong>2</strong>
+        new components &amp; features
+      </div>
+    </div>
+
+    <div class="cards-grid">
+
+      <!-- Placeholder 1 — replace with real component -->
+      <div class="update-card placeholder" id="ibc-2025-component-1" data-category="processing">
+        <div class="card-meta">
+          <span class="cat-tag cat-processing">Processing</span>
+          <span class="badge-new">New</span>
+        </div>
+        <div class="card-name">[Component Name]</div>
+        <p class="card-desc">Replace this with the component description — 2–3 sentences covering what it does and the problem it solves. Keep it marketing-first: outcomes before mechanisms.</p>
+        <div class="card-usecases">
+          <span class="use-tag">Use case one</span>
+          <span class="use-tag">Use case two</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">September 2025</span>
+          <a href="#" class="card-link">Read the docs →</a>
+        </div>
+      </div>
+
+      <!-- Placeholder 2 — replace with real component -->
+      <div class="update-card placeholder" id="ibc-2025-component-2" data-category="platform">
+        <div class="card-meta">
+          <span class="cat-tag cat-platform">Platform</span>
+          <span class="badge-new">New</span>
+        </div>
+        <div class="card-name">[Component Name]</div>
+        <p class="card-desc">Replace this with the component description — 2–3 sentences covering what it does and the problem it solves. Keep it marketing-first: outcomes before mechanisms.</p>
+        <div class="card-usecases">
+          <span class="use-tag">Use case one</span>
+          <span class="use-tag">Use case two</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">September 2025</span>
+          <a href="#" class="card-link">Read the docs →</a>
+        </div>
+      </div>
+
+    </div>
+
+  </section><!-- /ibc-2025 -->
+
+  <div class="no-results" id="no-results">No updates match this filter.</div>
+
+</div><!-- /updates-main -->
+
+<footer>
+  <a href="index.html" class="footer-logo">
+    <img src="../Norsk Reversed Logo Small.png" alt="Norsk" style="height:32px;width:auto;display:block;filter:brightness(0);">
+  </a>
+  <p class="footer-copy">© 2026 Norsk. All rights reserved.</p>
+  <ul class="footer-links">
+    <li><a href="#">Documentation</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="#">Privacy</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</footer>
+
+<script>
+function filterUpdates(category) {
+  // Update button states
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.filter === category);
+  });
+
+  // Show/hide individual cards
+  const cards = document.querySelectorAll('.update-card');
+  cards.forEach(card => {
+    const match = category === 'all' || card.dataset.category === category;
+    card.style.display = match ? '' : 'none';
+  });
+
+  // Handle featured card spanning: if hidden, remove span
+  document.querySelectorAll('.update-card.featured').forEach(card => {
+    if (card.style.display === 'none') {
+      card.style.gridColumn = '';
+    } else {
+      card.style.gridColumn = 'span 2';
+    }
+  });
+
+  // Show/hide batch sections based on visible cards
+  let anyVisible = false;
+  document.querySelectorAll('.batch-section').forEach(section => {
+    const visible = section.querySelectorAll('.update-card:not([style*="display: none"])');
+    const hasVisible = visible.length > 0;
+    section.style.display = hasVisible ? '' : 'none';
+    if (hasVisible) anyVisible = true;
+  });
+
+  // Show no-results message if nothing visible
+  const noResults = document.getElementById('no-results');
+  if (noResults) noResults.classList.toggle('visible', !anyVisible);
+}
+</script>
+
+</body>
+</html>

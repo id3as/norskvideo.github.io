@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Norsk Studio — Live Media Workflow Server</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --blue:          #00A9E0;
+  --blue-bright:   #00c4ff;
+  --green:         #84BD00;
+  --dark:          #00263A;
+  --bg-dark:       #ffffff;
+  --bg-mid:        #f5f5f5;
+  --bg-card:       #040f19;
+  --border-d:      #e2e2e2;
+  --border-card:   #e2e2e2;
+  --text-d:        #111111;
+  --text-d-muted:  #666666;
+  --text-d-dim:    #999999;
+  --text-l:        #111111;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Geist', -apple-system, sans-serif;
+  background: #ffffff;
+  color: #111111;
+  overflow-x: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 52px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.nav-logo { text-decoration: none; }
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.nav-links a {
+  color: #666666;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: #111111; }
+.nav-links a.active { color: white; }
+.nav-links li { position: relative; }
+.nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  padding: 12px 0 8px;
+  min-width: 250px;
+  z-index: 200;
+  list-style: none;
+}
+.nav-dropdown:hover .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu a {
+  display: block;
+  padding: 10px 20px;
+  color: #444444;
+  font-size: 14px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+.nav-dropdown-menu a:hover { color: var(--dark); background: #f5f5f5; }
+.nav-actions { display: flex; gap: 10px; align-items: center; }
+.btn-ghost {
+  background: transparent;
+  border: 1px solid #e2e2e2;
+  color: #666666;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'Geist', -apple-system, sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: all 0.2s;
+}
+.btn-ghost:hover { color: #111111; border-color: #999999; }
+.btn-solid {
+  background: var(--blue);
+  border: 1px solid var(--blue);
+  color: #ffffff;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Geist', -apple-system, sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: all 0.2s;
+}
+.btn-solid:hover { background: var(--blue-bright); border-color: var(--blue-bright); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 52px 80px;
+  background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(0,0,0,0.02) 0%, transparent 70%);
+}
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 20px;
+  padding: 4px 12px;
+  background: #f0f0f0;
+  border: 1px solid #e2e2e2;
+  border-radius: 20px;
+}
+.hero h1 {
+  font-size: 60px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin-bottom: 24px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--blue);
+}
+.hero-desc {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #666666;
+  margin-bottom: 16px;
+}
+.hero-sub {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-d-dim);
+  margin-bottom: 36px;
+}
+.hero-ctas {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.hero-ctas .btn-solid { font-size: 15px; padding: 12px 28px; }
+.hero-ctas .btn-ghost { font-size: 15px; padding: 12px 24px; }
+
+.hero-visual {
+  position: relative;
+}
+.hero-screen {
+  width: 100%;
+  border-radius: 10px;
+  background: var(--bg-mid);
+  border: 1px solid #e2e2e2;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+}
+.hero-screen-bar {
+  height: 32px;
+  background: #f5f5f5;
+  border-bottom: 1px solid var(--border-d);
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  gap: 6px;
+}
+.hero-screen-bar span {
+  width: 10px; height: 10px; border-radius: 50%;
+  display: inline-block;
+}
+.hero-screen-bar span:nth-child(1) { background: #ff5f57; }
+.hero-screen-bar span:nth-child(2) { background: #febc2e; }
+.hero-screen-bar span:nth-child(3) { background: #28c840; }
+.hero-screen-body {
+  padding: 28px;
+  min-height: 340px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.workflow-node {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.wf-dot {
+  width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+}
+.wf-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  color: #666666;
+}
+.wf-connector {
+  width: 2px;
+  height: 20px;
+  background: linear-gradient(to bottom, #00A9E0, transparent);
+  margin-left: 4px;
+}
+
+/* ── FEATURES ── */
+.features {
+  padding: 100px 52px;
+  background: var(--bg-mid);
+  border-top: 1px solid var(--border-d);
+  border-bottom: 1px solid var(--border-d);
+}
+.features-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 16px;
+}
+.section-h2 {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #fff;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+.section-sub {
+  font-size: 17px;
+  color: #666666;
+  line-height: 1.65;
+  margin-bottom: 56px;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.feature-card {
+  background: var(--bg-dark);
+  border: 1px solid var(--border-card);
+  border-radius: 10px;
+  padding: 28px 24px;
+  transition: border-color 0.2s;
+}
+.feature-card:hover { border-color: #aaaaaa; }
+.feature-icon {
+  width: 40px; height: 40px;
+{SKIP}
+  background: #f0f0f0;
+  border: 1px solid #e2e2e2;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+  font-size: 18px;
+}
+.feature-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.feature-desc {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #666666;
+}
+
+/* ── GET STARTED ── */
+.get-started {
+  padding: 100px 52px;
+}
+.get-started-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.gs-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  margin-top: 8px;
+}
+.gs-step {
+  display: flex;
+  gap: 20px;
+}
+.gs-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #f0f0f0;
+  border: 1px solid #e2e2e2;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.gs-content h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.gs-content p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #666666;
+  margin-bottom: 12px;
+}
+.gs-content p:last-child { margin-bottom: 0; }
+.code-block {
+  background: #00080f;
+  border: 1px solid #e2e2e2;
+  border-radius: 7px;
+  padding: 14px 18px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 12.5px;
+  color: var(--green);
+  overflow-x: auto;
+  white-space: nowrap;
+  margin-top: 10px;
+}
+.code-block .prompt { color: var(--text-d-dim); user-select: none; }
+.gs-cloud {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 10px;
+  padding: 24px;
+  margin-top: 12px;
+}
+.gs-cloud h4 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.gs-cloud ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.gs-cloud li {
+  font-size: 13px;
+  color: #666666;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gs-cloud li::before {
+  content: '';
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--blue);
+  flex-shrink: 0;
+}
+.gs-cloud li a { color: var(--blue); text-decoration: none; }
+.gs-cloud li a:hover { text-decoration: underline; }
+
+/* right column */
+.gs-right {
+  background: var(--bg-mid);
+  border: 1px solid #e2e2e2;
+  border-radius: 12px;
+  padding: 36px 32px;
+  position: sticky;
+  top: 88px;
+}
+.gs-right h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.gs-right p {
+  font-size: 14px;
+  color: #666666;
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+.gs-right .btn-solid {
+  width: 100%;
+  text-align: center;
+  font-size: 15px;
+  padding: 13px 0;
+  display: block;
+  margin-bottom: 12px;
+}
+.gs-right .btn-ghost {
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  padding: 11px 0;
+  display: block;
+}
+.gs-divider {
+  border: none;
+  border-top: 1px solid var(--border-d);
+  margin: 24px 0;
+}
+.gs-req {
+  font-size: 12px;
+  color: var(--text-d-dim);
+  font-family: 'Geist Mono', monospace;
+  margin-bottom: 6px;
+}
+
+/* ── WIP PANEL ── */
+#wip-panel {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  width: 320px;
+  max-height: calc(100vh - 48px);
+  display: flex;
+  flex-direction: column;
+  background: #1a1a2e;
+  border: 1px solid rgba(255,200,0,0.4);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  font-family: 'Geist', -apple-system, sans-serif;
+  font-size: 13px;
+  color: #e8e8e8;
+  overflow: hidden;
+}
+#wip-header {
+  background: rgba(255,200,0,0.15);
+  border-bottom: 1px solid rgba(255,200,0,0.3);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+#wip-header span { font-weight: 600; font-size: 12px; letter-spacing: 0.05em; color: #ffd700; }
+#wip-toggle { font-size: 16px; color: #ffd700; line-height: 1; }
+#wip-body { padding: 16px; overflow-y: auto; flex: 1; }
+#wip-body ul { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; }
+#wip-body li { display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; color: #ccc; }
+#wip-body li::before { content: '·'; color: #ffd700; font-size: 18px; line-height: 1.2; flex-shrink: 0; }
+#wip-footer { padding: 10px 16px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 11px; color: rgba(255,255,255,0.25); font-family: 'Geist Mono', monospace; }
+
+/* ── WORKFLOWS ── */
+.workflows {
+  padding: 100px 52px;
+  background: var(--bg-mid);
+  border-top: 1px solid var(--border-d);
+  border-bottom: 1px solid var(--border-d);
+}
+.workflows-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.wf-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+.wf-card {
+  background: var(--bg-dark);
+  border: 1px solid var(--border-card);
+  border-radius: 10px;
+  padding: 24px;
+  transition: border-color 0.2s;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.wf-card:hover { border-color: #aaaaaa; }
+.wf-card-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+.wf-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+.wf-card-desc {
+  font-size: 13px;
+  color: #666666;
+  line-height: 1.6;
+}
+
+/* ── CTA BAND ── */
+.cta-band {
+  padding: 80px 52px;
+  text-align: center;
+}
+.cta-band-inner {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.cta-band h2 {
+  font-size: 36px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+.cta-band p {
+  font-size: 16px;
+  color: #666666;
+  line-height: 1.65;
+  margin-bottom: 32px;
+}
+.cta-band-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.cta-band-actions .btn-solid { font-size: 15px; padding: 13px 32px; }
+.cta-band-actions .btn-ghost { font-size: 15px; padding: 13px 28px; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg-light);
+  border-top: 1px solid var(--border-l);
+  padding: 40px 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-copy {
+  font-size: 12px;
+  color: var(--text-d-dim);
+  font-family: 'Geist Mono', monospace;
+}
+.footer-links { display: flex; gap: 24px; }
+.footer-links a {
+  font-size: 12px;
+  color: var(--text-d-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: #666666; }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-logo">
+    <img src="../../Norsk Reversed Logo Small.png" alt="Norsk" style="height:42px;width:auto;display:block;">
+  </a>
+  <ul class="nav-links">
+    <li class="nav-dropdown">
+      <a href="#" class="active">Platform</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="#">Norsk Studio</a></li>
+        <li><a href="https://docs.norsk.video/welcome/index.html">Norsk SDK</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="#">Products</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="#">Norsk Reasoning</a></li>
+        <li><a href="#">Norsk Playout</a></li>
+        <li><a href="#">Norsk Mezzanine</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="../index.html#who">Solutions for</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="../for-broadcasters.html">Broadcasters &amp; Enterprise Leaders</a></li>
+        <li><a href="../for-engineers.html">Media Workflow Engineers</a></li>
+        <li><a href="../for-developers.html">Streaming Engineering Leaders</a></li>
+        <li><a href="../for-integrators.html">Solution Architects &amp; Integrators</a></li>
+        <li><a href="../for-producers.html">Live Event Producers</a></li>
+      </ul>
+    </li>
+    <li class="nav-dropdown">
+      <a href="../whats-new.html">What's New</a>
+      <ul class="nav-dropdown-menu">
+        <li><a href="../whats-new.html#nab-2026">NAB 2026</a></li>
+        <li><a href="../whats-new.html#q1-2026">Q1 2026</a></li>
+        <li><a href="../whats-new.html#q4-2025">Q4 2025</a></li>
+        <li><a href="../whats-new.html#ibc-2025">IBC 2025</a></li>
+      </ul>
+    </li>
+    <li><a href="../blog.html">Blog</a></li>
+    <li><a href="#">Pricing</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="#" class="btn-ghost">Get in Touch</a>
+    <a href="#" class="btn-solid">Start free trial</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Live Media Workflow Server</div>
+      <h1>Norsk <em>Studio</em></h1>
+      <p class="hero-desc">A live streaming workflow builder with a graphical drag-and-drop UI — built on top of the award-winning Norsk multi-source live streaming workflow engine.</p>
+      <p class="hero-sub">Runs on-prem or in the cloud, and delivers all the essentials for implementing high-quality live video workflows.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-solid">Start free trial</a>
+        <a href="#get-started" class="btn-ghost">Installation guide ↓</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-screen">
+        <div class="hero-screen-bar">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="hero-screen-body">
+          <div class="workflow-node">
+            <div class="wf-dot" style="background:#00A9E0;"></div>
+            <div class="wf-label">SRT Input — camera-1.srt</div>
+          </div>
+          <div class="wf-connector"></div>
+          <div class="workflow-node">
+            <div class="wf-dot" style="background:#84BD00;"></div>
+            <div class="wf-label">Encode + Package CMAF</div>
+          </div>
+          <div class="wf-connector"></div>
+          <div class="workflow-node">
+            <div class="wf-dot" style="background:#00A9E0;"></div>
+            <div class="wf-label">Source Switcher</div>
+          </div>
+          <div class="wf-connector"></div>
+          <div class="workflow-node">
+            <div class="wf-dot" style="background:#84BD00;"></div>
+            <div class="wf-label">Output → CDN</div>
+          </div>
+          <div style="margin-top:24px; padding:14px 16px; background:#f8f8f8; border:1px solid #e2e2e2; border-radius:7px;">
+            <div style="font-family:'Geist Mono',monospace; font-size:11px; color:#5a8fa8; margin-bottom:4px;">camera-to-cdn.nrsk</div>
+            <div style="font-size:12px; color:#888888; font-family:'Geist Mono',monospace;">● Running · 4 nodes · 0 errors</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="features-inner">
+    <div class="section-eyebrow">What Norsk Studio does</div>
+    <h2 class="section-h2">Everything you need for live video</h2>
+    <p class="section-sub">One platform, from ingest to delivery — without stitching together a dozen tools.</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎥</div>
+        <div class="feature-title">Multi-source ingest</div>
+        <div class="feature-desc">Capture multiple sources simultaneously — SRT, RTMP, SDI, and more — and encode to multiple formats in a single workflow.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎛</div>
+        <div class="feature-title">Production enhancements</div>
+        <div class="feature-desc">Subtitles and captions, multi-camera source switching, graphics overlay, multiview monitoring, and more — all in the visual builder.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <div class="feature-title">Package and deliver</div>
+        <div class="feature-desc">Package as CMAF, HLS, or DASH and push to any CDN, YouTube, Twitch, or your own origin — in a single drag-and-drop workflow.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🖥</div>
+        <div class="feature-title">Visual workflow builder</div>
+        <div class="feature-desc">Design, iterate, and deploy workflows graphically. No video engineering degree required to get a production up and running.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">☁️</div>
+        <div class="feature-title">On-prem or cloud</div>
+        <div class="feature-desc">Run Norsk Studio on your own hardware or deploy instantly on Google Cloud Platform, Akamai, or AWS — your infrastructure, your choice.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💾</div>
+        <div class="feature-title">Save and reuse workflows</div>
+        <div class="feature-desc">Once you've built and tested a workflow, save it as a <code style="font-family:'Geist Mono',monospace;font-size:12px;color:#84BD00;">.nrsk</code> file and reuse it across productions without rebuilding from scratch.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GET STARTED -->
+<section class="get-started" id="get-started">
+  <div class="get-started-inner">
+    <div class="gs-left">
+      <div class="section-eyebrow">Installation</div>
+      <h2 class="section-h2">Get started in minutes</h2>
+      <p class="section-sub">Installing Norsk Studio couldn't be easier. The only prerequisite is Docker Compose.</p>
+
+      <div class="gs-steps">
+        <div class="gs-step">
+          <div class="gs-num">1</div>
+          <div class="gs-content">
+            <h3>Download a trial licence</h3>
+            <p>A free trial licence is required to run Norsk Studio. It gives you full access to all features with no time limit on development use.</p>
+            <a href="#" class="btn-solid" style="display:inline-block; font-size:13px; padding:9px 18px;">Get a free trial licence</a>
+          </div>
+        </div>
+
+        <div class="gs-step">
+          <div class="gs-num">2</div>
+          <div class="gs-content">
+            <h3>Run the installer</h3>
+            <p>With Docker Compose installed, run this single command to pull and launch Norsk Studio:</p>
+            <div class="code-block"><span class="prompt">$ </span>bash &lt;(curl -L https://norsk.video/studio/install)</div>
+            <p style="margin-top:10px;">Follow the quickstart guide to complete the first launch from Docker Compose.</p>
+          </div>
+        </div>
+
+        <div class="gs-step">
+          <div class="gs-num">3</div>
+          <div class="gs-content">
+            <h3>Or deploy to the cloud</h3>
+            <p>Prefer to run Studio in the cloud? We have step-by-step launch guides for the major platforms:</p>
+            <div class="gs-cloud">
+              <h4>Cloud guides</h4>
+              <ul>
+                <li><a href="#">Google Cloud Platform</a></li>
+                <li><a href="#">Akamai Cloud Computing</a></li>
+                <li>AWS — coming soon</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gs-right">
+      <h3>Ready to build?</h3>
+      <p>Start your free trial and have Norsk Studio running on your own machine in under five minutes.</p>
+      <a href="#" class="btn-solid">Start free trial</a>
+      <a href="#" class="btn-ghost">Get in touch</a>
+      <hr class="gs-divider">
+      <div class="gs-req">Requirements</div>
+      <p style="font-size:13px; color:var(--text-d-dim); font-family:'Geist Mono',monospace; line-height:1.7;">
+        Docker Compose (latest)<br>
+        macOS · Linux · Windows (WSL2)<br>
+        4 CPU cores · 8 GB RAM minimum
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- YOUR FIRST WORKFLOWS -->
+<section class="workflows">
+  <div class="workflows-inner">
+    <div class="section-eyebrow">Tutorials</div>
+    <h2 class="section-h2">Your first workflows</h2>
+    <p class="section-sub">Once you've got Norsk Studio running, here's how to build your first workflow — and five example builds to see what's possible.</p>
+
+    <div class="wf-cards">
+      <a href="#" class="wf-card">
+        <div class="wf-card-label">Getting started</div>
+        <div class="wf-card-title">Building your first workflow</div>
+        <div class="wf-card-desc">A step-by-step walkthrough of the Norsk Studio interface and how to wire up a simple ingest-to-output pipeline.</div>
+      </a>
+      <a href="#" class="wf-card">
+        <div class="wf-card-label">Example build</div>
+        <div class="wf-card-title">Camera-to-CDN in 10 minutes</div>
+        <div class="wf-card-desc">Ingest a live camera feed, encode to CMAF, and push to a CDN origin — all in a single Norsk Studio workflow.</div>
+      </a>
+      <a href="#" class="wf-card">
+        <div class="wf-card-label">Example build</div>
+        <div class="wf-card-title">Multi-camera live production</div>
+        <div class="wf-card-desc">Switch between multiple camera sources in real time with a source switcher node — no vision mixer required.</div>
+      </a>
+      <a href="#" class="wf-card">
+        <div class="wf-card-label">Example build</div>
+        <div class="wf-card-title">Graphics overlay and branding</div>
+        <div class="wf-card-desc">Add lower-thirds, logos, and live graphics to a production workflow using the overlay node.</div>
+      </a>
+      <a href="#" class="wf-card">
+        <div class="wf-card-label">Example build</div>
+        <div class="wf-card-title">Simultaneous multi-platform output</div>
+        <div class="wf-card-desc">Encode once and push to YouTube, Twitch, and your own CDN simultaneously — in a single workflow.</div>
+      </a>
+      <a href="#" class="wf-card">
+        <div class="wf-card-label">Reference</div>
+        <div class="wf-card-title">Norsk Studio FAQ</div>
+        <div class="wf-card-desc">Common questions about licensing, deployment, supported formats, and workflow limits — answered.</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="cta-band-inner">
+    <h2>What will you build?</h2>
+    <p>Start a free trial, or drop us an email if you have questions before you begin. We're happy to walk you through it.</p>
+    <div class="cta-band-actions">
+      <a href="#" class="btn-solid">Start free trial</a>
+      <a href="#" class="btn-ghost">Email us a question</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="../index.html" class="nav-logo">
+    <img src="../../Norsk Reversed Logo Small.png" alt="Norsk" style="height:32px;width:auto;display:block;">
+  </a>
+  <div class="footer-links">
+    <a href="#">About id3as</a>
+    <a href="#">EULA</a>
+    <a href="#">Terms of Service</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Cookie Policy</a>
+  </div>
+  <span class="footer-copy">© 2026 id3as. All Rights Reserved.</span>
+</footer>
+
+<!-- WIP REVIEW PANEL  (remove before launch) -->
+<div id="wip-panel">
+  <div id="wip-header" onclick="document.getElementById('wip-body').style.display = document.getElementById('wip-body').style.display === 'none' ? 'block' : 'none'; document.getElementById('wip-toggle').textContent = document.getElementById('wip-body').style.display === 'none' ? '+' : '−';">
+    <span>⚠ WORK IN PROGRESS</span>
+    <span id="wip-toggle">−</span>
+  </div>
+  <div id="wip-body">
+    <ul>
+      <li>Note 1 — Replace hero image with actual Studio image or video/GIF</li>
+      <li>Note 2 — The cloud guides and first workflow links will go to either Scribes or our own tutorials</li>
+    </ul>
+  </div>
+  <div id="wip-footer">review draft · not for public use</div>
+</div>
+
+</body>
+</html>
